@@ -7,3 +7,4 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 Project.create(title: 'オリジナルアプリ制作', deadline:'2022-12-13', description:'seedにより作成')
+Task.create(project_id: 1, title: 'タスク１', required_time:60, description:'タスクの説明')
