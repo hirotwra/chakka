@@ -2,9 +2,12 @@ import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
 import styled from 'styled-components'
-import { ImCheckboxChecked, ImCheckboxUnchecked } from 'react-icons/im'
-import { AiFillEdit } from 'react-icons/ai'
+import { ImCheckboxChecked, ImCheckboxUnchecked,} from 'react-icons/im'
+import { AiFillFire, AiOutlineFire } from 'react-icons/ai'
+
 //import { ensureTrailingSlash } from '@rails/webpacker/package/utils/helpers'
+import { toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
 
@@ -12,6 +15,12 @@ const ProjectTitle = styled.span`
 font-size: 27px;
   ${({ active }) => active && `
     color: red;
+  `}
+`
+const TabColor = styled.span`
+  ${({ active }) => active && `
+    color: red;
+    font-weight: bold;
   `}
 `
 
@@ -24,30 +33,38 @@ const Row = styled.div`
   font-size: 25px;
 `
 
-const CheckedBox = styled.div`
+const ActiveChecked = styled.div`
   display: flex;
   align-items: center;
   margin: 0 7px;
-  color: green;
+  color: red;
   cursor: pointer;
 `
 
-const UncheckedBox = styled.div`
+const UnActiveChecked = styled.div`
   display: flex;
   align-items: center;
   margin: 0 7px;
   cursor: pointer;
 `
 
-const EditButton = styled.span`
+const EditButton = styled.button`
   display: flex;
   align-items: center;
   margin: 0 7px;
 `
+toast.configure()
+
+const notify = () => {
+  toast("🔥CHAKKA! : プロジェクトに着手しました", {
+    position: "bottom-center",
+    hideProgressBar: true
+  });
+}
 
 function MainProject() {
   const [projects, setProjects] = useState([])
-
+  
   useEffect(() => {
     axios.get('/api/v1/projects.json')
     .then(resp => {
@@ -75,6 +92,9 @@ function MainProject() {
     })
   }
 
+//以下タスク機能追加
+
+
   return (
     <>
       <h1>プロジェクト情報</h1>
@@ -84,7 +104,7 @@ function MainProject() {
         <TabList>
         {projects.map((val) => {
             return (
-          <Tab>{val.title}</Tab>
+              <Tab><TabColor active={val.active}>{val.title}</TabColor></Tab>
             )})}
         </TabList>
         {projects.map((val, key) => {
@@ -93,29 +113,35 @@ function MainProject() {
               <TabPanel>
               <Row>
               {val.active ? (
-                    <CheckedBox>
-                      <ImCheckboxChecked onClick={() => updateActive(key, val) } />
-                    </CheckedBox>
+                    <ActiveChecked>
+                      <AiFillFire onClick={() => updateActive(key, val) } />
+                    </ActiveChecked>
                     ) : (
-                    <UncheckedBox>
-                      <ImCheckboxUnchecked onClick={() => updateActive(key, val) } />
-                    </UncheckedBox>
+                    <UnActiveChecked>
+                      <AiOutlineFire onClick={() => {
+                        updateActive(key, val); 
+                        notify()
+                      }} />
+                    </UnActiveChecked>
                   )}
                   <ProjectTitle active={val.active}>
                     {val.title}
                   </ProjectTitle>
-                  <Link to={"/projects/" + val.id + "/edit"}>
-                  <EditButton>
-                    <AiFillEdit />
-                  </EditButton>
-                </Link>
+
                 </Row>
 
                 
-                <div>{val.deadline} 〆</div>             
+                <div>{val.deadline} 〆切</div>             
                 <h3>説明</h3>
-                <div>{val.description}</div>  
-              </TabPanel>
+                <div>{val.description}</div>
+
+                
+                <Link to={"/projects/" + val.id + "/edit"}>
+                  <EditButton>
+                    プロジェクトを編集する
+                  </EditButton>
+                  </Link>
+                </TabPanel>
               </div>
             //  <Row key={key}>
             //    {val.is_completed ? (

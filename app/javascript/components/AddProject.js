@@ -12,8 +12,9 @@ const InputAndButton = styled.div`
 
 const InputForm = styled.input`
   font-size: 20px;
-  width: 100%;
-  height: 40px;
+  width: 80%;
+  height: 30px;
+  margin-top: 18px;
   padding: 2px 7px;
 `
 
@@ -53,7 +54,7 @@ function AddProject(props) {
   const [project, setProject] = useState(initialProjectState);
 
   const notify = () => {
-    toast.success("プロジェクトを新たに作成しました！", {
+    toast.success("プロジェクトを作成しました！", {
       position: "bottom-center",
       hideProgressBar: true
     });
@@ -94,6 +95,7 @@ function AddProject(props) {
     <>
       <h1>New Project</h1>
       <InputAndButton>
+      <label>
         <InputForm
           type="string"
           required
@@ -101,6 +103,9 @@ function AddProject(props) {
           onChange={handleInputChange}
           name="title"
         />
+        プロジェクト名
+      </label>
+      <label>
         <InputForm
           type="date"
           required
@@ -108,15 +113,20 @@ function AddProject(props) {
           onChange={handleInputChange}
           name="deadline"
         />
+        締め切り日
+      </label>
+      <label>
         <InputForm
           type="text"
           value={project.description}
           onChange={handleInputChange}
           name="description"
         />
+        説明文
+      </label>
         <Button
           onClick={saveProject}
-          //disabled={(!todo.name || /^\s*$/.test(project.name))}
+          disabled={(!project.title || /^\s*$/.test(project.title) || !project.deadline)}
         >
           <Icon>
             <FiSend />
