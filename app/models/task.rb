@@ -1,5 +1,5 @@
-class Project < ApplicationRecord
-  has_many :tasks, dependent: :destroy
+class Task < ApplicationRecord
+  belongs_to :project
   validates :title, 
     presence: true,
     length: { maximum: 255}
