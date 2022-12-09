@@ -8,23 +8,11 @@ import './App.css'
 
 const Nabvar = styled.nav`
   background: #ff7f50;
-  min-height: 8vh;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-`
-
-const Logo = styled.div`
-  font-weight: bold;
-  font-size: 23px;
-  letter-spacing: 3px;
+  paddind: 20px;
+  margin-top: 20px;
 `
 
 const NavItems = styled.ul`
-  display: flex;
-  width: 400px;
-  max-width: 40%;
-  justify-content: space-around;
   list-style: none;
 `
 
@@ -58,35 +46,45 @@ function App() {
   }
   return (
     <>
-      <Nabvar>
-        <Logo>
-          CHAKKA!
-        </Logo>
-        <NavItems>
-        <NavItem>
-            <Link to="/projects">
-              
-            </Link>
-          </NavItem>
-          <NavItem>
-            <Link to="/projects">
-              メインボード
-            </Link>
-          </NavItem>
-          <NavItem>
-            <Link to="/projects/new">
-              新規プロジェクト作成
-            </Link>
-          </NavItem>
-        </NavItems>
-      </Nabvar>
-      <Wrapper>
-        <Switch>
-          <Route exact path="/projects" component={MainProject} />
-          <Route exact path="/projects/new" component={AddProject} />
-          <Route path="/projects/:id/edit" component={EditProject} />
-        </Switch>
-      </Wrapper>
+      <div class="row">
+        <div class="col-3">
+          <div class="sidebar_fixed">
+          <Nabvar>
+            <NavItems>
+              <NavItem>
+                <Link to="/projects">
+                  リンク
+                </Link>
+              </NavItem>
+              <NavItem>
+                <Link to="/projects">
+                  メインボード
+                </Link>
+              </NavItem>
+              <NavItem>
+                <Link to="/projects/new">
+                  ＋新規プロジェクト作成
+                </Link>
+              </NavItem>
+            </NavItems>
+          </Nabvar>
+          </div>
+          <div class="sidebar_content">
+            流れてもいいコンテンツ
+          </div>
+        </div>
+
+        <div class="col">
+          <Wrapper>
+            <Switch>
+              <Route exact path="/projects" component={MainProject} />
+              <Route exact path="/projects/new" component={AddProject} />
+              <Route path="/projects/:id/edit" component={EditProject} />
+            </Switch>
+          </Wrapper>
+        </div>
+      </div>
+
     </>
   )
 }
