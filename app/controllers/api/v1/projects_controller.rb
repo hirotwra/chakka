@@ -1,4 +1,5 @@
 class Api::V1::ProjectsController < ApplicationController
+  before_action :authenticate_user!
   def index
     projects= Project.order(updated_at: :desc)
     render json: projects
