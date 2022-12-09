@@ -5,11 +5,13 @@ import AddProject from './AddProject'
 import MainProject from './MainProject'
 import EditProject from './EditProject'
 import './App.css'
+import UserProperty from './UserProperty'
+import Reward from './Reward'
 
 const Nabvar = styled.nav`
-  background: #ff7f50;
-  paddind: 20px;
-  margin-top: 20px;
+  background: #ff7150;
+  height: 100vh;
+  padding: 0px 20px;
 `
 
 const NavItems = styled.ul`
@@ -17,9 +19,11 @@ const NavItems = styled.ul`
 `
 
 const NavItem = styled.li`
-  font-size: 17px;
+  font-size: 15px;
   font-weight: bold;
-  opacity: 0.7;
+  display: block;
+  margin: 10px;
+  opacity: 0.6;
   &:hover {
     opacity: 1;
   }
@@ -32,46 +36,35 @@ const Wrapper = styled.div`
 `
 
 function App() {
-  const logOutUsers = () => {
-    const sure = window.confirm('Are you sure?');
-    if (sure) {
-      axios.delete('/api/v1/users/sign_out')
-      .then(resp => {
-        set([])
-      })
-      .catch(e => {
-        console.log(e)
-      })
-    }
-  }
+
   return (
     <>
       <div class="row">
-        <div class="col-3">
-          <div class="sidebar_fixed">
+        <div class="col-3 vh-100">
           <Nabvar>
             <NavItems>
               <NavItem>
                 <Link to="/projects">
-                  リンク
-                </Link>
-              </NavItem>
-              <NavItem>
-                <Link to="/projects">
-                  メインボード
+                  Main
                 </Link>
               </NavItem>
               <NavItem>
                 <Link to="/projects/new">
-                  ＋新規プロジェクト作成
+                  +New Project
+                </Link>
+              </NavItem>
+              <NavItem>
+                <Link to="/users/property">
+                  Property
+                </Link>
+              </NavItem>
+              <NavItem>
+                <Link to="/rewards">
+                  Reward
                 </Link>
               </NavItem>
             </NavItems>
           </Nabvar>
-          </div>
-          <div class="sidebar_content">
-            流れてもいいコンテンツ
-          </div>
         </div>
 
         <div class="col">
@@ -80,6 +73,8 @@ function App() {
               <Route exact path="/projects" component={MainProject} />
               <Route exact path="/projects/new" component={AddProject} />
               <Route path="/projects/:id/edit" component={EditProject} />
+              <Route exact path="/users/property" component={UserProperty} />
+              <Route exact path="/rewards" component={Reward} />
             </Switch>
           </Wrapper>
         </div>

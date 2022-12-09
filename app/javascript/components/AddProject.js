@@ -7,13 +7,15 @@ import { FiSend } from 'react-icons/fi'
 
 const InputAndButton = styled.div`
   justify-content: space-between;
+
   margin-top: 20px;
 `
 
 const InputForm = styled.input`
-  font-size: 20px;
-  width: 80%;
+  font-size: 15px;
+  width: 100%;
   height: 30px;
+  justify-content: center;
   margin-top: 18px;
   padding: 2px 7px;
 `
@@ -35,7 +37,6 @@ const Button = styled.button`
 `
 
 const Icon = styled.span`
-  display: flex;
   align-items: center;
   margin: 0 7px;
 `
@@ -95,7 +96,8 @@ function AddProject(props) {
     <>
       <h1>New Project</h1>
       <InputAndButton>
-      <label>
+      
+      <label><div>
         <InputForm
           type="string"
           required
@@ -104,8 +106,9 @@ function AddProject(props) {
           name="title"
         />
         プロジェクト名
-      </label>
-      <label>
+        </div></label>
+      
+      <label><div>
         <InputForm
           type="date"
           required
@@ -114,8 +117,9 @@ function AddProject(props) {
           name="deadline"
         />
         締め切り日
-      </label>
-      <label>
+        </div></label>
+
+      <label><div>
         <InputForm
           type="text"
           value={project.description}
@@ -123,7 +127,8 @@ function AddProject(props) {
           name="description"
         />
         説明文
-      </label>
+        </div></label>
+        <div>
         <Button
           onClick={saveProject}
           disabled={(!project.title || /^\s*$/.test(project.title) || !project.deadline)}
@@ -132,6 +137,7 @@ function AddProject(props) {
             <FiSend />
           </Icon>
         </Button>
+        </div>
       </InputAndButton>
     </>
   )
