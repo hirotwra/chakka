@@ -92,9 +92,6 @@ function MainProject() {
     })
   }
 
-//以下タスク機能追加
-
-
   return (
     <>
       <h1>プロジェクト情報</h1>

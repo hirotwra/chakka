@@ -44,6 +44,18 @@ const Wrapper = styled.div`
 `
 
 function App() {
+  const logOutUsers = () => {
+    const sure = window.confirm('Are you sure?');
+    if (sure) {
+      axios.delete('/api/v1/users/sign_out')
+      .then(resp => {
+        set([])
+      })
+      .catch(e => {
+        console.log(e)
+      })
+    }
+  }
   return (
     <>
       <Nabvar>
@@ -51,6 +63,11 @@ function App() {
           CHAKKA!
         </Logo>
         <NavItems>
+        <NavItem>
+            <Link to="/projects">
+              
+            </Link>
+          </NavItem>
           <NavItem>
             <Link to="/projects">
               メインボード

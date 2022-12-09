@@ -1,6 +1,9 @@
 Rails.application.routes.draw do
   root to: redirect('/projects')
   
+  devise_for :users
+
+  
   get 'projects', to: 'site#index'
   get 'projects/new', to: 'site#index'
   get 'projects/:id/edit', to: 'site#index'
