@@ -1,8 +1,6 @@
 class Api::V1::ProjectsController < ApplicationController
-
     skip_before_action :verify_authenticity_token
   def index
-    current_uid = current_user.id
     projects = current_user.projects.order(updated_at: :desc)
     render json: projects
   end
@@ -42,6 +40,6 @@ class Api::V1::ProjectsController < ApplicationController
   private
 
   def project_params
-    params.require(:project).permit(:title, :deadline, :description, :active, :user_id)
+    params.require(:project).permit(:title, :deadline, :description, :active, :user_id, :is_finished)
   end
 end

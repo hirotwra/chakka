@@ -7,8 +7,8 @@ Rails.application.routes.draw do
   get 'projects', to: 'site#index'
   get 'projects/new', to: 'site#index'
   get 'projects/:id/edit', to: 'site#index'
-  get 'users/property', to: 'site#index'
-  get 'rewards', to: 'site#index'
+  get '/projects/finish', to: 'site#index'
+  get 'contact', to: 'site#index'
 
   
   namespace :api do
