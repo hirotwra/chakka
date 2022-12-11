@@ -76,6 +76,31 @@ const DeleteButton = styled.button`
   border-radius: 3px;
   cursor: pointer;
 `
+function showDiffDate(limitDay) {
+  // 現在日時を数値に変換
+  var nowDate = new Date();
+  var dnumNow = nowDate.getTime();
+
+  // 指定日時を数値に変換
+  var targetDate = new Date(limitDay);
+  var dnumTarget = targetDate.getTime();
+
+  // 引き算して残日数を計算
+  var diffMSec = dnumTarget - dnumNow - 32400000; // 日本標準時に合わせて時差を減算
+  var diffDays = diffMSec / ( 1000 * 60 * 60 * 24 );
+  var showDays = Math.ceil( diffDays ); // 小数点以下を切り上げる
+
+  // 表示
+  var Msg;
+  if( showDays > 0 ) {
+    Msg = "〆切りまであと " + showDays + "日です。";
+  }else if( showDays == 0 ) {
+    Msg = "今日が締め切り日です！";
+  }else {
+    Msg = "〆切りは " + (showDays * -1) + "日前に過ぎました。";
+  }
+  return Msg;
+}
 
 function MainProject() {
   const [projects, setProjects] = useState([])
@@ -144,7 +169,7 @@ function MainProject() {
                 </Row>
 
                 
-                <div>{val.deadline} 〆切</div>             
+                <div>{val.deadline} 〆切</div><span>{showDiffDate(val.deadline)}</span>             
                 <h3>説明</h3>
                 <div>{val.description}</div>
 
@@ -156,26 +181,7 @@ function MainProject() {
                   </Link>
                 </TabPanel>
               </div>
-            //  <Row key={key}>
-            //    {val.is_completed ? (
-            //      <CheckedBox>
-            //        <ImCheckboxChecked onClick={() => updateIsCompleted(key, val) } />
-            //      </CheckedBox>
-            //    ) : (
-            //      <UncheckedBox>
-            //        <ImCheckboxUnchecked onClick={() => updateIsCompleted(key, val) } />
-            //      </UncheckedBox>
-            //    )}
-            //    <TodoName is_completed={val.is_completed}>
-            //      {val.name}
-            //    </TodoName>
-            //    <Link to={"/todos/" + val.id + "/edit"}>
-            //      <EditButton>
-            //        <AiFillEdit />
-            //      </EditButton>
-            //    </Link>
-            //  </Row>
-            
+
             )
         })}      
         </Tabs>
