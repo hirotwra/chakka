@@ -5,33 +5,25 @@ import AddProject from './AddProject'
 import MainProject from './MainProject'
 import EditProject from './EditProject'
 import './App.css'
+import UserProperty from './UserProperty'
+import Reward from './Reward'
 
 const Nabvar = styled.nav`
-  background: #ff7f50;
-  min-height: 8vh;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-`
-
-const Logo = styled.div`
-  font-weight: bold;
-  font-size: 23px;
-  letter-spacing: 3px;
+  background: #ff7150;
+  height: 100vh;
+  padding: 0px 20px;
 `
 
 const NavItems = styled.ul`
-  display: flex;
-  width: 400px;
-  max-width: 40%;
-  justify-content: space-around;
   list-style: none;
 `
 
 const NavItem = styled.li`
-  font-size: 17px;
+  font-size: 15px;
   font-weight: bold;
-  opacity: 0.7;
+  display: block;
+  margin: 10px;
+  opacity: 0.6;
   &:hover {
     opacity: 1;
   }
@@ -44,49 +36,50 @@ const Wrapper = styled.div`
 `
 
 function App() {
-  const logOutUsers = () => {
-    const sure = window.confirm('Are you sure?');
-    if (sure) {
-      axios.delete('/api/v1/users/sign_out')
-      .then(resp => {
-        set([])
-      })
-      .catch(e => {
-        console.log(e)
-      })
-    }
-  }
+
   return (
     <>
-      <Nabvar>
-        <Logo>
-          CHAKKA!
-        </Logo>
-        <NavItems>
-        <NavItem>
-            <Link to="/projects">
-              
-            </Link>
-          </NavItem>
-          <NavItem>
-            <Link to="/projects">
-              メインボード
-            </Link>
-          </NavItem>
-          <NavItem>
-            <Link to="/projects/new">
-              新規プロジェクト作成
-            </Link>
-          </NavItem>
-        </NavItems>
-      </Nabvar>
-      <Wrapper>
-        <Switch>
-          <Route exact path="/projects" component={MainProject} />
-          <Route exact path="/projects/new" component={AddProject} />
-          <Route path="/projects/:id/edit" component={EditProject} />
-        </Switch>
-      </Wrapper>
+      <div class="row">
+        <div class="col-3 vh-100">
+          <Nabvar>
+            <NavItems>
+              <NavItem>
+                <Link to="/projects">
+                  Main
+                </Link>
+              </NavItem>
+              <NavItem>
+                <Link to="/projects/new">
+                  +New Project
+                </Link>
+              </NavItem>
+              <NavItem>
+                <Link to="/users/property">
+                  Property
+                </Link>
+              </NavItem>
+              <NavItem>
+                <Link to="/rewards">
+                  Reward
+                </Link>
+              </NavItem>
+            </NavItems>
+          </Nabvar>
+        </div>
+
+        <div class="col">
+          <Wrapper>
+            <Switch>
+              <Route exact path="/projects" component={MainProject} />
+              <Route exact path="/projects/new" component={AddProject} />
+              <Route path="/projects/:id/edit" component={EditProject} />
+              <Route exact path="/users/property" component={UserProperty} />
+              <Route exact path="/rewards" component={Reward} />
+            </Switch>
+          </Wrapper>
+        </div>
+      </div>
+
     </>
   )
 }

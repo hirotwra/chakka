@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
 import styled from 'styled-components'
-import { ImCheckboxChecked, ImCheckboxUnchecked,} from 'react-icons/im'
 import { AiFillFire, AiOutlineFire } from 'react-icons/ai'
 
 //import { ensureTrailingSlash } from '@rails/webpacker/package/utils/helpers'
@@ -48,11 +47,6 @@ const UnActiveChecked = styled.div`
   cursor: pointer;
 `
 
-const EditButton = styled.button`
-  display: flex;
-  align-items: center;
-  margin: 0 7px;
-`
 toast.configure()
 
 const notify = () => {
@@ -61,6 +55,27 @@ const notify = () => {
     hideProgressBar: true
   });
 }
+
+const EditButton = styled.button`
+color: #fff;
+font-size: 17px;
+font-weight: 500;
+padding: 5px 10px;
+background: #009e9f;
+border: none;
+border-radius: 3px;
+cursor: pointer;
+`
+const DeleteButton = styled.button`
+  color: #fff;
+  font-size: 17px;
+  font-weight: 500;
+  padding: 5px 10px;
+  background: #f54242;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+`
 
 function MainProject() {
   const [projects, setProjects] = useState([])
@@ -91,6 +106,7 @@ function MainProject() {
       setProjects(newProjects)
     })
   }
+
 
   return (
     <>
@@ -133,10 +149,10 @@ function MainProject() {
                 <div>{val.description}</div>
 
                 
-                <Link to={"/projects/" + val.id + "/edit"}>
-                  <EditButton>
-                    プロジェクトを編集する
-                  </EditButton>
+                  <Link to={"/projects/" + val.id + "/edit"}>
+                    <EditButton >
+                      編集画面へ
+                    </EditButton>
                   </Link>
                 </TabPanel>
               </div>
