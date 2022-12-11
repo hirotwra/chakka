@@ -7,6 +7,9 @@ Rails.application.routes.draw do
   get 'projects', to: 'site#index'
   get 'projects/new', to: 'site#index'
   get 'projects/:id/edit', to: 'site#index'
+  get 'users/property', to: 'site#index'
+  get 'rewards', to: 'site#index'
+
   
   namespace :api do
     namespace :v1 do
