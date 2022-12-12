@@ -6,7 +6,7 @@ set :application, 'chakka'
 
 # cloneするgitのレポジトリ
 # （xxxxxxxx：ユーザ名、yyyyyyyy：アプリケーション名）
-set :repo_url, 'https://github.com/HiroyasuTawara/chakka.git'
+set :repo_url, 'https://github.com/HiroyasuTawara/chakka'
 
 # deployするブランチ。デフォルトでmainを使用している場合、masterをmainに変更してください。
 set :branch, ENV['BRANCH'] || 'master'
