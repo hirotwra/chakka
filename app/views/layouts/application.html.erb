@@ -33,6 +33,19 @@
             <li class="nav-item active">
               <%= link_to root_path, class: "nav-link" do %><i class="fa-solid fa-house">ホーム</i><% end %>
             </li>
+          <% elsif admin_signed_in? %>
+            <li class="nav-item active">
+              <%= link_to 'admins/edit', class: "nav-link" do %><i class="fa-solid fa-user"> 管理者アカウントでログイン中</i><% end %>
+            </li>
+            <li class="nav-item active">
+              <%= link_to admins_users_path, class: "nav-link" do %><i class="fa-solid fa-house">管理画面へ</i><% end %>
+            </li>
+            <li class="nav-item active" >
+              <%= link_to destroy_admin_session_path, method: :delete, class: "nav-link" do %><i class="fa-solid fa-right-from-bracket"> ログアウト</i><% end %>
+            </li>
+            <li class="nav-item active">
+              <%= link_to root_path, class: "nav-link" do %><i class="fa-solid fa-house">ホーム</i><% end %>
+            </li>
           <% else %>
             <li class="nav-item active">
               <%= link_to new_user_registration_path, class: "nav-link" do %><i class="fa-solid fa-user-plus"> アカウントを新規作成 </i><% end %>

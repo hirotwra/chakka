@@ -66,16 +66,41 @@ border: none;
 border-radius: 3px;
 cursor: pointer;
 `
-const DeleteButton = styled.button`
-  color: #fff;
-  font-size: 17px;
-  font-weight: 500;
-  padding: 5px 10px;
-  background: #f54242;
-  border: none;
-  border-radius: 3px;
-  cursor: pointer;
+const FinishButton = styled.button`
+color: #fff;
+font-size: 17px;
+font-weight: 500;
+padding: 5px 10px;
+background: #9e009f;
+border: none;
+border-radius: 3px;
+cursor: pointer;
 `
+function showDiffDate(limitDay) {
+  // 現在日時を数値に変換
+  var nowDate = new Date();
+  var dnumNow = nowDate.getTime();
+
+  // 指定日時を数値に変換
+  var targetDate = new Date(limitDay);
+  var dnumTarget = targetDate.getTime();
+
+  // 引き算して残日数を計算
+  var diffMSec = dnumTarget - dnumNow - 32400000; // 日本標準時に合わせて時差を減算
+  var diffDays = diffMSec / ( 1000 * 60 * 60 * 24 );
+  var showDays = Math.ceil( diffDays ); // 小数点以下を切り上げる
+
+  // 表示
+  var Msg;
+  if( showDays > 0 ) {
+    Msg = "残り " + showDays + "日です。";
+  }else if( showDays == 0 ) {
+    Msg = "今日が締め切り日です！";
+  }else {
+    Msg = (showDays * -1) + "日前に過ぎました。";
+  }
+  return Msg;
+}
 
 function MainProject() {
   const [projects, setProjects] = useState([])
@@ -97,7 +122,8 @@ function MainProject() {
       title : val.title,
       deadline: val.deadline,
       description: val.description,
-      active: !val.active
+      active: !val.active,
+      is_finished: val.is_finished
     }
     axios.patch(`/api/v1/projects/${val.id}`, data)
     .then(resp => {
@@ -105,6 +131,26 @@ function MainProject() {
       newProjects[index].active = resp.data.active
       setProjects(newProjects)
     })
+  }
+
+  const updateIsFinished = (index, val) => {
+    var data = {
+      //id: val.id,
+      title : val.title,
+      deadline: val.deadline,
+      description: val.description,
+      active: val.active,
+      is_finished: !val.is_finished
+    }
+    const sure = window.confirm('プロジェクトを完了済リストに移動します。よろしいですか?');
+    if (sure) {
+    axios.patch(`/api/v1/projects/${val.id}`, data)
+    .then(resp => {
+      const newProjects = [...projects]
+      newProjects[index].is_finished = resp.data.is_finished
+      setProjects(newProjects)
+    })
+    }
   }
 
 
@@ -116,12 +162,12 @@ function MainProject() {
       <Tabs>
         <TabList>
         {projects.map((val) => {
-            return (
+            return (val.is_finished == false &&
               <Tab><TabColor active={val.active}>{val.title}</TabColor></Tab>
             )})}
         </TabList>
         {projects.map((val, key) => {
-          return (
+          return (val.is_finished == false &&
               <div key={key}>
               <TabPanel>
               <Row>
@@ -144,38 +190,23 @@ function MainProject() {
                 </Row>
 
                 
-                <div>{val.deadline} 〆切</div>             
-                <h3>説明</h3>
-                <div>{val.description}</div>
+                <div>{val.deadline} 〆切 <span>...{showDiffDate(val.deadline)}</span> </div>            
+                <div>説明:{val.description}</div>
 
                 
                   <Link to={"/projects/" + val.id + "/edit"}>
-                    <EditButton >
+                    <EditButton>
                       編集画面へ
                     </EditButton>
                   </Link>
+                  <div>
+                    <FinishButton onClick={() => updateIsFinished(key, val) }>
+                      プロジェクトを完了する
+                    </FinishButton>
+                  </div>
                 </TabPanel>
               </div>
-            //  <Row key={key}>
-            //    {val.is_completed ? (
-            //      <CheckedBox>
-            //        <ImCheckboxChecked onClick={() => updateIsCompleted(key, val) } />
-            //      </CheckedBox>
-            //    ) : (
-            //      <UncheckedBox>
-            //        <ImCheckboxUnchecked onClick={() => updateIsCompleted(key, val) } />
-            //      </UncheckedBox>
-            //    )}
-            //    <TodoName is_completed={val.is_completed}>
-            //      {val.name}
-            //    </TodoName>
-            //    <Link to={"/todos/" + val.id + "/edit"}>
-            //      <EditButton>
-            //        <AiFillEdit />
-            //      </EditButton>
-            //    </Link>
-            //  </Row>
-            
+
             )
         })}      
         </Tabs>

@@ -5,8 +5,8 @@ import AddProject from './AddProject'
 import MainProject from './MainProject'
 import EditProject from './EditProject'
 import './App.css'
-import UserProperty from './UserProperty'
-import Reward from './Reward'
+import FinishProjects from './FinishProjects'
+import Contact from './Contact'
 
 const Nabvar = styled.nav`
   background: #ff7150;
@@ -54,13 +54,13 @@ function App() {
                 </Link>
               </NavItem>
               <NavItem>
-                <Link to="/users/property">
-                  Property
+                <Link to="/projects/finish">
+                  FinishedProjects
                 </Link>
               </NavItem>
               <NavItem>
-                <Link to="/rewards">
-                  Reward
+                <Link to="/contact">
+                  Contact
                 </Link>
               </NavItem>
             </NavItems>
@@ -73,8 +73,8 @@ function App() {
               <Route exact path="/projects" component={MainProject} />
               <Route exact path="/projects/new" component={AddProject} />
               <Route path="/projects/:id/edit" component={EditProject} />
-              <Route exact path="/users/property" component={UserProperty} />
-              <Route exact path="/rewards" component={Reward} />
+              <Route exact path="/projects/finish" component={FinishProjects} />
+              <Route exact path="/contact" component={Contact} />
             </Switch>
           </Wrapper>
         </div>
