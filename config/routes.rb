@@ -2,8 +2,25 @@ Rails.application.routes.draw do
   root to: redirect('/projects')
   
   devise_for :users
-
+  devise_for :admins, controllers:{
+    sessions: 'admins/sessions',
+    passwords: 'admins/passwords',
+    registrations: 'admins/registrations'
+  } 
   
+  namespace :admins do
+    resources :users, only: [:index, :create, :new, :edit, :show, :update, :destroy]
+  end
+  
+  devise_scope :user do
+    post 'users/guest_sign_in', to: 'users/sessions#guest_sign_in'
+  end
+
+  devise_scope :admin do
+    post 'admins/guest_sign_in', to: 'admins/sessions#guest_sign_in'
+  end
+
+
   get 'projects', to: 'site#index'
   get 'projects/new', to: 'site#index'
   get 'projects/:id/edit', to: 'site#index'

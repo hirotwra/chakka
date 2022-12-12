@@ -36,6 +36,7 @@ class Api::V1::ProjectsController < ApplicationController
       render json: { error: "Failed to destroy" }, status: 422
     end
   end
+  
 
   private
 
