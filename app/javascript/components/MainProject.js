@@ -3,12 +3,10 @@ import { Link } from 'react-router-dom'
 import axios from 'axios'
 import styled from 'styled-components'
 import { AiFillFire, AiOutlineFire } from 'react-icons/ai'
-
-//import { ensureTrailingSlash } from '@rails/webpacker/package/utils/helpers'
 import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
-import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
-import 'react-tabs/style/react-tabs.css';
+import { Tab, Tabs, TabList, TabPanel } from 'react-tabs'
+import 'react-tabs/style/react-tabs.css'
 
 const ProjectTitle = styled.span`
 font-size: 27px;
