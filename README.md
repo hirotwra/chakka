@@ -9,8 +9,7 @@
  - AWS  
  
 ### カリキュラム外の技術 
- - React.jsを用いたフロントエンド(SPA)の実装  
- - Cocoonを用いた親子形式のフォームの実装  
+ - React.jsを用いたフロントエンド(SPA)の実装    
  
 ### 実行手順  
  ```
@@ -29,8 +28,8 @@ https://docs.google.com/spreadsheets/d/1jghtoPsKXmayThhLKul3k8Bv7itkU7bpHOJKBp1q
 ### ワイヤーフレーム  
 https://cacoo.com/diagrams/GWUWKuCczVbAvpqU/040FC  
 
-### ER図
-![ER図](https://user-images.githubusercontent.com/45650777/204689357-4b57b5b9-fa3e-47a4-a109-2135f3f7073a.png)  
-
+### ER図  
+![ER1](https://user-images.githubusercontent.com/45650777/207203742-cdaf51b8-a37b-4c6e-a147-9a555f22a132.png)  
+   
 ### 画面遷移図  
-![画面遷移図](https://user-images.githubusercontent.com/45650777/204689476-24808c52-b0aa-4ff6-9fd0-191c9832b0f2.png)
+![画面遷移](https://user-images.githubusercontent.com/45650777/207204137-6257ebaf-c0c7-4f67-b2fc-7772c9b716e7.png)
