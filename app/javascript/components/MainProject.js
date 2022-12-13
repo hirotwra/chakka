@@ -7,6 +7,7 @@ import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs'
 import 'react-tabs/style/react-tabs.css'
+import Button from '@mui/material/Button'
 
 const ProjectTitle = styled.span`
 font-size: 27px;
@@ -54,26 +55,6 @@ const notify = () => {
   });
 }
 
-const EditButton = styled.button`
-color: #fff;
-font-size: 17px;
-font-weight: 500;
-padding: 5px 10px;
-background: #009e9f;
-border: none;
-border-radius: 3px;
-cursor: pointer;
-`
-const FinishButton = styled.button`
-color: #fff;
-font-size: 17px;
-font-weight: 500;
-padding: 5px 10px;
-background: #9e009f;
-border: none;
-border-radius: 3px;
-cursor: pointer;
-`
 function showDiffDate(limitDay) {
   // 現在日時を数値に変換
   var nowDate = new Date();
@@ -193,15 +174,15 @@ function MainProject() {
 
                 
                   <Link to={"/projects/" + val.id + "/edit"}>
-                    <EditButton>
+                    <Button variant="contained">
                       編集画面へ
-                    </EditButton>
+                    </Button>
                   </Link>
-                  <div>
-                    <FinishButton onClick={() => updateIsFinished(key, val) }>
+                  <span>
+                    <Button variant="contained" color="success" onClick={() => updateIsFinished(key, val) }>
                       プロジェクトを完了する
-                    </FinishButton>
-                  </div>
+                    </Button>
+                  </span>
                 </TabPanel>
               </div>
 

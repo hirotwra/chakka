@@ -8,6 +8,7 @@ import './App.css'
 import FinishProjects from './FinishProjects'
 import Contact from './Contact'
 
+
 const Nabvar = styled.nav`
   background: #ff7150;
   height: 50vh;
