@@ -6,7 +6,7 @@ import { AiFillFire, AiOutlineFire } from 'react-icons/ai'
 import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs'
-import 'react-tabs/style/react-tabs.scss'
+import 'react-tabs/style/react-tabs.css'
 import Button from '@mui/material/Button'
 
 const ProjectTitle = styled.span`
