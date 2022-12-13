@@ -10,19 +10,18 @@ import Contact from './Contact'
 
 const Nabvar = styled.nav`
   background: #ff7150;
-  height: 100vh;
-  padding: 0px 20px;
+  height: 50vh;
 `
 
 const NavItems = styled.ul`
   list-style: none;
+  padding: 20px;
 `
 
 const NavItem = styled.li`
   font-size: 15px;
   font-weight: bold;
-  display: block;
-  margin: 10px;
+  padding: 20px;
   opacity: 0.6;
   &:hover {
     opacity: 1;
