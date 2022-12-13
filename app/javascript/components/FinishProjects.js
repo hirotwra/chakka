@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import styled from 'styled-components'
+import {AiOutlineDelete, AiOutlineRollback} from 'react-icons/ai'
 
 const DeleteButton = styled.button`
   color: #fff;
@@ -36,6 +37,35 @@ function FinishProjects() {
     })
   }, [])
 
+  const updateIsFinished = (index, val) => {
+    var data = {
+      is_finished: !val.is_finished
+    }
+    axios.patch(`/api/v1/projects/${val.id}`, data)
+    .then(resp => {
+      const newProjects = [...projects]
+      newProjects[index].is_finished = resp.data.is_finished
+      setProjects(newProjects)
+    })
+  }
+
+  const deleteProject = (index, val) => {
+    const sure = window.confirm('削除してよろしいですか?')
+    if (sure) {
+      axios.delete(`/api/v1/projects/${val.id}`)
+      .then(resp => {
+        const newProjects = [...projects]
+        newProjects.splice(index, 1);
+        console.log(resp.data);
+        setProjects(newProjects)
+      })
+      .catch(e => {
+        console.log(e)
+      })
+    }
+  }
+
+  
   return (
     <>
       <h1>完了済プロジェクト</h1>
@@ -44,8 +74,14 @@ function FinishProjects() {
         return (val.is_finished == true &&
           <div key={key}>
             <Row>
+              <span><AiOutlineRollback onClick={() => {
+                updateIsFinished  (key,val)
+              }}/></span>
               <span>{val.title}</span>
-              <span></span>
+              <span><AiOutlineDelete onClick={() => {
+                deleteProject (key,val)
+              }}/></span>
+
             </Row>
           </div>
         )

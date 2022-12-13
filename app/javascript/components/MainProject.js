@@ -114,7 +114,6 @@ function MainProject() {
 
   const updateIsFinished = (index, val) => {
     var data = {
-      //id: val.id,
       title : val.title,
       deadline: val.deadline,
       description: val.description,
