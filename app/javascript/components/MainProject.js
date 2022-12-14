@@ -117,7 +117,7 @@ function MainProject() {
       title : val.title,
       deadline: val.deadline,
       description: val.description,
-      active: val.active,
+      active: false,
       is_finished: !val.is_finished
     }
     const sure = window.confirm('プロジェクトを完了済リストに移動します。よろしいですか?');
@@ -134,59 +134,62 @@ function MainProject() {
 
   return (
     <>
-      <h1>プロジェクト情報</h1>
-
+      <h1>Your Projects</h1>
       <div>
-      <Tabs>
-        <TabList>
-        {projects.map((val) => {
-            return (val.is_finished == false &&
-              <Tab><TabColor active={val.active}>{val.title}</TabColor></Tab>
-            )})}
-        </TabList>
-        {projects.map((val, key) => {
-          return (val.is_finished == false &&
-              <div key={key}>
-              <TabPanel>
-              <Row>
-              {val.active ? (
-                    <ActiveChecked>
-                      <AiFillFire onClick={() => updateActive(key, val) } />
-                    </ActiveChecked>
-                    ) : (
-                    <UnActiveChecked>
-                      <AiOutlineFire onClick={() => {
-                        updateActive(key, val); 
-                        notify()
-                      }} />
-                    </UnActiveChecked>
-                  )}
-                  <ProjectTitle active={val.active}>
+        <div id="non-project-text">未完了のプロジェクトはありません。</div>  
+        <Tabs>
+          <TabList>
+            {projects.map((val) => {
+              return (val.is_finished == false &&
+                <Tab>
+                  <TabColor active={val.active}>
                     {val.title}
-                  </ProjectTitle>
-
-                </Row>
-
-                
-                <div>{val.deadline} 〆切 <span>...{showDiffDate(val.deadline)}</span> </div>            
-                <div>説明:{val.description}</div>
-
-                
+                  </TabColor>
+                </Tab>
+              )
+            })}
+          </TabList>
+          {projects.map((val, key) => {
+            return (val.is_finished == false &&
+              <div key={key}>
+                <TabPanel>
+                  <Row>
+                    {val.active ? (
+                      <ActiveChecked>
+                        <AiFillFire onClick={() => updateActive(key, val) } />
+                      </ActiveChecked>
+                    ) : (
+                      <UnActiveChecked>
+                        <AiOutlineFire onClick={() => {
+                          updateActive(key, val); 
+                          notify()
+                        }} />
+                      </UnActiveChecked>
+                    )}
+                    <ProjectTitle active={val.active}>
+                      {val.title}
+                    </ProjectTitle>
+                  </Row>
+                  <div>
+                    {val.deadline} 〆切 <span>...{showDiffDate(val.deadline)}</span> 
+                  </div>            
+                  <div>
+                    説明:{val.description}
+                  </div>
                   <Link to={"/projects/" + val.id + "/edit"}>
-                    <Button variant="contained">
-                      編集画面へ
+                    <Button variant="contained" color="success">
+                      編集
                     </Button>
                   </Link>
-                  <span>
-                    <Button variant="contained" color="success" onClick={() => updateIsFinished(key, val) }>
-                      プロジェクトを完了する
+                  <div class="text-center mt-3">
+                    <Button variant="outlined" color="info" onClick={() => updateIsFinished(key, val) } className="w-75 font-weight-bold">
+                      プロジェクト完了!
                     </Button>
-                  </span>
+                  </div>
                 </TabPanel>
               </div>
-
             )
-        })}      
+          })}      
         </Tabs>
       </div>
     </>

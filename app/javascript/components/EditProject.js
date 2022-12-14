@@ -3,6 +3,7 @@ import axios from 'axios'
 import styled from 'styled-components'
 import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
+import Button from '@mui/material/Button'
 
 const InputAndButton = styled.div`
   justify-content: space-between;
@@ -12,13 +13,22 @@ const InputAndButton = styled.div`
 
 const InputForm = styled.input`
   font-size: 15px;
-  width: 100%;
-  height: 30px;
+  width: 90%;
+  height: 20px;
   justify-content: center;
   margin-top: 18px;
   padding: 2px 7px;
 `
 
+const InputTextArea = styled.textarea`
+  font-size: 15px;
+  resize: none;
+  height: 100px;
+  width: 90%;
+  justify-content: center;
+  margin-top: 15px;
+  padding: 2px 7px;
+`
 const EditButton = styled.button`
   color: white;
   font-weight: 500;
@@ -28,13 +38,15 @@ const EditButton = styled.button`
   background: #0ac620;
   border-radius: 3px;
   border: none;
+  cursor: pointer;
 `
 
 const DeleteButton = styled.button`
-  color: #fff;
-  font-size: 17px;
+  color: white;
   font-weight: 500;
+  font-size: 17px;
   padding: 5px 10px;
+  margin: 0 10px;
   background: #f54242;
   border: none;
   border-radius: 3px;
@@ -110,49 +122,56 @@ function EditProject(props) {
     <>
       <h1>Editing Project</h1>
       <InputAndButton>
-      <label><div>
+
+      <div class="field form-group row">
         <InputForm
           type="string"
           required
           value={currentProject.title}
           onChange={handleInputChange}
           name="title"
+          class="form-control" 
         />
-        プロジェクト名
-        </div></label>
+        <label class="col-sm-6 col-form-label">プロジェクト名</label>
+      </div>
       
-      <label><div>
+      <div class="field form-group row">
         <InputForm
           type="date"
           required
           value={currentProject.deadline}
           onChange={handleInputChange}
           name="deadline"
+          class="form-control"
         />
-        締め切り日
-        </div></label>
+        <label class="col-sm-6 col-form-label">締め切り日</label>
+      </div>
 
-      <label><div>
-        <InputForm
-          type="text"
+      <div class="field form-group row">
+        <InputTextArea
           value={currentProject.description}
           onChange={handleInputChange}
           name="description"
+          class="form-control"
         />
-        説明文
-        </div></label>
-        <EditButton
+        <label class="col-sm-6 col-form-label">説明文</label>
+      </div>
+
+        <Button
+          variant="contained" 
+          color="success"
           type="submit"
           onClick={updateProject}
         >
           Update
-        </EditButton>
-        <DeleteButton
-          className="badge badge-danger mr-2"
+        </Button>
+        <Button
+          variant="contained" 
+          color="error"
           onClick={deleteProject}
         >
           Delete
-        </DeleteButton>
+        </Button>
 
       </InputAndButton>
     </>

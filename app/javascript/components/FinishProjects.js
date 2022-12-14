@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import styled from 'styled-components'
 import {AiOutlineDelete, AiOutlineRollback} from 'react-icons/ai'
+import Tooltip from '@mui/material/Tooltip'
+import {format} from 'date-fns'
 
 const DeleteButton = styled.button`
   color: #fff;
@@ -68,19 +70,24 @@ function FinishProjects() {
   
   return (
     <>
-      <h1>完了済プロジェクト</h1>
+      <h1>FinishedProjects</h1>
       <div>
       {projects.map((val, key) => {
         return (val.is_finished == true &&
           <div key={key}>
             <Row>
+            <Tooltip title="return to incomplete list">
               <span><AiOutlineRollback onClick={() => {
                 updateIsFinished  (key,val)
               }}/></span>
-              <span>{val.title}</span>
+            </Tooltip>
+            <span>{val.title}</span>
+            <span> 完了日時:{format(new Date(val.updated_at),'yyyy-MM-dd HH:mm')}</span>
+            <Tooltip title="remove permanently">
               <span><AiOutlineDelete onClick={() => {
                 deleteProject (key,val)
               }}/></span>
+            </Tooltip>
 
             </Row>
           </div>
