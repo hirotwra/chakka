@@ -83,3 +83,11 @@ a:hover {
 input:focus {
   outline: 0;
 }
+
+::-webkit-scrollbar-track{
+  display: none;
+}
+
+::-webkit-scrollbar-button{
+  display: none;
+}

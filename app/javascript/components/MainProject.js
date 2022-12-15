@@ -18,7 +18,7 @@ const TabColor = styled.span`
 `
 
 const ProjectTitle = styled.span`
-font-size: 4vh;
+font-size: 24px;
 text-align:center;
 width: 85%;
 height: 40px;
@@ -35,7 +35,6 @@ const Row = styled.div`
   align-items: center;
   margin: 7px auto;
   padding: 10px;
-  height: 5.5vh;
   width: 80%;
   font-size: 25px;
   border-bottom: dotted 3px #87CEFA;
