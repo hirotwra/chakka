@@ -9,6 +9,41 @@ body {
   color: rgb(1, 1, 1);
 }
 
+.vertical-title{
+  position: fixed;
+  bottom: 60px;
+  left: 7px;
+  font-weight: bold;
+  font-size: 22px;
+  color: #FFF;
+  -ms-writing-mode: tb-rl;
+  writing-mode: vertical-rl;
+}
+
+.field_with_errors {
+  display: contents;
+}
+
+.description-box{
+  padding: 10px;
+  font-size: smaller;
+  margin: auto;
+  border-radius: 5px;
+  height: 100px;
+  overflow:scroll;
+}
+
+.MuiPaper-elevation1{
+  margin: auto;
+  width: 80%;
+}
+
+.react-tabs {
+  position: relative;
+  width: 100%;
+  z-index: 1010;
+  background-color: #FFF;
+}
 
 .react-tabs__tab {
   width: 80px; /* この幅を超えると省略 */
@@ -17,6 +52,17 @@ body {
   white-space: nowrap;
   text-overflow: ellipsis;
 }
+
+#non-project-text{
+  position: absolute;
+  top: 150px;
+  left: 50%;
+  transform: translateX(-50%);
+  margin: auto;
+  z-index: 1000;
+  color: gray;
+}
+
 
 h1 {
   text-align: center;

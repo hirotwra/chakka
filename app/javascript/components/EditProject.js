@@ -3,22 +3,31 @@ import axios from 'axios'
 import styled from 'styled-components'
 import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
+import Button from '@mui/material/Button'
 
 const InputAndButton = styled.div`
-  justify-content: space-between;
-
+  justify-content: space-around;
   margin-top: 20px;
 `
 
 const InputForm = styled.input`
   font-size: 15px;
-  width: 100%;
-  height: 30px;
+  width: 90%;
+  height: 20px;
   justify-content: center;
   margin-top: 18px;
   padding: 2px 7px;
 `
 
+const InputTextArea = styled.textarea`
+  font-size: 15px;
+  resize: none;
+  height: 150px;
+  width: 90%;
+  justify-content: center;
+  margin-top: 15px;
+  padding: 2px 7px;
+`
 const EditButton = styled.button`
   color: white;
   font-weight: 500;
@@ -28,13 +37,15 @@ const EditButton = styled.button`
   background: #0ac620;
   border-radius: 3px;
   border: none;
+  cursor: pointer;
 `
 
 const DeleteButton = styled.button`
-  color: #fff;
-  font-size: 17px;
+  color: white;
   font-weight: 500;
+  font-size: 17px;
   padding: 5px 10px;
+  margin: 0 10px;
   background: #f54242;
   border: none;
   border-radius: 3px;
@@ -108,51 +119,66 @@ function EditProject(props) {
 
   return (
     <>
-      <h1>Editing Project</h1>
+      <div class="d-block d-md-none">
+        <p class="vertical-title">Edit Project</p>
+      </div>
+      <h2 class="d-none d-md-block text-secondary">Edit Project</h2>
       <InputAndButton>
-      <label><div>
-        <InputForm
-          type="string"
-          required
-          value={currentProject.title}
-          onChange={handleInputChange}
-          name="title"
-        />
-        プロジェクト名
-        </div></label>
-      
-      <label><div>
-        <InputForm
-          type="date"
-          required
-          value={currentProject.deadline}
-          onChange={handleInputChange}
-          name="deadline"
-        />
-        締め切り日
-        </div></label>
 
-      <label><div>
-        <InputForm
-          type="text"
-          value={currentProject.description}
-          onChange={handleInputChange}
-          name="description"
-        />
-        説明文
-        </div></label>
-        <EditButton
-          type="submit"
-          onClick={updateProject}
-        >
-          Update
-        </EditButton>
-        <DeleteButton
-          className="badge badge-danger mr-2"
-          onClick={deleteProject}
-        >
-          Delete
-        </DeleteButton>
+        <div class="field form-group row">
+          <InputForm
+            type="string"
+            required
+            value={currentProject.title}
+            onChange={handleInputChange}
+            name="title"
+            class="form-control" 
+          />
+          <label class="col-sm-6 col-form-label">プロジェクト名</label>
+        </div>
+
+        <div class="field form-group row">
+          <InputForm
+            type="date"
+            required
+            value={currentProject.deadline}
+            onChange={handleInputChange}
+            name="deadline"
+            class="form-control"
+          />
+          <label class="col-sm-6 col-form-label">締め切り日</label>
+        </div>
+
+        <div class="field form-group row">
+          <InputTextArea
+            value={currentProject.description}
+            onChange={handleInputChange}
+            name="description"
+            class="form-control"
+          />
+          <label class="col-sm-6 col-form-label">説明</label>
+        </div>
+
+
+        <div class="p-3 d-flex justify-content-center">
+          <Button
+            variant="contained" 
+            color="info"
+            type="submit"
+            onClick={updateProject}
+            className="mr-3"
+          >
+            Update
+          </Button>
+          <Button
+            variant="contained" 
+            color="error"
+            onClick={deleteProject}
+            className="ml-3"
+          >
+            Delete
+          </Button>
+        </div>
 
       </InputAndButton>
     </>

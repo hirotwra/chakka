@@ -18,7 +18,7 @@
     <header>
       <div class="container">
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow fixed-top">
-      <a class="navbar-brand mb-0 h1" href="#">CHAKKA!</a>
+      <a class="navbar-brand mb-0 h1" href="/">CHAKKA!</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -60,13 +60,6 @@
     </nav>
   </div>
   </header>
-    <div class="container mt-5 pt-5">
-      <div class="row p-2 mr-2 justify-content-end fixed-bottom text-right">
-        <% flash.each do |key, value| %>
-          <%= content_tag(:div, value, class: "#{key}") %>
-        <% end %>
-      </div>
       <%= yield %>
-    </div>
   </body>
 </html>

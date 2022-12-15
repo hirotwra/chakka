@@ -7,16 +7,24 @@ import { FiSend } from 'react-icons/fi'
 
 const InputAndButton = styled.div`
   justify-content: space-between;
-
   margin-top: 20px;
 `
 
 const InputForm = styled.input`
   font-size: 15px;
-  width: 100%;
-  height: 30px;
+  width: 90%;
+  height: 20px;
   justify-content: center;
   margin-top: 18px;
+  padding: 2px 7px;
+`
+const InputTextArea = styled.textarea`
+  font-size: 15px;
+  resize: none;
+  height: 150px;
+  width: 90%;
+  justify-content: center;
+  margin-top: 15px;
   padding: 2px 7px;
 `
 
@@ -94,40 +102,46 @@ function AddProject(props) {
 
   return (
     <>
-      <h1>New Project</h1>
+      <div class="d-block d-md-none">
+        <p class="vertical-title">New Project</p>
+      </div>
+      <h2 class="d-none d-md-block text-secondary">New Project</h2>
       <InputAndButton>
       
-      <label><div>
+      <div class="field form-group row">
         <InputForm
           type="string"
           required
           value={project.title}
           onChange={handleInputChange}
           name="title"
+          class="form-control" 
         />
-        プロジェクト名
-        </div></label>
+        <label class="col-sm-6 col-form-label">プロジェクト名</label>
+      </div>
       
-      <label><div>
+      <div class="field form-group row">
         <InputForm
           type="date"
           required
           value={project.deadline}
           onChange={handleInputChange}
           name="deadline"
+          class="form-control"
         />
-        締め切り日
-        </div></label>
+        <label class="col-sm-6 col-form-label">締め切り日</label>
+      </div>
 
-      <label><div>
-        <InputForm
-          type="text"
+      <div class="field form-group row">
+        <InputTextArea
           value={project.description}
           onChange={handleInputChange}
           name="description"
+          class="form-control"
         />
-        説明文
-        </div></label>
+        <label class="col-sm-6 col-form-label">説明</label>
+      </div>
+
         <div>
         <Button
           onClick={saveProject}

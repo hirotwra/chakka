@@ -8,17 +8,24 @@ import 'react-toastify/dist/ReactToastify.css'
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs'
 import 'react-tabs/style/react-tabs.css'
 import Button from '@mui/material/Button'
+import Paper from '@mui/material/Paper'
 
-const ProjectTitle = styled.span`
-font-size: 27px;
-  ${({ active }) => active && `
-    color: red;
-  `}
-`
 const TabColor = styled.span`
   ${({ active }) => active && `
     color: red;
     font-weight: bold;
+  `}
+`
+
+const ProjectTitle = styled.span`
+font-size: 4vh;
+text-align:center;
+width: 85%;
+height: 40px;
+white-space: nowrap;
+overflow-x: scroll;
+  ${({ active }) => active && `
+    color: red;
   `}
 `
 
@@ -28,13 +35,15 @@ const Row = styled.div`
   align-items: center;
   margin: 7px auto;
   padding: 10px;
+  height: 5.5vh;
+  width: 80%;
   font-size: 25px;
+  border-bottom: dotted 3px #87CEFA;
 `
 
 const ActiveChecked = styled.div`
   display: flex;
   align-items: center;
-  margin: 0 7px;
   color: red;
   cursor: pointer;
 `
@@ -42,7 +51,6 @@ const ActiveChecked = styled.div`
 const UnActiveChecked = styled.div`
   display: flex;
   align-items: center;
-  margin: 0 7px;
   cursor: pointer;
 `
 
@@ -71,12 +79,14 @@ function showDiffDate(limitDay) {
 
   // 表示
   var Msg;
-  if( showDays > 0 ) {
-    Msg = "残り " + showDays + "日です。";
-  }else if( showDays == 0 ) {
-    Msg = "今日が締め切り日です！";
+  if( showDays == 0 ) {
+    Msg = <span class="text-danger font-weight-bold">今日が締め切り日です！</span>;
+  }else if( showDays <= 5 && showDays > 0 ) {
+    Msg = <span class="text-warning font-weight-bold">残り{showDays}日です。</span>;
+  }else if( showDays > 0 ) {
+    Msg = "残り" + showDays + "日です。";
   }else {
-    Msg = (showDays * -1) + "日前に過ぎました。";
+    Msg = <span class="text-secondary">{showDays * -1}日前に過ぎました。</span>;
   }
   return Msg;
 }
@@ -114,11 +124,10 @@ function MainProject() {
 
   const updateIsFinished = (index, val) => {
     var data = {
-      //id: val.id,
       title : val.title,
       deadline: val.deadline,
       description: val.description,
-      active: val.active,
+      active: false,
       is_finished: !val.is_finished
     }
     const sure = window.confirm('プロジェクトを完了済リストに移動します。よろしいですか?');
@@ -135,59 +144,74 @@ function MainProject() {
 
   return (
     <>
-      <h1>プロジェクト情報</h1>
-
-      <div>
-      <Tabs>
-        <TabList>
-        {projects.map((val) => {
-            return (val.is_finished == false &&
-              <Tab><TabColor active={val.active}>{val.title}</TabColor></Tab>
-            )})}
-        </TabList>
-        {projects.map((val, key) => {
-          return (val.is_finished == false &&
-              <div key={key}>
-              <TabPanel>
-              <Row>
-              {val.active ? (
-                    <ActiveChecked>
-                      <AiFillFire onClick={() => updateActive(key, val) } />
-                    </ActiveChecked>
-                    ) : (
-                    <UnActiveChecked>
-                      <AiOutlineFire onClick={() => {
-                        updateActive(key, val); 
-                        notify()
-                      }} />
-                    </UnActiveChecked>
-                  )}
-                  <ProjectTitle active={val.active}>
+      <div class="d-block d-md-none">
+        <p class="vertical-title">Your Projects</p>
+      </div>
+      <h2 class="d-none d-md-block text-secondary">Your Projects</h2>
+      <div class="w-100">
+        <div id="non-project-text">未完了のプロジェクトはありません。</div>  
+        <Tabs>
+          <TabList>
+            {projects.map((val) => {
+              return (val.is_finished == false &&
+                <Tab>
+                  <TabColor active={val.active}>
                     {val.title}
-                  </ProjectTitle>
+                  </TabColor>
+                </Tab>
+              )
+            })}
+          </TabList>
+          {projects.map((val, key) => {
+            return (val.is_finished == false &&
+              <div key={key}>
+                <TabPanel>
+                  
+                  <Row>
+                    {val.active ? (
+                      <ActiveChecked>
+                        <AiFillFire onClick={() => updateActive(key, val) } />
+                      </ActiveChecked>
+                    ) : (
+                      <UnActiveChecked>
+                        <AiOutlineFire onClick={() => {
+                          updateActive(key, val); 
+                          notify()
+                        }} />
+                      </UnActiveChecked>
+                    )}
+                    <ProjectTitle active={val.active}>
+                      {val.title}
+                    </ProjectTitle>
+                  </Row>
 
-                </Row>
+                  <div class="text-center mb-3">
+                    {val.deadline} 〆切&emsp;...&emsp;{showDiffDate(val.deadline)}
+                  </div>            
+                  
+                  <Paper>
+                    <div class="description-box">
+                      {val.description}
+                    </div>
+                  </Paper>
 
-                
-                <div>{val.deadline} 〆切 <span>...{showDiffDate(val.deadline)}</span> </div>            
-                <div>説明:{val.description}</div>
-
-                
-                  <Link to={"/projects/" + val.id + "/edit"}>
-                    <Button variant="contained">
-                      編集画面へ
+                  <div class="text-center mt-3">
+                    <Button variant="outlined" color="info" onClick={() => updateIsFinished(key, val) } className="w-75 font-weight-bold">
+                      プロジェクト完了!
                     </Button>
-                  </Link>
-                  <span>
-                    <Button variant="contained" color="success" onClick={() => updateIsFinished(key, val) }>
-                      プロジェクトを完了する
-                    </Button>
-                  </span>
+                  </div>
+                  <div class="text-center mt-4">
+                    <Link to={"/projects/" + val.id + "/edit"}>
+                      <Button variant="contained" color="info">
+                        プロジェクト編集
+                      </Button>
+                    </Link>
+                  </div>
+                
                 </TabPanel>
               </div>
-
             )
-        })}      
+          })}      
         </Tabs>
       </div>
     </>

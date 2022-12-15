@@ -9,6 +9,7 @@ import * as ActiveStorage from "@rails/activestorage"
 import "channels"
 import 'bootstrap'
 import '../stylesheets/application'
+import '../components/App.css'
 import 'react-toastify/dist/ReactToastify.css'
 import 'react-tabs/style/react-tabs.css'
 

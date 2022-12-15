@@ -1,28 +1,47 @@
-<h2>Log inフォーム</h2>
 
-<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :password %><br />
-    <%= f.password_field :password, autocomplete: "current-password" %>
-  </div>
-
-  <% if devise_mapping.rememberable? %>
-    <div class="field">
-      <%= f.check_box :remember_me %>
-      <%= f.label :remember_me %>
+<div class="row m-2 p-md-5 ">
+  <div class="col-sm-6 mt-5">
+    <h3 class="m-3 text-center">『CHAKKA!』とは？</h3>
+    <div class="p-4 justify-content-center">
+      <p class="mb-2 text-center">
+        ここにアプリの紹介文を追加。<br>
+        いい感じのなんか、いい感じの文章。<br>
+        それっぽいなんかいい感じの文言を追加してください。<br>
+        pre要素は使いにくいからやめた方がいい
+      </p>
+      <p class="mt-5 text-center">
+        ここに俵のgithub & 連絡用のリンク
+      </p>
     </div>
-  <% end %>
-
-  <div class="actions">
-    <%= f.submit "Log in" %>
   </div>
-<% end %>
+  <div class="col-sm-6 mt-md-5 pb-2 border border-info rounded">
+    <h2 class="mb-2 text-info">Log in</h2>
+    <div class="p-4 justify-content-center">
+      <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+        <div class="field form-group row">
+          <%= f.label :email, class:"col-sm-6 col-form-label"  %><br />
+          <%= f.email_field :email, autofocus: true, autocomplete: "email", class:"form-control" %>
+        </div>
 
-<%= render "devise/shared/links" %>
-<%= link_to 'ゲストログイン（閲覧用）', users_guest_sign_in_path, method: :post %>
-<%= link_to 'ゲスト管理者ログイン（閲覧用）', admins_guest_sign_in_path, method: :post %>
+        <div class="field form-group row">
+          <%= f.label :password, class:"col-sm-6 col-form-label"  %><br />
+          <%= f.password_field :password, autocomplete: "current-password", class:"form-control" %>
+        </div>
+
+        <% if devise_mapping.rememberable? %>
+            <%= f.check_box :remember_me %>
+            <%= f.label :remember_me %>
+        <% end %>
+
+        <div class="actions text-center">
+          <%= f.submit "Log in", class:"btn btn-primary mt-4" %>
+        </div>
+      <% end %>
+    </div>
+    <p><%= render "devise/shared/links" %></p>
+    <hr>
+    <p><%= link_to 'ゲストログイン（閲覧用）', users_guest_sign_in_path, method: :post %></p>
+    <p><%= link_to 'ゲスト管理者ログイン（閲覧用）', admins_guest_sign_in_path, method: :post %></p>
+  </div>
+</div>
+
