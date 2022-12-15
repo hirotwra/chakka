@@ -21,7 +21,7 @@ const InputForm = styled.input`
 const InputTextArea = styled.textarea`
   font-size: 15px;
   resize: none;
-  height: 100px;
+  height: 150px;
   width: 90%;
   justify-content: center;
   margin-top: 15px;
@@ -102,7 +102,10 @@ function AddProject(props) {
 
   return (
     <>
-      <h1>New Project</h1>
+      <div class="d-block d-md-none">
+        <p class="vertical-title">New Project</p>
+      </div>
+      <h2 class="d-none d-md-block text-secondary">New Project</h2>
       <InputAndButton>
       
       <div class="field form-group row">
@@ -136,7 +139,7 @@ function AddProject(props) {
           name="description"
           class="form-control"
         />
-        <label class="col-sm-6 col-form-label">説明文</label>
+        <label class="col-sm-6 col-form-label">説明</label>
       </div>
 
         <div>

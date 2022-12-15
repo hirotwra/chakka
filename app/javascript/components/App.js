@@ -9,20 +9,10 @@ import FinishProjects from './FinishProjects'
 import Contact from './Contact'
 
 
-const Nabvar = styled.nav`
-  background: #ff7150;
-  height: 50vh;
-`
-
-const NavItems = styled.ul`
-  list-style: none;
-  padding: 20px;
-`
-
 const NavItem = styled.li`
-  font-size: 15px;
+  font-size: 16px;
   font-weight: bold;
-  padding: 20px;
+  padding: 0px 10px 20px 10px;
   opacity: 0.6;
   &:hover {
     opacity: 1;
@@ -39,47 +29,46 @@ function App() {
 
   return (
     <>
-      <div class="row">
-        <div class="col-3 vh-100">
-          <Nabvar>
-            <NavItems>
-              <NavItem>
+    <div class="row pt-5">
+      <div class="col-2 col-md-3">
+        <nav class="vh-100 w-100 bg-info shadow fixed-left" id="sidebarResponsive">
+            <ul class="nav flex-column pt-5">
+              <NavItem  class="nav-item mb-4">
                 <Link to="/projects">
-                  Main
+                  <i class="fa-solid fa-house"/>&emsp;<span class="d-none d-md-inline-block">Your Projects</span>
                 </Link>
               </NavItem>
-              <NavItem>
+              <NavItem  class="nav-item mb-4">
                 <Link to="/projects/new">
-                  +New Project
+                  <i class="fa-solid fa-circle-plus"/>&emsp;<span class="d-none d-md-inline-block">New Project</span>
                 </Link>
               </NavItem>
-              <NavItem>
+              <NavItem  class="nav-item mb-4">
                 <Link to="/projects/finish">
-                  FinishedProjects
+                  <i class="fa-solid fa-clipboard-check"/>&emsp;<span class="d-none d-md-inline-block">Finished List</span>
                 </Link>
               </NavItem>
-              <NavItem>
+              <NavItem  class="nav-item mb-4">
                 <Link to="/contact">
-                  Contact
+                  <i class="fa-solid fa-phone"/>&emsp;<span class="d-none d-md-inline-block">Contact</span>
                 </Link>
               </NavItem>
-            </NavItems>
-          </Nabvar>
-        </div>
-
-        <div class="col">
-          <Wrapper>
-            <Switch>
-              <Route exact path="/projects" component={MainProject} />
-              <Route exact path="/projects/new" component={AddProject} />
-              <Route path="/projects/:id/edit" component={EditProject} />
-              <Route exact path="/projects/finish" component={FinishProjects} />
-              <Route exact path="/contact" component={Contact} />
-            </Switch>
-          </Wrapper>
-        </div>
+            </ul>
+          
+        </nav>
       </div>
-
+      <div class="col mr-1 p-0">
+        <Wrapper>
+          <Switch>
+            <Route exact path="/projects" component={MainProject} />
+            <Route exact path="/projects/new" component={AddProject} />
+            <Route path="/projects/:id/edit" component={EditProject} />
+            <Route exact path="/projects/finish" component={FinishProjects} />
+            <Route exact path="/contact" component={Contact} />
+          </Switch>
+        </Wrapper>
+      </div>
+    </div>
     </>
   )
 }

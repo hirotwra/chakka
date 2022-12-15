@@ -60,13 +60,6 @@
     </nav>
   </div>
   </header>
-    <div class="container mt-5 pt-5">
-      <div class="row p-2 mr-2 justify-content-end fixed-bottom text-right">
-        <% flash.each do |key, value| %>
-          <%= content_tag(:div, value, class: "#{key}") %>
-        <% end %>
-      </div>
       <%= yield %>
-    </div>
   </body>
 </html>

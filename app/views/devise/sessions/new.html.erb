@@ -1,6 +1,6 @@
 
-<div class="row">
-  <div class="col-sm-6">
+<div class="row m-2 p-md-5 ">
+  <div class="col-sm-6 mt-5">
     <h3 class="m-3 text-center">『CHAKKA!』とは？</h3>
     <div class="p-4 justify-content-center">
       <p class="mb-2 text-center">
@@ -14,7 +14,7 @@
       </p>
     </div>
   </div>
-  <div class="col-sm-6 pb-4 border border-info rounded">
+  <div class="col-sm-6 mt-md-5 pb-2 border border-info rounded">
     <h2 class="mb-2 text-info">Log in</h2>
     <div class="p-4 justify-content-center">
       <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
@@ -40,8 +40,8 @@
     </div>
     <p><%= render "devise/shared/links" %></p>
     <hr>
-    <span><%= link_to 'ゲストログイン（閲覧用）', users_guest_sign_in_path, method: :post %></span> /
-    <span><%= link_to 'ゲスト管理者ログイン（閲覧用）', admins_guest_sign_in_path, method: :post %></span>
+    <p><%= link_to 'ゲストログイン（閲覧用）', users_guest_sign_in_path, method: :post %></p>
+    <p><%= link_to 'ゲスト管理者ログイン（閲覧用）', admins_guest_sign_in_path, method: :post %></p>
   </div>
 </div>
 
