@@ -24,6 +24,8 @@ width: 85%;
 height: 40px;
 white-space: nowrap;
 overflow-x: scroll;
+scrollbar-width: none;
+-ms-overflow-sttle: none;
   ${({ active }) => active && `
     color: red;
   `}

@@ -30,7 +30,13 @@ body {
   margin: auto;
   border-radius: 5px;
   height: 100px;
-  overflow:scroll;
+  overflow: scroll;
+  scrollbar-width: none;
+  -ms-overflow-sttle: none;
+}
+
+::-webkit-scrollbar{
+  display: none;
 }
 
 .MuiPaper-elevation1{
@@ -84,10 +90,3 @@ input:focus {
   outline: 0;
 }
 
-::-webkit-scrollbar-track{
-  display: none;
-}
-
-::-webkit-scrollbar-button{
-  display: none;
-}
