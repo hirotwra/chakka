@@ -7,7 +7,9 @@
 body {
   min-height: 100vh;
   color: rgb(1, 1, 1);
+  overflow: hidden;
 }
+
 
 .vertical-title{
   position: fixed;
@@ -25,7 +27,7 @@ body {
 }
 
 .description-box{
-  padding: 10px;
+  padding: 8px;
   font-size: smaller;
   margin: auto;
   border-radius: 5px;
@@ -35,19 +37,32 @@ body {
   -ms-overflow-sttle: none;
 }
 
+.switch-board{
+  font-size: smaller;
+  margin: auto;
+  padding-top: 5px;
+  height: 120px;
+}
+
 ::-webkit-scrollbar{
   display: none;
 }
 
-.MuiPaper-elevation1{
-  margin: auto;
-  width: 80%;
-}
 
 .react-tabs {
   position: relative;
+  border-radius: 5px;
   width: 100%;
-  z-index: 1010;
+  z-index: 1100;
+  background-color: #FFF;
+}
+
+#maintab {
+  border-radius: 5px;
+  padding: 10px 12px 16px 12px;
+  width: 100%;
+  height: 66vh;
+  z-index: 1;
   background-color: #FFF;
 }
 
@@ -67,6 +82,10 @@ body {
   margin: auto;
   z-index: 1000;
   color: gray;
+}
+
+#deadline-display{
+  font-size: 1.3vw;
 }
 
 
@@ -90,3 +109,21 @@ input:focus {
   outline: 0;
 }
 
+li.side-item{
+  font-size: 16px;
+  font-weight: bold;
+  padding: 0px 10px 20px 10px;
+  opacity: 0.6;
+}
+
+li.side-item:hover {
+  opacity: 1;
+}
+
+@media(min-width: 768px){
+  li.side-item{
+    margin-bottom: 10%;
+    padding-left: 20px;
+    font-size: 1.8vw;
+  }
+}

@@ -9,15 +9,7 @@ import FinishProjects from './FinishProjects'
 import Contact from './Contact'
 
 
-const NavItem = styled.li`
-  font-size: 16px;
-  font-weight: bold;
-  padding: 0px 10px 20px 10px;
-  opacity: 0.6;
-  &:hover {
-    opacity: 1;
-  }
-`
+
 
 const Wrapper = styled.div`
   width: 700px;
@@ -33,26 +25,26 @@ function App() {
       <div class="col-2 col-md-3">
         <nav class="vh-100 w-100 bg-info shadow fixed-left" id="sidebarResponsive">
             <ul class="nav flex-column pt-5">
-              <NavItem  class="nav-item mb-4">
+              <li  class="side-item">
                 <Link to="/projects">
                   <i class="fa-solid fa-house"/>&emsp;<span class="d-none d-md-inline-block">Your Projects</span>
                 </Link>
-              </NavItem>
-              <NavItem  class="nav-item mb-4">
+              </li>
+              <li  class="side-item">
                 <Link to="/projects/new">
                   <i class="fa-solid fa-circle-plus"/>&emsp;<span class="d-none d-md-inline-block">New Project</span>
                 </Link>
-              </NavItem>
-              <NavItem  class="nav-item mb-4">
+              </li>
+              <li class="side-item">
                 <Link to="/projects/finish">
                   <i class="fa-solid fa-clipboard-check"/>&emsp;<span class="d-none d-md-inline-block">Finished List</span>
                 </Link>
-              </NavItem>
-              <NavItem  class="nav-item mb-4">
+              </li>
+              <li  class="side-item">
                 <Link to="/contact">
                   <i class="fa-solid fa-phone"/>&emsp;<span class="d-none d-md-inline-block">Contact</span>
                 </Link>
-              </NavItem>
+              </li>
             </ul>
           
         </nav>

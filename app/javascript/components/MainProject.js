@@ -9,12 +9,31 @@ import { Tab, Tabs, TabList, TabPanel } from 'react-tabs'
 import 'react-tabs/style/react-tabs.css'
 import Button from '@mui/material/Button'
 import Paper from '@mui/material/Paper'
+import Tooltip from '@mui/material/Tooltip'
 
 const TabColor = styled.span`
   ${({ active }) => active && `
-    color: red;
+    color: crimson;
     font-weight: bold;
   `}
+`
+
+const ModeDisplay = styled.span`
+  font-size: 50%;
+  color: white;
+  position: fixed;
+  left: 4%;
+  top: 4%;
+`
+
+const ActiveModeBg = styled.div`
+  position: fixed;
+  background: rgba(0, 0, 0, 0.9);
+  width: 100%;
+  height: 100%;
+  top:0;
+  left:0;
+  z-index: -1;
 `
 
 const ProjectTitle = styled.span`
@@ -24,10 +43,13 @@ width: 85%;
 height: 40px;
 white-space: nowrap;
 overflow-x: scroll;
-scrollbar-width: none;
--ms-overflow-sttle: none;
+@media (hover: hover) and (pointer: fine){
+  &:hover{
+    overflow-x: visible;
+  }
+}
   ${({ active }) => active && `
-    color: red;
+    color: crimson;
   `}
 `
 
@@ -35,8 +57,7 @@ const Row = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 7px auto;
-  padding: 10px;
+  margin: 4px auto;
   width: 80%;
   font-size: 25px;
   border-bottom: dotted 3px #87CEFA;
@@ -45,7 +66,7 @@ const Row = styled.div`
 const ActiveChecked = styled.div`
   display: flex;
   align-items: center;
-  color: red;
+  color: crimson;
   cursor: pointer;
 `
 
@@ -58,7 +79,7 @@ const UnActiveChecked = styled.div`
 toast.configure()
 
 const notify = () => {
-  toast("🔥CHAKKA! : プロジェクトに着手しました", {
+  toast("プロジェクト完了！天才！！！", {
     position: "bottom-center",
     hideProgressBar: true
   });
@@ -107,6 +128,7 @@ function MainProject() {
   }, [])
 
   const updateActive = (index, val) => {
+    
     var data = {
       //id: val.id,
       title : val.title,
@@ -138,13 +160,15 @@ function MainProject() {
       const newProjects = [...projects]
       newProjects[index].is_finished = resp.data.is_finished
       setProjects(newProjects)
-    })
+    });
+    notify()
     }
   }
 
 
   return (
     <>
+      
       <div class="d-block d-md-none">
         <p class="vertical-title">Your Projects</p>
       </div>
@@ -167,48 +191,71 @@ function MainProject() {
             return (val.is_finished == false &&
               <div key={key}>
                 <TabPanel>
-                  
-                  <Row>
-                    {val.active ? (
-                      <ActiveChecked>
-                        <AiFillFire onClick={() => updateActive(key, val) } />
-                      </ActiveChecked>
-                    ) : (
-                      <UnActiveChecked>
-                        <AiOutlineFire onClick={() => {
-                          updateActive(key, val); 
-                          notify()
-                        }} />
-                      </UnActiveChecked>
-                    )}
-                    <ProjectTitle active={val.active}>
-                      {val.title}
-                    </ProjectTitle>
-                  </Row>
+                  <Paper elevation={2} id='maintab'>              
+                    <Row>
+                      {val.active ? (
+                        <ActiveChecked>
+                          <ActiveModeBg />
+                          <ModeDisplay>
+                            <h5 class="d-inline d-md-block pr-1" >集中モード</h5>
+                            <span>解除するには<AiFillFire/>をクリックしてください</span>
+                          </ModeDisplay>
+                          <AiFillFire onClick={() => updateActive(key, val) } />
+                        </ActiveChecked>
+                      ) : (
+                        <UnActiveChecked>
+                          <AiOutlineFire onClick={() => updateActive(key, val)} />
+                        </UnActiveChecked>
+                      )}
+                      <ProjectTitle active={val.active}>
+                        <Tooltip title={val.title} enterDelay={1400}>
+                          <span>{val.title}</span>
+                        </Tooltip>
+                      </ProjectTitle>
+                    </Row>
 
-                  <div class="text-center mb-3">
-                    {val.deadline} 〆切&emsp;...&emsp;{showDiffDate(val.deadline)}
-                  </div>            
-                  
-                  <Paper>
-                    <div class="description-box">
-                      {val.description}
+                    <div class="text-center mb-3 text-nowrap over-flow-visible" id="deadline-display">
+                      {val.deadline} 〆切&emsp;...&emsp;{showDiffDate(val.deadline)}
+                    </div>
+                    <Paper elevation={3}>                              
+                      <div class="row description-box">
+                          {val.description}
+                      </div>
+                    </Paper>
+
+                    <div class="row mt-2 switch-board justify-content-center d-flex">
+                      <div class="h-100 col-12 col-md-7">
+                        <Paper elevation={3} class="h-100 w-100  bg-info m-1">
+                          <div >
+                        active
+                          </div>
+                        </Paper>
+                      </div>
+                      <div class="col-12 col-md-5 text-center">
+                        <div class="text-center mt-3">
+                          <Button variant="outlined" color="info" onClick={() => {
+                            updateIsFinished(key, val)
+                          }} className="font-weight-bold">
+                            プロジェクト完了!
+                          </Button>
+                        </div>
+                        <div class="text-center mt-2 mt-md-3">
+                          <Link to={"/projects/" + val.id + "/edit"}>
+                            <Button variant="contained" color="info">
+                              プロジェクト編集
+                            </Button>
+                          </Link>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row m-2 foot-board justify-content-center d-none d-md-block">
+                      <Paper elevation={3} class="bg-danger m-1">
+                          <div>
+                            active
+                          </div>
+                      </Paper> 
                     </div>
                   </Paper>
-
-                  <div class="text-center mt-3">
-                    <Button variant="outlined" color="info" onClick={() => updateIsFinished(key, val) } className="w-75 font-weight-bold">
-                      プロジェクト完了!
-                    </Button>
-                  </div>
-                  <div class="text-center mt-4">
-                    <Link to={"/projects/" + val.id + "/edit"}>
-                      <Button variant="contained" color="info">
-                        プロジェクト編集
-                      </Button>
-                    </Link>
-                  </div>
-                
                 </TabPanel>
               </div>
             )
