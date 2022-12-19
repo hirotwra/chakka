@@ -15,4 +15,4 @@ import 'react-tabs/style/react-tabs.css'
 Rails.start()
 //Turbolinks.start()
 ActiveStorage.start()
-require("jquery")
+
