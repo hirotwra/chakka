@@ -225,9 +225,8 @@ function MainProject() {
 
                     <div class="row mt-2 switch-board justify-content-center d-flex">
                       <div class="h-100 col-12 col-md-7">
-                        <Paper elevation={3} class="h-100 w-100  bg-info m-1">
+                        <Paper elevation={3} class="h-100 w-100 m-1">
                           <div >
-                        active
                           </div>
                         </Paper>
                       </div>
@@ -249,9 +248,8 @@ function MainProject() {
                       </div>
                     </div>
                     <div class="row m-2 foot-board justify-content-center d-none d-md-block">
-                      <Paper elevation={3} class="bg-danger m-1">
+                      <Paper elevation={3} class="m-1">
                           <div>
-                            active
                           </div>
                       </Paper> 
                     </div>
