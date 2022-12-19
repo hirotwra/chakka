@@ -120,9 +120,9 @@ function EditProject(props) {
   return (
     <>
       <div class="d-block d-md-none">
-        <p class="vertical-title">Edit Project</p>
+        <p class="vertical-title">編集</p>
       </div>
-      <h2 class="d-none d-md-block text-secondary">Edit Project</h2>
+      <h2 class="d-none d-md-block text-secondary">編集</h2>
       <InputAndButton>
 
         <div class="field form-group row">
@@ -133,6 +133,7 @@ function EditProject(props) {
             onChange={handleInputChange}
             name="title"
             class="form-control" 
+            placeholder='タイトル入力(100文字以内)'
           />
           <label class="col-sm-6 col-form-label">プロジェクト名</label>
         </div>
@@ -155,6 +156,7 @@ function EditProject(props) {
             onChange={handleInputChange}
             name="description"
             class="form-control"
+            placeholder='説明文を入力(任意)'
           />
           <label class="col-sm-6 col-form-label">説明</label>
         </div>
@@ -168,7 +170,7 @@ function EditProject(props) {
             onClick={updateProject}
             className="mr-3"
           >
-            Update
+            更新
           </Button>
           <Button
             variant="contained" 
@@ -176,7 +178,7 @@ function EditProject(props) {
             onClick={deleteProject}
             className="ml-3"
           >
-            Delete
+            削除
           </Button>
         </div>
 

@@ -1,4 +1,5 @@
 ja:
+  edit: 編集
   destroy: 削除
   activerecord:
     errors:

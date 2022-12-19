@@ -103,9 +103,9 @@ function AddProject(props) {
   return (
     <>
       <div class="d-block d-md-none">
-        <p class="vertical-title">New Project</p>
+        <p class="vertical-title">新規プロジェクト</p>
       </div>
-      <h2 class="d-none d-md-block text-secondary">New Project</h2>
+      <h2 class="d-none d-md-block text-secondary">新規プロジェクト</h2>
       <InputAndButton>
       
       <div class="field form-group row">
@@ -115,7 +115,8 @@ function AddProject(props) {
           value={project.title}
           onChange={handleInputChange}
           name="title"
-          class="form-control" 
+          class="form-control"
+          placeholder='タイトル入力(100文字以内)'
         />
         <label class="col-sm-6 col-form-label">プロジェクト名</label>
       </div>
@@ -138,6 +139,7 @@ function AddProject(props) {
           onChange={handleInputChange}
           name="description"
           class="form-control"
+          placeholder='説明文を入力(任意)'
         />
         <label class="col-sm-6 col-form-label">説明</label>
       </div>

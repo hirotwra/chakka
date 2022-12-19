@@ -79,9 +79,9 @@ function FinishProjects() {
   return (
     <>
       <div class="d-block d-md-none">
-        <p class="vertical-title">Finished List</p>
+        <p class="vertical-title">完了済リスト</p>
       </div>
-      <h2 class="d-none d-md-block text-secondary">Finished List</h2>
+      <h2 class="d-none d-md-block text-secondary">完了済リスト</h2>
       <div>
       <TableContainer component={Paper}>
       <Table sx={{ minWidth: 700 }} aria-label="customized table">

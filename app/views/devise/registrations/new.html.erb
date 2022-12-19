@@ -5,17 +5,17 @@
 
     <div class="field form-group row">
       <%= f.label :name, class:"col-sm-6 col-form-label" %><br />
-      <%= f.text_field :name, autofocus: true, autocomplete: "name", class:"form-control" %>
+      <%= f.text_field :name, autofocus: true, autocomplete: "name", class:"form-control", placeholder:"ニックネームを入力" %>
     </div>
 
     <div class="field form-group row">
       <%= f.label :email, class:"col-sm-6 col-form-label" %><br />
-      <%= f.email_field :email, autofocus: true, autocomplete: "email", class:"form-control" %>
+      <%= f.email_field :email, autofocus: true, autocomplete: "email", class:"form-control", placeholder:"メールアドレスを入力" %>
     </div>
 
     <div class="field form-group row">
       <%= f.label :password, class:"col-sm-9 col-form-label"%><br />
-      <%= f.password_field :password, autocomplete: "new-password", class:"form-control" %>
+      <%= f.password_field :password, autocomplete: "new-password", class:"form-control", placeholder:"パスワードを入力" %>
       <% if @minimum_password_length %>
         <em>(<%= @minimum_password_length %> characters minimum)</em>
       <% end %>
@@ -23,11 +23,11 @@
 
     <div class="field form-group row">
       <%= f.label :password_confirmation, class:"col-sm-6 col-form-label" %><br />
-      <%= f.password_field :password_confirmation, autocomplete: "new-password", class:"form-control" %>
+      <%= f.password_field :password_confirmation, autocomplete: "new-password", class:"form-control", placeholder:"パスワードを再度入力" %>
     </div>
 
     <div class="actions">
-      <%= f.submit "Sign up", class:"btn btn-primary mt-4" %>
+      <%= f.submit t('.sign_up'), class:"btn btn-primary mt-4" %>
     </div>
   <% end %>
 </div>

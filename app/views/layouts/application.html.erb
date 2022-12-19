@@ -60,7 +60,7 @@
     </nav>
   </div>
   </header>
-  <div class="row p-2 mr-2 justify-content-start fixed-bottom text-left">
+  <div class="row mr-2 pt-4 justify-content-end fixed-bottom text-right">
     <% flash.each do |key, value| %>
       <%= content_tag(:div, value, class: "#{key}") %>
     <% end %>

@@ -170,9 +170,9 @@ function MainProject() {
     <>
       
       <div class="d-block d-md-none">
-        <p class="vertical-title">Your Projects</p>
+        <p class="vertical-title">プロジェクト一覧</p>
       </div>
-      <h2 class="d-none d-md-block text-secondary">Your Projects</h2>
+      <h2 class="d-none d-md-block text-secondary">プロジェクト一覧</h2>
       <div class="w-100">
         <div id="non-project-text">未完了のプロジェクトはありません。</div>  
         <Tabs>

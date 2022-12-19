@@ -7,18 +7,21 @@
 body {
   min-height: 100vh;
   color: rgb(1, 1, 1);
-  overflow: hidden;
 }
 
 .notice,.alert{
   color: red;
   background-color: #ffffff;
-  z-index: 2000;
   animation-name: fadeOutAnime;
   animation-fill-mode: forwards;
   animation-delay: 1.0s;
   animation-duration: 4.0s;
   animation-timing-function: ease-in;
+}
+
+#login-link{
+  z-index: 1031;
+  position: relative;
 }
 
 @keyframes fadeOutAnime{
@@ -72,7 +75,7 @@ body {
   position: relative;
   border-radius: 5px;
   width: 100%;
-  z-index: 1100;
+  z-index: 1010;
   background-color: #FFF;
 }
 
