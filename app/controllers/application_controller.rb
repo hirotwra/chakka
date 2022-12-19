@@ -22,7 +22,7 @@ class ApplicationController < ActionController::Base
   else
     render "errors/404.html", status: :not_found, formats: :html
   end
-  
+end
 
   def _render_500(e = nil)
     logger.error "Rendering 500 with excaption: #{e.message}" if e
