@@ -1,6 +1,6 @@
 class User < ApplicationRecord
   include Devise::JWT::RevocationStrategies::JTIMatcher
-
+  validates :name, presence: true
   has_many :projects, dependent: :destroy
 
   def self.guest

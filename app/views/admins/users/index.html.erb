@@ -13,7 +13,7 @@
       <tr>
         <td><%= user.name %></td>
         <td><%= user.email %></td>
-        <td><%= link_to 'Destroy',admins_user_path(user), method: :delete, data: { confirm: 'Are you sure?' } %></td>  
+        <td><%= link_to I18n.t('.destroy'),admins_user_path(user), method: :delete, data: { confirm: 'Are you sure?' } %></td>  
       </tr>
     <% end %>
   </tbody>
@@ -34,5 +34,5 @@
   </tbody>
 </table>
 <div>
-  <%= link_to '管理者作成', admins_new_administer_path, class: "btn btn-secondary" %>
+  <%= link_to '管理者作成', admins_new_administer_path, class: "btn btn-secondary", id: "new-admin" %>
 </div>

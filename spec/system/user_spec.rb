@@ -12,7 +12,7 @@ RSpec.describe 'ユーザ管理機能', type: :system do
         expect(page).to have_content 'Your Projects'
       end
     end
-    context 'ログインせずにタスク一覧画面に遷移した場合' do
+    context 'ログインせずに一覧画面に遷移した場合' do
       it 'ログイン画面に遷移する' do
         visit projects_path
         expect(page).to have_content '『CHAKKA!』とは？'
@@ -49,7 +49,7 @@ RSpec.describe 'ユーザ管理機能', type: :system do
   describe 'アクセス制限' do
     let!(:normal_user) { FactoryBot.create(:normal_user) }
 
-    context '一般ユーザがユーザ一覧画面にアクセスした場合' do
+    context '一般ユーザが管理者用画面にアクセスした場合' do
       let!(:normal_user) { FactoryBot.create(:normal_user) }
       before do
         visit new_user_session_path
