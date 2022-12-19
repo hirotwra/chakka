@@ -1,4 +1,4 @@
-<h1>管理者画面:Users</h1>
+<h1 class="pt-5">管理者画面:Users</h1>
 
 <table>
   <thead>
@@ -13,8 +13,6 @@
       <tr>
         <td><%= user.name %></td>
         <td><%= user.email %></td>
-        <td><%= link_to 'Show', admins_user_path(user) %></td>
-        <td><%= link_to 'Edit', edit_admins_user_path(user)%></td>
         <td><%= link_to 'Destroy',admins_user_path(user), method: :delete, data: { confirm: 'Are you sure?' } %></td>  
       </tr>
     <% end %>
@@ -31,7 +29,6 @@
     <% @admins.each do |admin| %>
     <tr>
       <td><%= admin.email %></td>
-      <td><%= link_to 'Show', admins_user_path(admin) %></td>
     </tr>
   <% end %>
   </tbody>

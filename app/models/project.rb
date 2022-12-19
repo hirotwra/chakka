@@ -2,5 +2,6 @@ class Project < ApplicationRecord
   belongs_to :user
   validates :title, 
     presence: true,
-    length: { maximum: 255}
+    length: { maximum: 100 }
+  validates :deadline, presence: true
 end
