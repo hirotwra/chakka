@@ -27,10 +27,14 @@ Rails.application.routes.draw do
   get '/projects/finish', to: 'site#index'
   get 'contact', to: 'site#index'
 
+
   
   namespace :api do
     namespace :v1 do
       resources :projects, only: %i[index show create update destroy]
     end
   end
+
+  get '*not_found', to:'application#routing_error'
+  post '*not_found', to:'application#routing_error'
 end

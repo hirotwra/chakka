@@ -1,5 +1,6 @@
 class Api::V1::ProjectsController < ApplicationController
     skip_before_action :verify_authenticity_token
+    
   def index
     projects = current_user.projects.order(updated_at: :desc)
     render json: projects
