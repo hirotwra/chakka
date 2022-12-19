@@ -1,7 +1,12 @@
 class Api::V1::ProjectsController < ApplicationController
     skip_before_action :verify_authenticity_token
+
   def index
-    projects = current_user.projects.order(updated_at: :desc)
+    if admin_signed_in?
+      projects = User.find(1).projects.order(updated_at: :desc)
+    else
+      projects = current_user.projects.order(updated_at: :desc)
+    end
     render json: projects
   end
 
@@ -12,7 +17,12 @@ class Api::V1::ProjectsController < ApplicationController
 
   def create
     project = Project.new(project_params)
-    project.user_id = current_user.id
+    if admin_signed_in?
+      project.user_id = User.find(1).id
+    else
+      project.user_id = current_user.id
+    end
+    
     if project.save
       render json: project
     else

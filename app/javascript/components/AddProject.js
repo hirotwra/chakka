@@ -145,7 +145,8 @@ function AddProject(props) {
         <div>
         <Button
           onClick={saveProject}
-          disabled={(!project.title || /^\s*$/.test(project.title) || !project.deadline)}
+          disabled={(!project.title || /^\s*$/.test(project.title) || project.title.length > 100 || !project.deadline)}
+          id="submit-btn"
         >
           <Icon>
             <FiSend />

@@ -10,6 +10,25 @@ body {
   overflow: hidden;
 }
 
+.notice,.alert{
+  color: red;
+  background-color: #ffffff;
+  z-index: 2000;
+  animation-name: fadeOutAnime;
+  animation-fill-mode: forwards;
+  animation-delay: 1.0s;
+  animation-duration: 4.0s;
+  animation-timing-function: ease-in;
+}
+
+@keyframes fadeOutAnime{
+  0%{
+    opacity: 1;
+  }
+  100%{
+    opacity: 0;
+  }
+}
 
 .vertical-title{
   position: fixed;

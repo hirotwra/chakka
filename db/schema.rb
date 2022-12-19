@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_12_11_223422) do
+ActiveRecord::Schema.define(version: 2022_12_19_012607) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -28,7 +28,7 @@ ActiveRecord::Schema.define(version: 2022_12_11_223422) do
   end
 
   create_table "projects", force: :cascade do |t|
-    t.string "title", null: false
+    t.string "title", limit: 100, null: false
     t.date "deadline", null: false
     t.text "description"
     t.boolean "active", default: false, null: false
@@ -36,18 +36,8 @@ ActiveRecord::Schema.define(version: 2022_12_11_223422) do
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "user_id", default: 3
     t.boolean "is_finished", default: false, null: false
+    t.string "memo"
     t.index ["user_id"], name: "index_projects_on_user_id"
-  end
-
-  create_table "tasks", force: :cascade do |t|
-    t.bigint "project_id"
-    t.string "title", null: false
-    t.integer "required_time", default: 30, null: false
-    t.text "description"
-    t.boolean "finish", default: false, null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["project_id"], name: "index_tasks_on_project_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -71,5 +61,4 @@ ActiveRecord::Schema.define(version: 2022_12_11_223422) do
   end
 
   add_foreign_key "projects", "users"
-  add_foreign_key "tasks", "projects"
 end
