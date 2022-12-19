@@ -146,6 +146,7 @@ function AddProject(props) {
         <Button
           onClick={saveProject}
           disabled={(!project.title || /^\s*$/.test(project.title) || project.title.length > 100 || !project.deadline)}
+          id="submit-btn"
         >
           <Icon>
             <FiSend />

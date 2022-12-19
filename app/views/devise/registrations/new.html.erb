@@ -14,13 +14,11 @@
     </div>
 
     <div class="field form-group row">
-      <%= f.label :password, class:"col-sm-9 col-form-label" do%>
-        Password
-        <% if @minimum_password_length %>
-          <em>(<%= @minimum_password_length %> characters minimum)</em>
-        <% end %><br />
-      <% end %>
+      <%= f.label :password, class:"col-sm-9 col-form-label"%><br />
       <%= f.password_field :password, autocomplete: "new-password", class:"form-control" %>
+      <% if @minimum_password_length %>
+        <em>(<%= @minimum_password_length %> characters minimum)</em>
+      <% end %>
     </div>
 
     <div class="field form-group row">

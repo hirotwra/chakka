@@ -18,6 +18,8 @@ Rails.application.routes.draw do
 
   devise_scope :admin do
     post 'admins/guest_sign_in', to: 'admins/sessions#guest_sign_in'
+    get  'admins/new_administer', to: 'admins/registrations#new_administer'
+    post 'admins/new_administer', to: 'admins/registrations#create_administer'
   end
 
 
