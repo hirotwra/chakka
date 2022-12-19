@@ -117,6 +117,7 @@ function AddProject(props) {
           name="title"
           class="form-control"
           placeholder='タイトル入力(100文字以内)'
+          id="title-input"
         />
         <label class="col-sm-6 col-form-label">プロジェクト名</label>
       </div>
@@ -129,6 +130,7 @@ function AddProject(props) {
           onChange={handleInputChange}
           name="deadline"
           class="form-control"
+          id="deadline-input"
         />
         <label class="col-sm-6 col-form-label">締め切り日</label>
       </div>
@@ -140,6 +142,7 @@ function AddProject(props) {
           name="description"
           class="form-control"
           placeholder='説明文を入力(任意)'
+          id="description-input"
         />
         <label class="col-sm-6 col-form-label">説明</label>
       </div>

@@ -7,14 +7,14 @@ RSpec.describe 'プロジェクト管理機能', type: :system do
       visit new_user_session_path
       fill_in 'Eメール', with: 'normal@sample.com'
       fill_in 'パスワード', with: '123456'
-      click_button 'Log in'
+      click_button 'ログイン'
     end
     context 'プロジェクトを新規作成した場合' do
       it '作成したタスクが表示される' do
-        click_link 'New Project'
-        fill_in 'title', with:'お買い物'
-        fill_in 'description', with:'イオンに行く'
-        fill_in 'deadline', with:'2032/10/01'
+        click_link '新規プロジェクト'
+        fill_in "title-input", with:'お買い物'
+        fill_in "description-input", with:'イオンに行く'
+        fill_in "deadline-input", with:'2032/10/01'
         rescue Selenium::WebDriver::Error::NoAlertPresentError
         find('#submit-btn').click
         expect(page).to have_content 'お買い物'
@@ -28,7 +28,7 @@ RSpec.describe 'プロジェクト管理機能', type: :system do
       visit new_user_session_path
       fill_in 'Eメール', with: 'normal@sample.com'
       fill_in 'パスワード', with: '123456'
-      click_button 'Log in'
+      click_button 'ログイン'
       FactoryBot.create(:project, user:normal_user) 
       FactoryBot.create(:project_secound, user:normal_user)
       FactoryBot.create(:project_third, user:normal_user)
