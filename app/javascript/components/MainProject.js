@@ -109,6 +109,7 @@ function showDiffDate(limitDay) {
 function MainProject() {
   const [projects, setProjects, unfinisheds] = useState([])
   const { time, start, pause, reset, status } = useTimer();
+  
   useEffect(() => {
     axios.get('/api/v1/projects.json')
     .then(resp => {
@@ -122,14 +123,14 @@ function MainProject() {
 
 
   const updateActive = (index, val) => {
-    {start}
+    
     var data = {
-      //id: val.id,
       title : val.title,
       deadline: val.deadline,
       description: val.description,
       active: !val.active,
-      is_finished: val.is_finished
+      is_finished: val.is_finished,
+      work_time: {time}
     }
     axios.patch(`/api/v1/projects/${val.id}`, data)
     .then(resp => {
