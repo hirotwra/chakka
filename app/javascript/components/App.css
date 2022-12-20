@@ -155,11 +155,25 @@ input:focus {
   outline: 0;
 }
 
+.active-mode-menu{
+  font-size: 40%;
+  color: white;
+  position: fixed;
+  left: 5%;
+  top: 90%;
+}
 
 @media(min-width: 768px){
   li.side-item{
     margin-bottom: 10%;
     font-size: 20px;
     padding-left: 0;
+  }
+  .active-mode-menu{
+    font-size: 60%;
+    color: white;
+    position: fixed;
+    left: 4%;
+    top: 4%;
   }
 }
