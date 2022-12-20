@@ -22,8 +22,8 @@ function App() {
   return (
     <>
     <div class="row pt-5">
-      <div class="col-2 col-md-3">
-        <nav class="vh-100 w-100 bg-info shadow fixed-left" id="sidebarResponsive">
+      <div class="col-2 col-md-4 pl-0">
+        <nav class="vh-100 w-100 fixed-left" id="sidebarResponsive">
             <ul class="nav flex-column pt-5">
               <li  class="side-item">
                 <Link to="/projects">
@@ -49,7 +49,7 @@ function App() {
           
         </nav>
       </div>
-      <div class="col mr-1 p-0">
+      <div class="col mr-1 p-0 bg-white">
         <Wrapper>
           <Switch>
             <Route exact path="/projects" component={MainProject} />
