@@ -7,6 +7,7 @@ import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs'
 import 'react-tabs/style/react-tabs.css'
+import { useTimer } from 'use-timer'
 import Button from '@mui/material/Button'
 import Paper from '@mui/material/Paper'
 import Tooltip from '@mui/material/Tooltip'
@@ -16,14 +17,6 @@ const TabColor = styled.span`
     color: crimson;
     font-weight: bold;
   `}
-`
-
-const ModeDisplay = styled.span`
-  font-size: 50%;
-  color: white;
-  position: fixed;
-  left: 4%;
-  top: 4%;
 `
 
 const ActiveModeBg = styled.div`
@@ -114,7 +107,8 @@ function showDiffDate(limitDay) {
 }
 
 function MainProject() {
-  const [projects, setProjects] = useState([])
+  const [projects, setProjects, unfinisheds] = useState([])
+  const { time, start, pause, reset, status } = useTimer();
   
   useEffect(() => {
     axios.get('/api/v1/projects.json')
@@ -127,15 +121,16 @@ function MainProject() {
     })
   }, [])
 
+
   const updateActive = (index, val) => {
     
     var data = {
-      //id: val.id,
       title : val.title,
       deadline: val.deadline,
       description: val.description,
       active: !val.active,
-      is_finished: val.is_finished
+      is_finished: val.is_finished,
+      work_time: {time}
     }
     axios.patch(`/api/v1/projects/${val.id}`, data)
     .then(resp => {
@@ -172,9 +167,12 @@ function MainProject() {
       <div class="d-block d-md-none">
         <p class="vertical-title">プロジェクト一覧</p>
       </div>
-      <h2 class="d-none d-md-block text-secondary">プロジェクト一覧</h2>
+      <div class="d-flex">
+        <h2 class="d-none d-md-block text-secondary">プロジェクト一覧</h2>
+      </div>
       <div class="w-100">
-        <div id="non-project-text">未完了のプロジェクトはありません。</div>  
+        <div id="non-project-text">未完了のプロジェクトはありません。</div>
+
         <Tabs>
           <TabList>
             {projects.map((val) => {
@@ -196,15 +194,24 @@ function MainProject() {
                       {val.active ? (
                         <ActiveChecked>
                           <ActiveModeBg />
-                          <ModeDisplay>
-                            <h5 class="d-inline d-md-block pr-1" >集中モード</h5>
+                          <div class="active-mode-menu">
+                            <h5 class="d-inline d-md-block mt-5 pr-1" >集中モード</h5>
                             <span>解除するには<AiFillFire/>をクリックしてください</span>
-                          </ModeDisplay>
-                          <AiFillFire onClick={() => updateActive(key, val) } />
+                            <div>
+                              <p>経過時間{status === 'RUNNING' && <span>計測中... </span>}: {time} </p>
+                            </div>
+                          </div>
+                          <AiFillFire onClick={() => {
+                            updateActive(key, val) 
+                            reset();
+                          }} />
                         </ActiveChecked>
                       ) : (
                         <UnActiveChecked>
-                          <AiOutlineFire onClick={() => updateActive(key, val)} />
+                          <AiOutlineFire onClick={() => {
+                            updateActive(key, val);
+                            start();
+                          }} />
                         </UnActiveChecked>
                       )}
                       <ProjectTitle active={val.active}>

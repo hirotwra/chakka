@@ -27,6 +27,7 @@
     "react-toastify": "7.0",
     "styled-components": "^5.3.6",
     "turbolinks": "^5.2.0",
+    "use-timer": "^2.0.1",
     "webpack": "^4.46.0",
     "webpack-cli": "^3.3.12"
   },
