@@ -8,9 +8,6 @@ import './App.css'
 import FinishProjects from './FinishProjects'
 import Contact from './Contact'
 
-
-
-
 const Wrapper = styled.div`
   width: 700px;
   max-width: 85%;

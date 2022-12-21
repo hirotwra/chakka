@@ -78,7 +78,14 @@ const UnActiveChecked = styled.div`
 toast.configure()
 
 const notify = () => {
-  toast("プロジェクト完了！天才！！！", {
+  const messages = [
+    "プロジェクト完了！すばらしい仕事ぶりです！🎉",
+    "プロジェクト完了！スゴい！スゴすぎる！！😆",
+    "プロジェクト完了！あなたがナンバーワンです😎",
+    "プロジェクト完了！もしかして...天才ですか？🫢"
+  ];
+  const messageNo = Math.floor( Math.random() * messages.length);
+  toast.success(messages[messageNo], {
     position: "bottom-center",
     hideProgressBar: true
   });
