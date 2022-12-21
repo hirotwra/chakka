@@ -47,7 +47,7 @@ overflow-x: scroll;
   `}
 `
 
-const Row = styled.div`
+const HeadRow = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -91,20 +91,16 @@ function showWorkTime(countTime) {
 }
 
 function showDiffDate(limitDay) {
-  // 現在日時を数値に変換
   var nowDate = new Date();
   var dnumNow = nowDate.getTime();
 
-  // 指定日時を数値に変換
   var targetDate = new Date(limitDay);
   var dnumTarget = targetDate.getTime();
 
-  // 引き算して残日数を計算
-  var diffMSec = dnumTarget - dnumNow - 32400000; // 日本標準時に合わせて時差を減算
+  var diffMSec = dnumTarget - dnumNow - 32400000; 
   var diffDays = diffMSec / ( 1000 * 60 * 60 * 24 );
-  var showDays = Math.ceil( diffDays ); // 小数点以下を切り上げる
+  var showDays = Math.ceil( diffDays );
 
-  // 表示
   var Msg;
   if( showDays == 0 ) {
     Msg = <span class="text-danger font-weight-bold">今日が締め切り日です！</span>;
@@ -119,8 +115,8 @@ function showDiffDate(limitDay) {
 }
 
 function MainProject() {
-  const [projects, setProjects, unfinisheds] = useState([])
-  const { time, start, pause, reset, status } = useTimer()
+  const [projects, setProjects] = useState([])
+  const { time, start, pause, status } = useTimer()
 
   useEffect(() => {
     axios.get('/api/v1/projects.json')
@@ -173,21 +169,18 @@ function MainProject() {
 
   return (
     <>
-      
       <div class="d-block d-md-none">
         <p class="vertical-title">YourProjects</p>
       </div>
       <div class="d-flex align-items-center justify-content-between mb-1">
         <h2 class="d-none mr-2 d-md-block text-secondary">YourProjects</h2>
-        
           <p class="p-1 bg-info text-light">
             {showWorkTime(time)}
           </p>
-        
       </div>
+
       <div class="w-100">
         <div id="non-project-text">未完了のプロジェクトはありません。</div>
-
         <Tabs>
           <TabList>
             {projects.map((val) => {
@@ -205,7 +198,7 @@ function MainProject() {
               <div key={key}>
                 <TabPanel>
                   <Paper elevation={2} id='maintab'>              
-                    <Row>
+                    <HeadRow>
                       {val.active ? (
                         <ActiveChecked>
                           <ActiveModeBg />
@@ -234,7 +227,7 @@ function MainProject() {
                           <span>{val.title}</span>
                         </Tooltip>
                       </ProjectTitle>
-                    </Row>
+                    </HeadRow>
 
                     <div class="text-center mb-3 text-nowrap over-flow-visible" id="deadline-display">
                       {val.deadline} 〆切&emsp;...&emsp;{showDiffDate(val.deadline)}
@@ -245,7 +238,7 @@ function MainProject() {
                       </div>
                     </Paper>
 
-                    <div class="row mt-1 switch-board justify-content-center d-flex">
+                    <div class="switch-board row mt-1 justify-content-center d-flex">
                       <div class="col-12 col-md-7">
                         <Paper elevation={3} >
                           <div class="details">
@@ -272,12 +265,14 @@ function MainProject() {
                         </div>
                       </div>
                     </div>
-                    <div class="row m-2 foot-board justify-content-center d-none d-md-block">
+
+                    <div class="foot-board row m-2 justify-content-center d-none d-md-block">
                       <Paper elevation={3} class="m-1">
                           <div>
                           </div>
                       </Paper> 
                     </div>
+
                   </Paper>
                 </TabPanel>
               </div>

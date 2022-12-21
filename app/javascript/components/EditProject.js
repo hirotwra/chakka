@@ -28,6 +28,7 @@ const InputTextArea = styled.textarea`
   margin-top: 15px;
   padding: 2px 7px;
 `
+
 const EditButton = styled.button`
   color: white;
   font-weight: 500;
@@ -120,11 +121,11 @@ function EditProject(props) {
   return (
     <>
       <div class="d-block d-md-none">
-        <p class="vertical-title">編集</p>
+        <p class="vertical-title">Edit</p>
       </div>
-      <h2 class="d-none d-md-block text-secondary">編集</h2>
-      <InputAndButton>
+      <h2 class="d-none d-md-block text-secondary">Edit</h2>
 
+      <InputAndButton>
         <div class="field form-group row">
           <InputForm
             type="string"
@@ -137,7 +138,6 @@ function EditProject(props) {
           />
           <label class="col-sm-6 col-form-label">プロジェクト名</label>
         </div>
-
         <div class="field form-group row">
           <InputForm
             type="date"
@@ -149,7 +149,6 @@ function EditProject(props) {
           />
           <label class="col-sm-6 col-form-label">締め切り日</label>
         </div>
-
         <div class="field form-group row">
           <InputTextArea
             value={currentProject.description}
@@ -160,8 +159,6 @@ function EditProject(props) {
           />
           <label class="col-sm-6 col-form-label">説明</label>
         </div>
-
-
         <div class="p-3 d-flex justify-content-center">
           <Button
             variant="contained" 
@@ -181,7 +178,6 @@ function EditProject(props) {
             削除
           </Button>
         </div>
-
       </InputAndButton>
     </>
   );

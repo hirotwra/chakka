@@ -3,7 +3,6 @@ import axios from 'axios'
 //import styled from 'styled-components'
 import { styled } from '@mui/material/styles'
 import {CiCircleRemove, CiCircleChevUp} from 'react-icons/ci'
-import Tooltip from '@mui/material/Tooltip'
 import {format} from 'date-fns'
 import Table from '@mui/material/Table'
 import TableBody from '@mui/material/TableBody'
@@ -27,7 +26,6 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   '&:nth-of-type(odd)': {
     backgroundColor: theme.palette.action.hover,
   },
-  // hide last border
   '&:last-child td, &:last-child th': {
     border: 0,
   },
@@ -82,39 +80,40 @@ function FinishProjects() {
         <p class="vertical-title">Finished</p>
       </div>
       <h2 class="d-none d-md-block text-secondary">Finished</h2>
+
       <div>
       <TableContainer component={Paper}>
-      <Table sx={{ minWidth: 400 }} aria-label="customized table">
-        <TableHead>
-          <TableRow>
-            <StyledTableCell>Project name</StyledTableCell>
-            <StyledTableCell align="right">完了日</StyledTableCell>
-            <StyledTableCell align="center">完了前に戻す</StyledTableCell>
-            <StyledTableCell align="center">削除</StyledTableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-      {projects.map((val, key) => {
-        return (val.is_finished == true &&
-            <StyledTableRow key={key}>
-              <StyledTableCell component="th" scope="projects">
-                {(val.title).length > 20 ? (val.title).slice(0,20)+"…" : (val.title)}
-              </StyledTableCell>
-              <StyledTableCell align="right">
-                {format(new Date(val.updated_at),'yyyy-MM-dd HH:mm')}
-              </StyledTableCell>
-              <StyledTableCell align="center">
-                  <CiCircleChevUp onClick={() => {updateIsFinished  (key,val)} }/>
-              </StyledTableCell>
-              <StyledTableCell align="center">
-                  <CiCircleRemove class="text-danger" onClick={() => {deleteProject (key,val)} }/>
-              </StyledTableCell>
-            </StyledTableRow>
-        )
-      })}
-            </TableBody>
-          </Table>
-        </TableContainer>
+        <Table sx={{ minWidth: 400 }} aria-label="customized table">
+          <TableHead>
+            <TableRow>
+              <StyledTableCell>Project name</StyledTableCell>
+              <StyledTableCell align="right">完了日</StyledTableCell>
+              <StyledTableCell align="center">完了前に戻す</StyledTableCell>
+              <StyledTableCell align="center">削除</StyledTableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {projects.map((val, key) => {
+              return (val.is_finished == true &&
+                <StyledTableRow key={key}>
+                  <StyledTableCell component="th" scope="projects">
+                    {(val.title).length > 20 ? (val.title).slice(0,20)+"…" : (val.title)}
+                  </StyledTableCell>
+                  <StyledTableCell align="right">
+                    {format(new Date(val.updated_at),'yyyy-MM-dd HH:mm')}
+                  </StyledTableCell>
+                  <StyledTableCell align="center">
+                      <CiCircleChevUp onClick={() => {updateIsFinished  (key,val)} }/>
+                  </StyledTableCell>
+                  <StyledTableCell align="center">
+                      <CiCircleRemove class="text-danger" onClick={() => {deleteProject (key,val)} }/>
+                  </StyledTableCell>
+                </StyledTableRow>
+              )
+            })}
+          </TableBody>
+        </Table>
+      </TableContainer>
       </div>
     </>
   )

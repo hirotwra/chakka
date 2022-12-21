@@ -18,6 +18,7 @@ const InputForm = styled.input`
   margin-top: 18px;
   padding: 2px 7px;
 `
+
 const InputTextArea = styled.textarea`
   font-size: 15px;
   resize: none;
@@ -99,7 +100,6 @@ function AddProject(props) {
     })
   };
 
-
   return (
     <>
       <div class="d-block d-md-none">
@@ -107,56 +107,52 @@ function AddProject(props) {
       </div>
       <h2 class="d-none d-md-block text-secondary">NewProject</h2>
       <InputAndButton>
-      
-      <div class="field form-group row">
-        <InputForm
-          type="string"
-          required
-          value={project.title}
-          onChange={handleInputChange}
-          name="title"
-          class="form-control"
-          placeholder='タイトル入力(100文字以内)'
-          id="title-input"
-        />
-        <label class="col-sm-6 col-form-label">プロジェクト名</label>
-      </div>
-      
-      <div class="field form-group row">
-        <InputForm
-          type="date"
-          required
-          value={project.deadline}
-          onChange={handleInputChange}
-          name="deadline"
-          class="form-control"
-          id="deadline-input"
-        />
-        <label class="col-sm-6 col-form-label">締め切り日</label>
-      </div>
-
-      <div class="field form-group row">
-        <InputTextArea
-          value={project.description}
-          onChange={handleInputChange}
-          name="description"
-          class="form-control"
-          placeholder='説明文を入力(任意)'
-          id="description-input"
-        />
-        <label class="col-sm-6 col-form-label">説明</label>
-      </div>
-
+        <div class="field form-group row">
+          <InputForm
+            type="string"
+            required
+            value={project.title}
+            onChange={handleInputChange}
+            name="title"
+            class="form-control"
+            placeholder='タイトル入力(100文字以内)'
+            id="title-input"
+          />
+          <label class="col-sm-6 col-form-label">プロジェクト名</label>
+        </div>
+        <div class="field form-group row">
+          <InputForm
+            type="date"
+            required
+            value={project.deadline}
+            onChange={handleInputChange}
+            name="deadline"
+            class="form-control"
+            id="deadline-input"
+          />
+          <label class="col-sm-6 col-form-label">締め切り日</label>
+        </div>
+        <div class="field form-group row">
+          <InputTextArea
+            value={project.description}
+            onChange={handleInputChange}
+            name="description"
+            class="form-control"
+            placeholder='説明文を入力(任意)'
+            id="description-input"
+          />
+          <label class="col-sm-6 col-form-label">説明</label>
+        </div>
         <div>
-        <Button
-          onClick={saveProject}
-          disabled={(!project.title || /^\s*$/.test(project.title) || project.title.length > 100 || !project.deadline)}
-          id="submit-btn"
-        >
-          <Icon>
-            <FiSend />
-          </Icon>
-        </Button>
+          <Button
+            onClick={saveProject}
+            disabled={(!project.title || /^\s*$/.test(project.title) || project.title.length > 100 || !project.deadline)}
+            id="submit-btn"
+          >
+            <Icon>
+              <FiSend />
+            </Icon>
+          </Button>
         </div>
       </InputAndButton>
     </>

@@ -142,7 +142,6 @@ li.side-item:hover {
   font-size: 1.3vw;
 }
 
-
 h1 {
   text-align: center;
   margin-top: 30px;
@@ -193,7 +192,6 @@ input:focus {
     width: 80px; /* この幅を超えると省略 */
     font-size: small;
   }
-  
 }
 
 @media(min-width: 1200px){
@@ -204,5 +202,4 @@ input:focus {
     padding: 10px;
     height: 180px;
   }
-  
 }
