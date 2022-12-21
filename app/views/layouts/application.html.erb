@@ -26,7 +26,7 @@
             <ul class="navbar-nav ml-auto ">
               <% if user_signed_in? %>
                 <li class="nav-item active">
-                  <%= link_to 'users/edit', class: "nav-link", id: "edit-link" do %><i class="fa-solid fa-user"> <%= current_user.name %> でログイン中</i><% end %>
+                  <%= link_to '/users/edit', class: "nav-link", id: "edit-link" do %><i class="fa-solid fa-user"> <%= current_user.name %> でログイン中</i><% end %>
                 </li>
                 <li class="nav-item active" >
                   <%= link_to destroy_user_session_path, method: :delete, class: "nav-link", id: "logout" do %><i class="fa-solid fa-right-from-bracket"> ログアウト</i><% end %>
@@ -36,7 +36,7 @@
                 </li>
               <% elsif admin_signed_in? %>
                 <li class="nav-item active">
-                  <%= link_to 'admins/edit', class: "nav-link" do %><i class="fa-solid fa-user"> <%= current_admin.email %>(管理者)でログイン中</i><% end %>
+                  <%= link_to '/admins/edit', class: "nav-link" do %><i class="fa-solid fa-user"> <%= current_admin.email %>(管理者)でログイン中</i><% end %>
                 </li>
                 <li class="nav-item active">
                   <%= link_to admins_users_path, class: "nav-link", id: "users-index" do %><i class="fa-solid fa-house">管理画面へ</i><% end %>
