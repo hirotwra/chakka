@@ -8,6 +8,7 @@ import 'react-toastify/dist/ReactToastify.css'
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs'
 import 'react-tabs/style/react-tabs.css'
 import { useTimer } from 'use-timer'
+import {format} from 'date-fns'
 import Button from '@mui/material/Button'
 import Paper from '@mui/material/Paper'
 import Tooltip from '@mui/material/Tooltip'
@@ -67,6 +68,11 @@ const UnActiveChecked = styled.div`
   display: flex;
   align-items: center;
   cursor: pointer;
+  transition:0.3s;
+  &:hover{
+    color: crimson;
+    transform: scale(0.9);
+  }
 `
 
 toast.configure()
@@ -76,6 +82,12 @@ const notify = () => {
     position: "bottom-center",
     hideProgressBar: true
   });
+}
+
+function showWorkTime(countTime) {
+  var CountSum
+  CountSum = <span>今回は {Math.floor((parseInt(countTime,10)) / 60)}分 集中しました！</span>
+  return CountSum;
 }
 
 function showDiffDate(limitDay) {
@@ -108,8 +120,8 @@ function showDiffDate(limitDay) {
 
 function MainProject() {
   const [projects, setProjects, unfinisheds] = useState([])
-  const { time, start, pause, reset, status } = useTimer();
-  
+  const { time, start, pause, reset, status } = useTimer()
+
   useEffect(() => {
     axios.get('/api/v1/projects.json')
     .then(resp => {
@@ -123,14 +135,12 @@ function MainProject() {
 
 
   const updateActive = (index, val) => {
-    
     var data = {
       title : val.title,
       deadline: val.deadline,
       description: val.description,
       active: !val.active,
       is_finished: val.is_finished,
-      work_time: {time}
     }
     axios.patch(`/api/v1/projects/${val.id}`, data)
     .then(resp => {
@@ -165,10 +175,15 @@ function MainProject() {
     <>
       
       <div class="d-block d-md-none">
-        <p class="vertical-title">プロジェクト一覧</p>
+        <p class="vertical-title">YourProjects</p>
       </div>
-      <div class="d-flex">
-        <h2 class="d-none d-md-block text-secondary">プロジェクト一覧</h2>
+      <div class="d-flex align-items-center justify-content-between mb-1">
+        <h2 class="d-none mr-2 d-md-block text-secondary">YourProjects</h2>
+        
+          <p class="p-1 bg-info text-light">
+            {showWorkTime(time)}
+          </p>
+        
       </div>
       <div class="w-100">
         <div id="non-project-text">未完了のプロジェクトはありません。</div>
@@ -203,7 +218,7 @@ function MainProject() {
                           </div>
                           <AiFillFire onClick={() => {
                             updateActive(key, val) 
-                            reset();
+                            pause();
                           }} />
                         </ActiveChecked>
                       ) : (
@@ -230,25 +245,28 @@ function MainProject() {
                       </div>
                     </Paper>
 
-                    <div class="row mt-2 switch-board justify-content-center d-flex">
-                      <div class="h-100 col-12 col-md-7">
-                        <Paper elevation={3} class="h-100 w-100 m-1">
-                          <div >
+                    <div class="row mt-1 switch-board justify-content-center d-flex">
+                      <div class="col-12 col-md-7">
+                        <Paper elevation={3} >
+                          <div class="details">
+                            <p>
+                              作成日時:&emsp;{format(new Date(val.created_at),'yyyy-MM-dd HH:mm')}
+                            </p>
                           </div>
                         </Paper>
                       </div>
-                      <div class="col-12 col-md-5 text-center">
-                        <div class="text-center mt-3">
+                      <div class="d-flex d-md-block col-12 col-md-5 justify-content-around">
+                        <div class="text-center mt-2 mt-md-3">
                           <Button variant="outlined" color="info" onClick={() => {
                             updateIsFinished(key, val)
                           }} className="font-weight-bold">
-                            プロジェクト完了!
+                            <span class="d-none d-md-block">プロジェクト</span>完了!
                           </Button>
                         </div>
                         <div class="text-center mt-2 mt-md-3">
                           <Link to={"/projects/" + val.id + "/edit"}>
                             <Button variant="contained" color="info">
-                              プロジェクト編集
+                              <span class="d-none d-md-block">プロジェクト</span>編集
                             </Button>
                           </Link>
                         </div>

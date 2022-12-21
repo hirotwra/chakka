@@ -79,12 +79,12 @@ function FinishProjects() {
   return (
     <>
       <div class="d-block d-md-none">
-        <p class="vertical-title">完了済リスト</p>
+        <p class="vertical-title">Finished</p>
       </div>
-      <h2 class="d-none d-md-block text-secondary">完了済リスト</h2>
+      <h2 class="d-none d-md-block text-secondary">Finished</h2>
       <div>
       <TableContainer component={Paper}>
-      <Table sx={{ minWidth: 700 }} aria-label="customized table">
+      <Table sx={{ minWidth: 400 }} aria-label="customized table">
         <TableHead>
           <TableRow>
             <StyledTableCell>Project name</StyledTableCell>
@@ -104,14 +104,10 @@ function FinishProjects() {
                 {format(new Date(val.updated_at),'yyyy-MM-dd HH:mm')}
               </StyledTableCell>
               <StyledTableCell align="center">
-                <Tooltip title="boo">
                   <CiCircleChevUp onClick={() => {updateIsFinished  (key,val)} }/>
-                </Tooltip>
               </StyledTableCell>
               <StyledTableCell align="center">
-                <Tooltip title="del">
                   <CiCircleRemove class="text-danger" onClick={() => {deleteProject (key,val)} }/>
-                </Tooltip>
               </StyledTableCell>
             </StyledTableRow>
         )

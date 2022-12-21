@@ -51,6 +51,6 @@ class Api::V1::ProjectsController < ApplicationController
   private
 
   def project_params
-    params.require(:project).permit(:title, :deadline, :description, :active, :user_id, :is_finished, :work_time)
+    params.require(:project).permit(:title, :deadline, :description, :active, :user_id, :is_finished)
   end
 end
