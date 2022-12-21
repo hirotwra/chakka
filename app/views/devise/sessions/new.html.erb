@@ -1,20 +1,26 @@
 
 <div class="row m-2 p-md-5 ">
-  <div class="col-sm-6 mt-5">
+  <div class="col-12 col-md-5 mt-5 mr-5">
     <h3 class="m-3 text-center">『CHAKKA!』とは？</h3>
-    <div class="p-4 justify-content-center">
-      <p class="mb-2 small">
-        CHAKKAは、あなたのやる気に火を点けるToDo管理Webアプリです。<br>
-        PC/スマートフォンの表示に対応し、いつでもあなたの作業をサポートします。<br>
-        またCHAKKAはシングルページで構成され、ストレス無く快適に操作できます。<br>
+    <div class="pt-4 justify-content-center">
+      <p class="d-flex align-items-center mb-2 small">
+        CHAKKAは、あなたのやる気に火を点けるToDoアプリです。<br>
+        PC/スマートフォンの表示に対応しており、いつでもあなたの作業をサポートすることができます。<br>
+        またCHAKKAはシングルページで構成され、ストレス無く快適な操作が可能です。<br>
         まずはゲストログインで操作感を体験してみてください。
       </p>
       <p class="mt-5 text-center">
-        ここに俵のgithub & 連絡用のリンク
+
+          <span class="d-flex d-md-block p-1">
+            つくった人: Tawara Hiroyasu
+            <a href='https://github.com/HiroyasuTawara'><i class="fa-brands fa-github"></i></a>
+            <a href='https://twitter.com/Hiro_Twr_49'><i class="fa-brands fa-twitter"></i></a>
+          </span>
+
       </p>
     </div>
   </div>
-  <div class="col-sm-6 mt-md-5 mb-5 pb-2 border border-info rounded" >
+  <div class="col-12 col-md-6 mt-md-5 mb-5 pb-2 border border-info rounded" >
     <h2 class="mb-2 text-info">Log in</h2>
     <div class="p-4 justify-content-center">
       <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>

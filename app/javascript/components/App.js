@@ -27,22 +27,22 @@ function App() {
             <ul class="nav flex-column pt-5">
               <li  class="side-item">
                 <Link to="/projects">
-                  <i class="fa-solid fa-house"/>&emsp;<span class="d-none d-md-inline-block">プロジェクト一覧</span>
+                  <i class="fa-solid fa-house"/>&emsp;<span class="d-none d-md-inline-block">YourProjects</span>
                 </Link>
               </li>
               <li  class="side-item">
                 <Link to="/projects/new">
-                  <i class="fa-solid fa-circle-plus"/>&emsp;<span class="d-none d-md-inline-block">新規プロジェクト</span>
+                  <i class="fa-solid fa-circle-plus"/>&emsp;<span class="d-none d-md-inline-block">NewProject</span>
                 </Link>
               </li>
               <li class="side-item">
                 <Link to="/projects/finish">
-                  <i class="fa-solid fa-clipboard-check"/>&emsp;<span class="d-none d-md-inline-block">完了済リスト</span>
+                  <i class="fa-solid fa-clipboard-check"/>&emsp;<span class="d-none d-md-inline-block">Finished</span>
                 </Link>
               </li>
               <li  class="side-item">
                 <Link to="/contact">
-                  <i class="fa-solid fa-phone"/>&emsp;<span class="d-none d-md-inline-block">連絡先</span>
+                  <i class="fa-solid fa-phone"/>&emsp;<span class="d-none d-md-inline-block">Contact</span>
                 </Link>
               </li>
             </ul>

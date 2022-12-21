@@ -103,9 +103,9 @@ function AddProject(props) {
   return (
     <>
       <div class="d-block d-md-none">
-        <p class="vertical-title">新規プロジェクト</p>
+        <p class="vertical-title">NewProject</p>
       </div>
-      <h2 class="d-none d-md-block text-secondary">新規プロジェクト</h2>
+      <h2 class="d-none d-md-block text-secondary">NewProject</h2>
       <InputAndButton>
       
       <div class="field form-group row">
