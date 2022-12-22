@@ -105,7 +105,7 @@ function EditProject(props) {
   };
 
   const deleteProject = () => {
-    const sure = window.confirm('Are you sure?');
+    const sure = window.confirm('プロジェクトを削除します。よろしいですか?');
     if (sure) {
       axios.delete(`/api/v1/projects/${currentProject.id}`)
       .then(resp => {
