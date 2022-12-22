@@ -31,17 +31,17 @@ const ActiveModeBg = styled.div`
 `
 
 const ProjectTitle = styled.span`
-font-size: 24px;
-text-align:center;
-width: 85%;
-height: 40px;
-white-space: nowrap;
-overflow-x: scroll;
-@media (hover: hover) and (pointer: fine){
-  &:hover{
-    overflow-x: visible;
+  font-size: 24px;
+  text-align:center;
+  width: 85%;
+  height: 40px;
+  white-space: nowrap;
+  overflow-x: scroll;
+  @media (hover: hover) and (pointer: fine){
+    &:hover{
+      overflow-x: visible;
+    }
   }
-}
   ${({ active }) => active && `
     color: crimson;
   `}
@@ -260,13 +260,15 @@ function MainProject() {
                           <Button variant="outlined" color="info" onClick={() => {
                             updateIsFinished(key, val)
                           }} className="font-weight-bold">
-                            <span class="d-none d-md-block">プロジェクト</span>完了!
+                            <span class="d-none d-lg-block">プロジェクト完了!</span>
+                            <span class="d-block d-lg-none">完了!</span>
                           </Button>
                         </div>
                         <div class="text-center mt-2 mt-md-3">
                           <Link to={"/projects/" + val.id + "/edit"}>
                             <Button variant="contained" color="info">
-                              <span class="d-none d-md-block">プロジェクト</span>編集
+                              <span class="d-none d-lg-block">プロジェクト編集</span>
+                              <span class="d-block d-lg-none">編集</span>
                             </Button>
                           </Link>
                         </div>

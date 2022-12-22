@@ -67,7 +67,7 @@ function EditProject(props) {
   const [currentProject, setCurrentProject] = useState(initialProjectState);
 
   const notify = () => {
-    toast.success("Project successfully updated!", {
+    toast("プロジェクトを編集しました！", {
       position: "bottom-center",
       hideProgressBar: true
     });
