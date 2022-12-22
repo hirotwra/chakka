@@ -64,7 +64,7 @@ function AddProject(props) {
   const [project, setProject] = useState(initialProjectState);
 
   const notify = () => {
-    toast.success("プロジェクトを作成しました！", {
+    toast("プロジェクトを作成しました！", {
       position: "bottom-center",
       hideProgressBar: true
     });
