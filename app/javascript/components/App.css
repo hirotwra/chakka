@@ -10,6 +10,19 @@ body {
   
 }
 
+.visible{
+  display:block;
+}
+
+.invisible{
+  display: none;
+}
+
+#concent-switch{
+  z-index: 1022;
+  position: relative;
+}
+
 #sidebarResponsive{
   box-shadow: 5px 0 5px #ccc;
 }
@@ -24,7 +37,6 @@ li.side-item{
 li.side-item:hover {
   opacity: 1;
 }
-
 
 .notice,.alert{
   color: red;
@@ -96,20 +108,17 @@ li.side-item:hover {
   display: none;
 }
 
-
 .react-tabs {
   position: relative;
   border-radius: 5px;
   width: 100%;
-  z-index: 1020;
-  background-color: #FFF;
+  z-index: 1022;
 }
 
 #maintab {
   border-radius: 5px;
   padding: 10px 12px 16px 12px;
   width: 100%;
-  z-index: 1;
   background-color: #FFF;
 }
 
@@ -170,6 +179,16 @@ input:focus {
   top: 90%;
 }
 
+.cons-time{
+  color: #FFF;
+  background-color: #17a2b8;
+  padding: 4px;
+  border-radius: 2.5px;
+  position: fixed;
+  bottom: 35px;
+  right: 60px;
+}
+
 @media(min-width: 768px){
   li.side-item{
     margin-bottom: 10%;
@@ -194,6 +213,10 @@ input:focus {
   }
   #deadline-display{
     font-size: 14px;
+  }
+  .cons-time{
+    bottom: 30px;
+    right: 50px;
   }
 }
 
