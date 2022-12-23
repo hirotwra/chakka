@@ -2,12 +2,10 @@ import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
 import styled from 'styled-components'
-import { AiFillFire, AiOutlineFire } from 'react-icons/ai'
 import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs'
 import 'react-tabs/style/react-tabs.css'
-import { useTimer } from 'use-timer'
 import {format} from 'date-fns'
 import Button from '@mui/material/Button'
 import Paper from '@mui/material/Paper'
@@ -18,16 +16,6 @@ const TabColor = styled.span`
     color: crimson;
     font-weight: bold;
   `}
-`
-
-const ActiveModeBg = styled.div`
-  position: fixed;
-  background: rgba(0, 0, 0, 0.9);
-  width: 100%;
-  height: 100%;
-  top:0;
-  left:0;
-  z-index: -1;
 `
 
 const ProjectTitle = styled.span`
@@ -42,9 +30,6 @@ const ProjectTitle = styled.span`
       overflow-x: visible;
     }
   }
-  ${({ active }) => active && `
-    color: crimson;
-  `}
 `
 
 const HeadRow = styled.div`
@@ -55,24 +40,6 @@ const HeadRow = styled.div`
   width: 80%;
   font-size: 25px;
   border-bottom: dotted 3px #87CEFA;
-`
-
-const ActiveChecked = styled.div`
-  display: flex;
-  align-items: center;
-  color: crimson;
-  cursor: pointer;
-`
-
-const UnActiveChecked = styled.div`
-  display: flex;
-  align-items: center;
-  cursor: pointer;
-  transition:0.3s;
-  &:hover{
-    color: crimson;
-    transform: scale(0.9);
-  }
 `
 
 toast.configure()
@@ -89,12 +56,6 @@ const notify = () => {
     position: "bottom-center",
     hideProgressBar: true
   });
-}
-
-function showWorkTime(countTime) {
-  var CountSum
-  CountSum = <span>今回は {Math.floor((parseInt(countTime,10)) / 60)}分 集中しました！</span>
-  return CountSum;
 }
 
 function showDiffDate(limitDay) {
@@ -123,7 +84,6 @@ function showDiffDate(limitDay) {
 
 function MainProject() {
   const [projects, setProjects] = useState([])
-  const { time, start, pause, status } = useTimer()
 
   useEffect(() => {
     axios.get('/api/v1/projects.json')
@@ -135,23 +95,6 @@ function MainProject() {
       console.log(e);
     })
   }, [])
-
-
-  const updateActive = (index, val) => {
-    var data = {
-      title : val.title,
-      deadline: val.deadline,
-      description: val.description,
-      active: !val.active,
-      is_finished: val.is_finished,
-    }
-    axios.patch(`/api/v1/projects/${val.id}`, data)
-    .then(resp => {
-      const newProjects = [...projects]
-      newProjects[index].active = resp.data.active
-      setProjects(newProjects)
-    })
-  }
 
   const updateIsFinished = (index, val) => {
     var data = {
@@ -173,18 +116,12 @@ function MainProject() {
     }
   }
 
-
   return (
     <>
       <div class="d-block d-md-none">
         <p class="vertical-title">YourProjects</p>
       </div>
-      <div class="d-flex align-items-center justify-content-between mb-1">
-        <h2 class="d-none mr-2 d-md-block text-secondary">YourProjects</h2>
-          <p class="p-1 bg-info text-light">
-            {showWorkTime(time)}
-          </p>
-      </div>
+      <h2 class="d-none mr-2 d-md-block text-secondary">YourProjects</h2>
 
       <div class="w-100">
         <div id="non-project-text">未完了のプロジェクトはありません。</div>
@@ -206,29 +143,6 @@ function MainProject() {
                 <TabPanel>
                   <Paper elevation={2} id='maintab'>              
                     <HeadRow>
-                      {val.active ? (
-                        <ActiveChecked>
-                          <ActiveModeBg />
-                          <div class="active-mode-menu">
-                            <h5 class="d-inline d-md-block mt-5 pr-1" >集中モード</h5>
-                            <span>解除するには<AiFillFire/>をクリックしてください</span>
-                            <div>
-                              <p>経過時間{status === 'RUNNING' && <span>計測中... </span>}: {time} </p>
-                            </div>
-                          </div>
-                          <AiFillFire onClick={() => {
-                            updateActive(key, val) 
-                            pause();
-                          }} />
-                        </ActiveChecked>
-                      ) : (
-                        <UnActiveChecked>
-                          <AiOutlineFire onClick={() => {
-                            updateActive(key, val);
-                            start();
-                          }} />
-                        </UnActiveChecked>
-                      )}
                       <ProjectTitle active={val.active}>
                         <Tooltip title={val.title} enterDelay={1400}>
                           <span>{val.title}</span>
