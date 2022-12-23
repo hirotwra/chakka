@@ -74,23 +74,21 @@ function App() {
               </li>
               <li class="side-item"  id='concent-switch'>
                 {isConcent ? 
-                  <span onClick={pauseConcent}><AiFillFire color={'crimson'} /></span> :
-                  <span onClick={startConcent}><AiFillFire/></span>
+                  <span onClick={pauseConcent}><AiFillFire color={'crimson'} />&emsp;<span class="d-none d-md-inline-block">Cocentration</span></span> :
+                  <span onClick={startConcent}><AiFillFire/>&emsp;<span class="d-none d-md-inline-block">Cocentration</span></span>
                 }
-                &emsp;<span class="d-none d-md-inline-block">Cocentration</span> 
               </li>
-                <div className={isConcent ? 'visible' : 'invisible'}>
-                  <ConcentModeBg>
-                    <div class="active-mode-menu">
-                      <h5 class="d-inline d-md-block mt-5 pr-1" >集中モード</h5>
-                      <span>解除するには<AiFillFire/>をクリックしてください</span>
-                      <div>
-                        <p>経過時間{status === 'RUNNING' && <span>計測中... </span>}: {time} </p>
-                      </div>
+              <div className={isConcent ? 'visible' : 'invisible'}>
+                <ConcentModeBg>
+                  <div class="active-mode-menu">
+                    <h5 class="d-inline d-md-block mt-5 pr-1" >集中モード</h5>
+                    <span>解除するには<AiFillFire/>をクリックしてください</span>
+                    <div>
+                      <p>経過時間{status === 'RUNNING' && <span>計測中... </span>}: {time} </p>
                     </div>
-                  </ ConcentModeBg>
-                </div>
-              
+                  </div>
+                </ ConcentModeBg>
+              </div>
             </ul>
           </nav>
         </div>
