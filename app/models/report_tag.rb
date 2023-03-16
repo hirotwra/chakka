@@ -1,0 +1,2 @@
+class ReportTag < ApplicationRecord
+end
