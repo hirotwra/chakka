@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_03_17_080050) do
+ActiveRecord::Schema.define(version: 2023_03_20_002906) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -75,7 +75,7 @@ ActiveRecord::Schema.define(version: 2023_03_17_080050) do
 
   create_table "reports", force: :cascade do |t|
     t.bigint "user_id"
-    t.boolean "is_finished?", default: false
+    t.boolean "is_finished", default: false
     t.text "y_record", null: false
     t.text "w_record", null: false
     t.text "t_record", null: false
