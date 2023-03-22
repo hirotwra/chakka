@@ -1,0 +1,2 @@
+class BadgeCondition < ApplicationRecord
+end
