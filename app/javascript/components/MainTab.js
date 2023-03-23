@@ -11,76 +11,39 @@ import Button from '@mui/material/Button'
 import Paper from '@mui/material/Paper'
 import Tooltip from '@mui/material/Tooltip'
 
-const TabColor = styled.span`
-  ${({ active }) => active && `
-    color: crimson;
-    font-weight: bold;
-  `}
-`
+//const notify = () => {
+//  const messages = [
+//  ];
+//  const messageNo = Math.floor( Math.random() * messages.length);
+//  toast.success(messages[messageNo], {
+//    position: "bottom-center",
+//    hideProgressBar: true
+//  });
+//}
 
-const ProjectTitle = styled.span`
-  font-size: 24px;
-  text-align:center;
-  width: 85%;
-  height: 40px;
-  white-space: nowrap;
-  overflow-x: scroll;
-  @media (hover: hover) and (pointer: fine){
-    &:hover{
-      overflow-x: visible;
-    }
-  }
-`
-
-const HeadRow = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 4px auto;
-  width: 80%;
-  font-size: 25px;
-  border-bottom: dotted 3px #87CEFA;
-`
-
-toast.configure()
-
-const notify = () => {
-  const messages = [
-    "プロジェクト完了！すばらしい仕事ぶりです！🎉",
-    "プロジェクト完了！スゴい！スゴすぎる！！😆",
-    "プロジェクト完了！あなたがナンバーワンです😎",
-    "プロジェクト完了！もしかして...天才ですか？🤔"
-  ];
-  const messageNo = Math.floor( Math.random() * messages.length);
-  toast.success(messages[messageNo], {
-    position: "bottom-center",
-    hideProgressBar: true
-  });
-}
-
-function showDiffDate(limitDay) {
-  var nowDate = new Date();
-  var dnumNow = nowDate.getTime();
-
-  var targetDate = new Date(limitDay);
-  var dnumTarget = targetDate.getTime();
-
-  var diffMSec = dnumTarget - dnumNow - 32400000; 
-  var diffDays = diffMSec / ( 1000 * 60 * 60 * 24 );
-  var showDays = Math.ceil( diffDays );
-
-  var Msg;
-  if( showDays == 0 ) {
-    Msg = <span class="text-danger font-weight-bold">今日が締め切り日です！</span>;
-  }else if( showDays <= 5 && showDays > 0 ) {
-    Msg = <span class="text-warning font-weight-bold">残り{showDays}日です。</span>;
-  }else if( showDays > 0 ) {
-    Msg = "残り" + showDays + "日です。";
-  }else {
-    Msg = <span class="text-secondary">{showDays * -1}日前に過ぎました。</span>;
-  }
-  return Msg;
-}
+//function showDiffDate(limitDay) {
+//  var nowDate = new Date();
+//  var dnumNow = nowDate.getTime();
+//
+//  var targetDate = new Date(limitDay);
+//  var dnumTarget = targetDate.getTime();
+//
+//  var diffMSec = dnumTarget - dnumNow - 32400000; 
+//  var diffDays = diffMSec / ( 1000 * 60 * 60 * 24 );
+//  var showDays = Math.ceil( diffDays );
+//
+//  var Msg;
+//  if( showDays == 0 ) {
+//    Msg = <span class="text-danger font-weight-bold">今日が締め切り日です！</span>;
+//  }else if( showDays <= 5 && showDays > 0 ) {
+//    Msg = <span class="text-warning font-weight-bold">残り{showDays}日です。</span>;
+//  }else if( showDays > 0 ) {
+//    Msg = "残り" + showDays + "日です。";
+//  }else {
+//    Msg = <span class="text-secondary">{showDays * -1}日前に過ぎました。</span>;
+//  }
+//  return Msg;
+//}
 
 function MainTab() {
   const [reports, setReports] = useState([])
@@ -125,8 +88,8 @@ function MainTab() {
       <div class="w-100">
         <h3 class="d-none mr-2 d-md-block text-secondary">次やること:</h3>
         <div>次のレベルまで:</div>
-        <div id="non-project-text">未完了のプロジェクトはありません。</div>
-
+        <div id="non-project-text">着手している:</div>
+        <></>
         
       </div>
     </>

@@ -4,6 +4,7 @@ import { AiFillFire, AiFillHome, AiFillPlusCircle, AiFillPhone, AiFillCarryOut }
 //import { useTimer } from 'use-timer'
 import styled from 'styled-components'
 import MainTab from './MainTab'
+import ActiveWork from './ActiveWork'
 import Reports from './Reports'
 import UserStatus from './UserStatus'
 import './App.css'
@@ -83,6 +84,7 @@ function App() {
           <Wrapper>
             <Switch>
               <Route exact path="/maintab" component={MainTab} />
+              <Route exact path="/active_work" component={ActiveWork} />
               <Route exact path="/reports" component={Reports} />
               <Route exact path="/user_status" component={UserStatus} />
               <Route exact path="/contact" component={Contact} />

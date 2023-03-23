@@ -24,6 +24,7 @@ Rails.application.routes.draw do
 
   #サイドバー内リンク
   get 'maintab', to: 'site#index'
+  get 'active_work', to: 'site#index'
   get 'reports', to: 'site#index'
   get 'user_status', to: "site#index"
   get 'contact', to: 'site#index'
