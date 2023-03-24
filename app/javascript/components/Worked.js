@@ -1,27 +1,12 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
+import styled from 'styled-components';
 //コンテクストオブジェクトの読みこみ
 import { useContext } from "react";
 import { UserInputData } from "./ActiveWork";
 import { useForm, Controller } from "react-hook-form";
-import axios from 'axios'
-import styled from 'styled-components'
 
+import axios from 'axios';
 import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
-
-const InputAndButton = styled.div`
-  justify-content: space-between;
-  margin-top: 20px;
-`
-
-const InputForm = styled.input`
-  font-size: 15px;
-  width: 90%;
-  height: 20px;
-  justify-content: center;
-  margin-top: 18px;
-  padding: 2px 7px;
-`
 
 const InputTextArea = styled.textarea`
   font-size: 15px;
@@ -33,11 +18,10 @@ const InputTextArea = styled.textarea`
   padding: 2px 7px;
 `
 
-const Icon = styled.span`
-  align-items: center;
-  margin: 0 7px;
+const InputAndButton = styled.div`
+  justify-content: space-between;
+  margin-top: 20px;
 `
-
 function Worked(props) {
   const { control, handleSubmit } = useForm({
     defaultValues: {
@@ -46,7 +30,7 @@ function Worked(props) {
   });
 
   //ActiveWorkで作ったコンテクストオブジェクトを引き渡す
-  const [report, setReport] = useContext(UserInputData);
+  const {report, setReport} = useContext(UserInputData);
   const onSubmit = (action) => {
     if(action === 'back') {
       props.handleBack();
@@ -88,28 +72,37 @@ function Worked(props) {
 
   return (
     <>
-
-      <InputAndButton>
-        <div class="field form-group row">
-          <InputTextArea
-            value={report.t_record}
-            onChange={handleInputChange}
-            name="t_record"
-            class="form-control"
-            placeholder='今回取り組んだことを記録しましょう'
-            id="t_record-input"
-          />
-          <label class="col-sm-6 col-form-label">次やること</label>
-        </div>
+<form onSubmit={handleSubmit(onSubmit)}>
+        <Controller
+          control={control}
+          name="textarea"
+          render={({ field }) => (
+            <InputTextArea
+              {...field}
+              label="t_record"
+              fullWidth
+              margin="normal"
+              placeholder="プレースホルダー"
+            />
+          )}
+        />
         <div>
         <Button
-          onClick={saveReport}
-          id="submit-btn"
+            variant="contained"
+            color="primary"
+            type="submit"
         >
-          完了
+            次へ
         </Button>
         </div>
-      </InputAndButton>
+      </form>
+        <Button variant="contained" color="primary" onClick={props.handleBack}>
+                戻る
+            </Button>
+            <Button variant="contained" color="primary" onClick={onSubmit}>
+                送信
+            </Button>
+
 
     </>
   )

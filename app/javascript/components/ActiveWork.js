@@ -10,35 +10,6 @@ import Typography from '@mui/material/Typography';
 import Working from "./Working";
 import Worked from "./Worked";
 
-const InputAndButton = styled.div`
-  justify-content: space-between;
-  margin-top: 20px;
-`
-
-const InputForm = styled.input`
-  font-size: 15px;
-  width: 90%;
-  height: 20px;
-  justify-content: center;
-  margin-top: 18px;
-  padding: 2px 7px;
-`
-
-const InputTextArea = styled.textarea`
-  font-size: 15px;
-  resize: none;
-  height: 150px;
-  width: 90%;
-  justify-content: center;
-  margin-top: 15px;
-  padding: 2px 7px;
-`
-
-const Icon = styled.span`
-  align-items: center;
-  margin: 0 7px;
-`
-
 function getSteps() {
   return [
     'ワーク中',
@@ -46,13 +17,7 @@ function getSteps() {
   ];
 }
 
-function getStepContent(stepIndex) {
-  switch (stepIndex) {
-    case 0: return <Working/>;
-    case 1: return 'Unknown stepIndex';//<Worked/>;
-    default: return 'Unknown stepIndex';
-  }
-}
+
 
 //context作成
 export const UserInputData = React.createContext();
@@ -71,6 +36,14 @@ function ActiveWork() {
     setActiveStep(0);
   };
 
+  function getStepContent(stepIndex) {
+    switch (stepIndex) {
+      case 0: return <Working handleNext={handleNext}/>;
+      case 1: return <Worked handleBack={handleBack}/>;
+      default: return 'Unknown stepIndex';
+    }
+  }
+
 //state管理
   const initialReportState = {
     id: null,
@@ -79,8 +52,7 @@ function ActiveWork() {
     w_record: null,
     t_record: null
   };
-
-  const [report, setReport] = useState(initialReportState);
+  const [report, setReport] = React.useState(initialReportState);
   const value = {
     report,
     setReport
@@ -98,25 +70,7 @@ function ActiveWork() {
       <UserInputData.Provider value={value}>
         { getStepContent(activeStep, handleNext, handleBack)}
       </UserInputData.Provider>
-      {activeStep === steps.length ? (
-        <div>
-          <Typography >全ステップの表示を完了</Typography>
-          <Button onClick={handleReset}>リセット</Button>
-        </div>
-      ) : (
-        <div>
-          <Typography >{getStepContent(activeStep)}</Typography>
-          <Button
-            disabled={activeStep === 0}
-            onClick={handleBack}
-          >
-            戻る
-          </Button>
-          <Button variant="contained" color="primary" onClick={handleNext}>
-            {activeStep === steps.length - 1 ? '送信' : '次へ'}
-          </Button>
-        </div>
-      )}
+
     </>
   )
 }
