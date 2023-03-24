@@ -1,4 +1,4 @@
-class Api::V1::ProjectsController < ApplicationController
+class Api::V1::ReportsController < ApplicationController
   skip_before_action :verify_authenticity_token
 
   def index

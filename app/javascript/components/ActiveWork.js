@@ -1,6 +1,14 @@
 import React, { useState } from 'react'
-import axios from 'axios'
 import styled from 'styled-components'
+
+import Stepper from '@mui//material/Stepper';
+import Step from '@mui/material/Step';
+import StepLabel from '@mui/material/StepLabel';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+
+import Working from "./Working";
+import Worked from "./Worked";
 
 const InputAndButton = styled.div`
   justify-content: space-between;
@@ -26,28 +34,44 @@ const InputTextArea = styled.textarea`
   padding: 2px 7px;
 `
 
-const Button = styled.button`
-  font-size: 20px;
-  border: none;
-  border-radius: 3px;
-  margin-left: 10px;
-  padding: 2px 10px;
-  background: #1E90FF;
-  color: #fff;
-  text-align: center;
-  cursor: pointer;
-  ${({ disabled }) => disabled && `
-    opacity: 0.5;
-    cursor: default;
-  `}
-`
-
 const Icon = styled.span`
   align-items: center;
   margin: 0 7px;
 `
 
-function ActiveWork(props) {
+function getSteps() {
+  return [
+    'ワーク中',
+    'ワーク完了'
+  ];
+}
+
+function getStepContent(stepIndex) {
+  switch (stepIndex) {
+    case 0: return <Working/>;
+    case 1: return 'Unknown stepIndex';//<Worked/>;
+    default: return 'Unknown stepIndex';
+  }
+}
+
+//context作成
+export const UserInputData = React.createContext();
+
+function ActiveWork() {
+//step管理
+  const [activeStep, setActiveStep] = React.useState(0);
+  const steps = getSteps();
+  const handleNext = () => {
+    setActiveStep((prevActiveStep) => prevActiveStep + 1);
+  };
+  const handleBack = () => {
+    setActiveStep((prevActiveStep) => prevActiveStep - 1);
+  };
+  const handleReset = () => {
+    setActiveStep(0);
+  };
+
+//state管理
   const initialReportState = {
     id: null,
     is_finished: false,
@@ -56,93 +80,43 @@ function ActiveWork(props) {
     t_record: null
   };
 
-  const onSubmit = () => {
-    props.handleNext();
-};
-
-  function getStepContent(stepIndex) {
-    switch (stepIndex) {
-        case 0:
-            return <Basic handleNext={handleNext} />;
-        case 1:
-            return <Optional handleNext={handleNext} handleBack={handleBack} />;
-        case 2:
-            return <Confirm handleBack={handleBack} />;
-        default:
-            return 'Unknown stepIndex';
-    }
-}
-
   const [report, setReport] = useState(initialReportState);
-
-  const handleInputChange = event => {
-    const { name, value } = event.target;
-    setProject({ ...project, [name]: value });
-  };
-
-  const saveReport = () => {
-    var data = {
-      is_finished: report.is_finished,
-      y_record: report.y_record,
-      w_record: report.w_record,
-      t_record: report.t_record
-    };
-
-    axios.post('/api/v1/reports', data)
-    .then(resp => {
-      setReport({
-        id: resp.data.id,
-        is_finished: resp.data.is_finished,
-        y_record: resp.data.y_record,
-        w_record: resp.data.w_record,
-        t_record: resp.data.t_record
-      });
-      notify();
-      props.history.push("/reports");
-    })
-    .catch(e => {
-      console.log(e)
-    })
-  };
+  const value = {
+    report,
+    setReport
+};
 
   return (
     <>
-      <div class="d-block d-md-none">
-        <p class="vertical-title">ワーク中</p>
-      </div>
-      <h2 class="d-none d-md-block text-secondary">ワーク中</h2>
-      <InputAndButton>
-      <div class="field form-group row">
-          <InputTextArea
-            value={report.y_record}
-            onChange={handleInputChange}
-            name="y_record"
-            class="form-control"
-            placeholder='わかったこと」を記録してください'
-            id="y-record-input"
-          />
-          <label class="col-sm-6 col-form-label">y</label>
-        </div>
-        <div class="field form-group row">
-          <InputTextArea
-            value={report.w_record}
-            onChange={handleInputChange}
-            name="w_record"
-            class="form-control"
-            placeholder='わかったこと」を記録してください'
-            id="w-record-input"
-          />
-          <label class="col-sm-6 col-form-label">w</label>
-        </div>
+      <Stepper activeStep={activeStep} alternativeLabel>
+        {steps.map((label) => (
+          <Step key={label}>
+            <StepLabel>{label}</StepLabel>
+          </Step>
+        ))}
+      </Stepper>
+      <UserInputData.Provider value={value}>
+        { getStepContent(activeStep, handleNext, handleBack)}
+      </UserInputData.Provider>
+      {activeStep === steps.length ? (
         <div>
+          <Typography >全ステップの表示を完了</Typography>
+          <Button onClick={handleReset}>リセット</Button>
+        </div>
+      ) : (
+        <div>
+          <Typography >{getStepContent(activeStep)}</Typography>
           <Button
-            onClick={() => onSubmit("next")}
-            id="submit-btn"
+            disabled={activeStep === 0}
+            onClick={handleBack}
           >
-            次へ
+            戻る
+          </Button>
+          <Button variant="contained" color="primary" onClick={handleNext}>
+            {activeStep === steps.length - 1 ? '送信' : '次へ'}
           </Button>
         </div>
-      </InputAndButton>
+      )}
     </>
   )
 }
