@@ -48,16 +48,16 @@ import Tooltip from '@mui/material/Tooltip'
 function MainTab() {
   const [reports, setReports] = useState([])
 
-  useEffect(() => {
-    axios.get('/api/v1/reports.json')
-    .then(resp => {
-      console.log(resp.data)
-      setReports(resp.data);
-    })
-    .catch(e => {
-      console.log(e);
-    })
-  }, [])
+  //useEffect(() => {
+  //  axios.get('/api/v1/reports.json')
+  //  .then(resp => {
+  //    console.log(resp.data)
+  //    setReports(resp.data);
+  //  })
+  //  .catch(e => {
+  //    console.log(e);
+  //  })
+  //}, [])
 
   //const updateIsFinished = (index, val) => {
   //  var data = {
@@ -89,7 +89,14 @@ function MainTab() {
         <h3 class="d-none mr-2 d-md-block text-secondary">次やること:</h3>
         <div>次のレベルまで:</div>
         <div id="non-project-text">着手している:</div>
-        <></>
+				<Link to="/active_work">
+          <Button
+					  variant="contained"
+						color="primary"
+					>
+						ワーク開始
+					</Button>
+        </Link>
         
       </div>
     </>

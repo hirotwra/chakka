@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
+import { RouteComponentProps } from 'react-router-dom';
 
 import Stepper from '@mui//material/Stepper';
 import Step from '@mui/material/Step';
@@ -9,6 +10,7 @@ import Typography from '@mui/material/Typography';
 
 import Working from "./Working";
 import Worked from "./Worked";
+import Confirm from "./Confirm";
 
 function getSteps() {
   return [
@@ -32,27 +34,18 @@ function ActiveWork() {
   const handleBack = () => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
-  const handleReset = () => {
-    setActiveStep(0);
-  };
 
   function getStepContent(stepIndex) {
     switch (stepIndex) {
       case 0: return <Working handleNext={handleNext}/>;
-      case 1: return <Worked handleBack={handleBack}/>;
+      case 1: return <Worked handleNext={handleNext} handleBack={handleBack}/>;
+      case 2: return <Confirm handleBack={handleBack} />;
       default: return 'Unknown stepIndex';
     }
   }
 
 //state管理
-  const initialReportState = {
-    id: null,
-    is_finished: false,
-    y_record: null,
-    w_record: null,
-    t_record: null
-  };
-  const [report, setReport] = React.useState(initialReportState);
+  const [report, setReport] = React.useState({});
   const value = {
     report,
     setReport

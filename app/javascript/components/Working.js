@@ -28,64 +28,40 @@ function Working(props) {
     setReport({...report, "Working": data });
   };
 
-  //const saveReport = () => {
-  //  var data = {
-  //    y_record: report.y_record,
-  //    w_record: report.w_record,
-  //  };
-//
-  //  axios.post('/api/v1/reports', data)
-  //  .then(resp => {
-  //    setReport({
-  //      id: resp.data.id,
-  //      y_record: resp.data.y_record,
-  //      w_record: resp.data.w_record,
-  //      t_record: "仮データ"
-  //    });
-  //    notify();
-  //    props.history.push("/reports");
-  //  })
-  //  .catch(e => {
-  //    console.log(e)
-  //  })
-  //};
-
-
-
   return (
     <>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Controller
           control={control}
-          name="textarea"
+          name="yRecord"
           render={({ field }) => (
             <InputTextArea
               {...field}
-              label="y_record"
+              label="yRecord"
               fullWidth
               margin="normal"
-              placeholder="プレースホルダー"
+              placeholder="やったこと"
             />
           )}
         />
         <Controller
           control={control}
-          name="textarea"
+          name="wRecord"
           render={({ field }) => (
             <InputTextArea
               {...field}
-              label="w_record"
+              label="wRecord"
               fullWidth
               margin="normal"
-              placeholder="プレースホルダー"
+              placeholder="わかったこと"
             />
           )}
         />
         <div>
         <Button
-            variant="contained"
-            color="primary"
-            type="submit"
+          variant="contained"
+          color="primary"
+          type="submit"
         >
             次へ
         </Button>
