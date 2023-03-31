@@ -1,13 +1,11 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
-import { RouteComponentProps } from 'react-router-dom';
-
 import Stepper from '@mui//material/Stepper';
 import Step from '@mui/material/Step';
 import StepLabel from '@mui/material/StepLabel';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-
+//子コンポーネント呼び出し
 import Working from "./Working";
 import Worked from "./Worked";
 import Confirm from "./Confirm";
@@ -15,11 +13,10 @@ import Confirm from "./Confirm";
 function getSteps() {
   return [
     'ワーク中',
-    'ワーク完了'
+    'ワーク完了',
+		'確認',
   ];
 }
-
-
 
 //context作成
 export const UserInputData = React.createContext();
@@ -27,6 +24,7 @@ export const UserInputData = React.createContext();
 function ActiveWork() {
 //step管理
   const [activeStep, setActiveStep] = React.useState(0);
+	const [formValue, setFormValue] = useState({});
   const steps = getSteps();
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -34,22 +32,29 @@ function ActiveWork() {
   const handleBack = () => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
-
   function getStepContent(stepIndex) {
     switch (stepIndex) {
-      case 0: return <Working handleNext={handleNext}/>;
-      case 1: return <Worked handleNext={handleNext} handleBack={handleBack}/>;
+      case 0: return <Working 
+				handleNext={handleNext}
+				formValue={formValue}
+				setFormValue={setFormValue}
+			/>;
+      case 1: return <Worked 
+				handleNext={handleNext} 
+				handleBack={handleBack}
+				formValue={formValue}
+				setFormValue={setFormValue}
+			/>;
       case 2: return <Confirm handleBack={handleBack} />;
       default: return 'Unknown stepIndex';
     }
   }
 
-//state管理
   const [report, setReport] = React.useState({});
   const value = {
     report,
     setReport
-};
+	};
 
   return (
     <>
@@ -63,7 +68,6 @@ function ActiveWork() {
       <UserInputData.Provider value={value}>
         { getStepContent(activeStep, handleNext, handleBack)}
       </UserInputData.Provider>
-
     </>
   )
 }

@@ -1,103 +1,68 @@
 import React, { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
-import axios from 'axios'
+import { Link, useLocation } from 'react-router-dom'
 import styled from 'styled-components'
-import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
-import { Tab, Tabs, TabList, TabPanel } from 'react-tabs'
 import 'react-tabs/style/react-tabs.css'
-import {format} from 'date-fns'
+import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button'
 import Paper from '@mui/material/Paper'
 import Tooltip from '@mui/material/Tooltip'
 
-//const notify = () => {
-//  const messages = [
-//  ];
-//  const messageNo = Math.floor( Math.random() * messages.length);
-//  toast.success(messages[messageNo], {
-//    position: "bottom-center",
-//    hideProgressBar: true
-//  });
-//}
-
-//function showDiffDate(limitDay) {
-//  var nowDate = new Date();
-//  var dnumNow = nowDate.getTime();
-//
-//  var targetDate = new Date(limitDay);
-//  var dnumTarget = targetDate.getTime();
-//
-//  var diffMSec = dnumTarget - dnumNow - 32400000; 
-//  var diffDays = diffMSec / ( 1000 * 60 * 60 * 24 );
-//  var showDays = Math.ceil( diffDays );
-//
-//  var Msg;
-//  if( showDays == 0 ) {
-//    Msg = <span class="text-danger font-weight-bold">今日が締め切り日です！</span>;
-//  }else if( showDays <= 5 && showDays > 0 ) {
-//    Msg = <span class="text-warning font-weight-bold">残り{showDays}日です。</span>;
-//  }else if( showDays > 0 ) {
-//    Msg = "残り" + showDays + "日です。";
-//  }else {
-//    Msg = <span class="text-secondary">{showDays * -1}日前に過ぎました。</span>;
-//  }
-//  return Msg;
-//}
+const Modal = styled.div`
+  position: fixed;
+  background: rgba(0, 0, 0, 0.4);
+  width: 100%;
+  height: 100%;
+  top:0;
+  left:0;
+	display: flex;
+  align-items: center;
+  justify-content: center;
+	z-index: 1;
+`
 
 function MainTab() {
-  const [reports, setReports] = useState([])
+	//modal表示用
+	const [showModal, setShowModal] = useState(false);
+	const location = useLocation();
+	
+  useEffect(() => {
+    if (location.state && location.state.showModal) {
+      setShowModal(true);
+    }
+  }, [location]);
 
-  //useEffect(() => {
-  //  axios.get('/api/v1/reports.json')
-  //  .then(resp => {
-  //    console.log(resp.data)
-  //    setReports(resp.data);
-  //  })
-  //  .catch(e => {
-  //    console.log(e);
-  //  })
-  //}, [])
-
-  //const updateIsFinished = (index, val) => {
-  //  var data = {
-  //    is_finished : false,
-  //    y_record: val.y_record,
-  //    w_record: val.w_record,
-  //    t_record: val.t_record,
-  //  }
-  //  const sure = window.confirm('プロジェクトを完了済リストに移動します。よろしいですか?');
-  //  if (sure) {
-  //  axios.patch(`/api/v1/projects/${val.id}`, data)
-  //  .then(resp => {
-  //    const newProjects = [...projects]
-  //    newProjects[index].is_finished = resp.data.is_finished
-  //    setProjects(newProjects)
-  //  });
-  //  notify()
-  //  }
-  //}
+	const handleCloseModal = () => {
+    setShowModal(false);
+  };
 
   return (
     <>
+			{showModal && (
+				<Modal>
+					<Paper sx={{ p: 3 }}>
+						<h3>ワーク完了!</h3>
+						<div>ここに獲得経験値</div>
+						<Button variant="text" onClick={handleCloseModal}>閉じる</Button>
+					</Paper>
+				</Modal>
+			)}
       <div class="d-block d-md-none">
         <p class="vertical-title">メインタブ</p>
       </div>
       <h2 class="d-none mr-2 d-md-block text-secondary">メインタブ</h2>
-
       <div class="w-100">
         <h3 class="d-none mr-2 d-md-block text-secondary">次やること:</h3>
         <div>次のレベルまで:</div>
         <div id="non-project-text">着手している:</div>
 				<Link to="/active_work">
           <Button
-					  variant="contained"
+						variant="contained"
 						color="primary"
 					>
 						ワーク開始
 					</Button>
         </Link>
-        
       </div>
     </>
   )

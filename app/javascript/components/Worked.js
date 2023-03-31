@@ -1,11 +1,9 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import { useForm, Controller } from "react-hook-form";
 //コンテクストオブジェクトの読みこみ
 import { useContext } from "react";
 import { UserInputData } from "./ActiveWork";
-import { useForm, Controller } from "react-hook-form";
-
-
 import Button from '@mui/material/Button';
 
 const InputTextArea = styled.textarea`
@@ -18,52 +16,35 @@ const InputTextArea = styled.textarea`
   padding: 2px 7px;
 `
 
-const InputAndButton = styled.div`
-  justify-content: space-between;
-  margin-top: 20px;
-`
 function Worked(props) {
-  const { control, handleSubmit, getValues} = useForm({
+	//hook-formで使用
+  const { control, handleSubmit, getValues, setValue} = useForm({
+		defaultValues: {
+			tRecord: "",
+	},
   });
 
   //ActiveWorkで作ったコンテクストオブジェクトを引き渡す
   const {report, setReport} = useContext(UserInputData);
   const onSubmit = (action) => {
     if(action === 'back') {
-        props.handleBack();
+      props.handleBack();
     } else {
       props.handleNext();
     }
     const data = getValues();
     setReport({...report, "Worked": data });
+		props.setFormValue({ ...props.formValue, Worked: data });
   };
 
-  //const saveReport = () => {
-  //  var data = {
-  //    is_finished: true,
-  //    y_record: report.y_record,
-  //    w_record: "no",
-  //    t_record: report.y_record,
-  //  };
-//
-  //  axios.post('/api/v1/reports', data)
-  //  .then(resp => {
-  //    setReport({
-  //      id: resp.data.id,
-  //      is_finished: resp.data.is_finished,
-  //      y_record: resp.data.y_record,
-  //      w_record: resp.data.w_record,
-  //      t_record: resp.data.t_record
-  //    });
-  //    notify();
-  //    props.history.push("/reports");
-  //  })
-  //  .catch(e => {
-  //    console.log(e)
-  //  })
-  //};
-
-
+	useEffect(() => {
+    if (props.formValue && props.formValue.Worked) {
+      setValue("tRecord", props.formValue.Worked.tRecord, {
+        shouldDirty: true,
+      });
+    }
+  }, [props.formValue]);
+	
 
   return (
     <>

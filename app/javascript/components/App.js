@@ -25,27 +25,7 @@ const ConcentModeBg = styled.div`
   left:0;
   z-index: 1021;
 `
-
-//function showWorkTime(countTime) {
-//  var CountSum
-//  CountSum = <span>今回は {Math.floor((parseInt(countTime,10)) / 60)}分 集中しました！</span>
-//  return CountSum;
-//}
-
 function App() {
-  //const [isConcent, setConcent] = useState(false);
-  //const { time, start, pause, status } = useTimer()
-//
-  //const startConcent = () => {
-  //  setConcent(true);
-  //  start();
-  //};
-
-  //const pauseConcent = () => {
-  //  setConcent(false);
-  //  pause();
-  //};
-
   return (
     <>
       <div class="row pt-5">

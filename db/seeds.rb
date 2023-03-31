@@ -6,44 +6,41 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-Project.create!(
+Report.create!(
   [
     {
-      title: 'オリジナルアプリ制作', deadline:'2022-12-20', description:'seedにより作成1', user_id:1
+      is_finished: true, y_record: 'やったこと', w_record: 'わかったこと', t_record: '次やること', user_id:1
     },
     {
-      title: 'おおそおじ', deadline:'2022-12-31', description:'seedにより作成2', user_id:1
+      is_finished: true, 
+			y_record: 'BCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUV', 
+			w_record: 'BCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUV', 
+			t_record: 'BCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUV', 
+			user_id:1
     },
     {
-      title: 'ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUV', 
-      deadline:'2022-12-23', description:'seedにより作成3,長文', user_id:1
-    },
-    {
-      title: 'オリジナルアプリ制作', deadline:'2022-12-25', description:'seedにより作成4', user_id:1
-    },
-    {
-      title: 'オリジナルアプリ制作', deadline:'2023-12-30', description:'seedにより作成5', user_id:1
-    },
+      is_finished: false, y_record: 'ワーク進行中', w_record: 'ワーク進行中', t_record: 'ワーク進行中', user_id:1
+		}
   ]
 )
 
 User.create!(
   [
     {
-      name:'seed1', email:'sample1@sample.com', password:'password',
+      email:'sample1@sample.com', password:'password',
     },
     {
-      name:'seed2', email:'sample2@sample.com', password:'password',
+      email:'sample2@sample.com', password:'password',
     },
     {
-      name:'seed3', email:'sample3@sample.com', password:'password',
+      email:'sample3@sample.com', password:'password',
     },
     {
-      name:'seed4', email:'sample4@sample.com', password:'password',
+      email:'sample4@sample.com', password:'password',
     },
     {
-      name:'seed5', email:'sample5@sample.com', password:'password',
-    },
+      email:'sample5@sample.com', password:'password',
+    }
   ]
 )
 
@@ -63,6 +60,6 @@ Admin.create!(
     },
     {
       email:'adsample5@sample.com', password:'password',
-    },
+    }
   ]
 )

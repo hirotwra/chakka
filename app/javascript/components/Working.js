@@ -1,11 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import { useForm, Controller } from "react-hook-form";
+import Button from '@mui/material/Button';
 //コンテクストオブジェクトの読みこみ
 import { useContext } from "react";
 import { UserInputData } from "./ActiveWork";
-import { useForm, Controller } from "react-hook-form";
-import Button from '@mui/material/Button';
-
 
 const InputTextArea = styled.textarea`
   font-size: 15px;
@@ -16,17 +15,33 @@ const InputTextArea = styled.textarea`
   margin-top: 15px;
   padding: 2px 7px;
 `
-function Working(props) {
 
-  const { control, handleSubmit } = useForm({
+function Working(props) {
+  const { control, handleSubmit, setValue } = useForm({
+		defaultValues: {
+			yRecord: "",
+			wRecord: "",
+	},
   });
-  
-//ActiveWorkで作ったコンテクストオブジェクトを引き渡す
-  const {report, setReport} = useContext(UserInputData);
+
+	//ActiveWorkで作ったコンテクストオブジェクトを引き渡す
+	const {report, setReport} = useContext(UserInputData);
   const onSubmit = (data) => {
     props.handleNext();
     setReport({...report, "Working": data });
+		props.setFormValue({ ...props.formValue, Working: data });
   };
+	
+	useEffect(() => {
+    if (props.formValue && props.formValue.Working) {
+      setValue("yRecord", props.formValue.Working.yRecord, {
+        shouldDirty: true,
+      });
+			setValue("wRecord", props.formValue.Working.wRecord, {
+        shouldDirty: true,
+      });
+    }
+  }, [props.formValue]);
 
   return (
     <>
