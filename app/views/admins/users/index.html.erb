@@ -2,14 +2,12 @@
 <table>
   <thead>
     <tr>
-      <th>ユーザー名</th>
       <th>メールアドレス</th>
     </tr>
   </thead>
   <tbody>
     <% @users.each do |user| %>
       <tr>
-        <td><%= user.name %></td>
         <td><%= user.email %></td>
         <td><%= link_to I18n.t('.destroy'),admins_user_path(user), method: :delete, data: { confirm: '削除してもよろしいですか?' } %></td>  
       </tr>

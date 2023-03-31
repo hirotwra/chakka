@@ -14,7 +14,7 @@ RSpec.describe '管理者機能', type: :system do
       end
       it '管理者作成フォームにアクセスできない' do
         visit new_admin_registration_path
-        expect(page).to have_content 'プロジェクト一覧'
+        expect(page).to have_content 'メインタブ'
       end
     end
 

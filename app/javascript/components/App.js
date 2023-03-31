@@ -4,6 +4,7 @@ import { AiFillFire, AiFillHome, AiFillPlusCircle, AiFillPhone, AiFillCarryOut }
 //import { useTimer } from 'use-timer'
 import styled from 'styled-components'
 import MainTab from './MainTab'
+import ActiveWork from './ActiveWork'
 import Reports from './Reports'
 import UserStatus from './UserStatus'
 import './App.css'
@@ -24,27 +25,7 @@ const ConcentModeBg = styled.div`
   left:0;
   z-index: 1021;
 `
-
-//function showWorkTime(countTime) {
-//  var CountSum
-//  CountSum = <span>今回は {Math.floor((parseInt(countTime,10)) / 60)}分 集中しました！</span>
-//  return CountSum;
-//}
-
 function App() {
-  //const [isConcent, setConcent] = useState(false);
-  //const { time, start, pause, status } = useTimer()
-//
-  //const startConcent = () => {
-  //  setConcent(true);
-  //  start();
-  //};
-
-  //const pauseConcent = () => {
-  //  setConcent(false);
-  //  pause();
-  //};
-
   return (
     <>
       <div class="row pt-5">
@@ -83,6 +64,7 @@ function App() {
           <Wrapper>
             <Switch>
               <Route exact path="/maintab" component={MainTab} />
+              <Route exact path="/active_work" component={ActiveWork} />
               <Route exact path="/reports" component={Reports} />
               <Route exact path="/user_status" component={UserStatus} />
               <Route exact path="/contact" component={Contact} />

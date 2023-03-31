@@ -4,17 +4,16 @@ RSpec.describe 'ユーザ管理機能', type: :system do
     context 'ユーザを登録した場合' do
       it '一覧画面に遷移する' do
         visit new_user_registration_path
-        fill_in 'ニックネーム', with: 'テスト太郎'
         fill_in 'Eメール', with: 'tarooo@sample.com'
         fill_in 'パスワード', with: '123456'
         fill_in 'パスワード（確認用）', with: '123456'
         click_button 'アカウント登録'
-        expect(page).to have_content 'プロジェクト一覧'
+        expect(page).to have_content 'メインタブ'
       end
     end
     context 'ログインせずに一覧画面に遷移した場合' do
       it 'ログイン画面に遷移する' do
-        visit projects_path
+        visit maintab_path
         expect(page).to have_content '『CHAKKA!』とは？'
       end
     end
@@ -34,7 +33,7 @@ RSpec.describe 'ユーザ管理機能', type: :system do
       end
 
       it '自身の編集ページにアクセスできる' do
-        visit projects_path
+        visit maintab_path
         find('#edit-link').click
         expect(page).to have_content '登録情報'
       end
@@ -58,9 +57,9 @@ RSpec.describe 'ユーザ管理機能', type: :system do
         click_button 'ログイン'
       end
 
-      it '一覧画面に遷移する' do
+      it 'メインタブ' do
         visit admins_users_path
-        expect(page).to have_content 'プロジェクト一覧'
+        expect(page).to have_content 'メインタブ'
       end
     end
   end
