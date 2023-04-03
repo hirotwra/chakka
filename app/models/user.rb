@@ -1,5 +1,6 @@
 class User < ApplicationRecord
   include Devise::JWT::RevocationStrategies::JTIMatcher
+	has_one :user_status, dependent: :destroy
   has_many :projects, dependent: :destroy
   has_many :reports, dependent: :destroy
   has_many :tags, dependent: :destroy

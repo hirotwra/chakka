@@ -1,7 +1,9 @@
 Rails.application.routes.draw do
   root to: redirect('/maintab')
   
-  devise_for :users
+  devise_for :users, controllers: {
+    registrations: 'users/registrations'
+  }
   devise_for :admins, controllers:{
     sessions: 'admins/sessions',
     passwords: 'admins/passwords',
@@ -42,7 +44,7 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :projects, only: %i[index show create update destroy]
       resources :reports, only: %i[index show create update destroy]
-      resources :user_statuses, only: %i[show create update]
+      resources :user_statuses, only: %i[index show create update]
     end
   end
 
