@@ -17,7 +17,7 @@ const InputTextArea = styled.textarea`
 `
 
 function Working(props) {
-  const { control, handleSubmit, setValue } = useForm({
+  const { control, handleSubmit, setValue, lastReport } = useForm({
 		defaultValues: {
 			yRecord: "",
 			wRecord: "",

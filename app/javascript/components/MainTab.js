@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react'
 import { Link, useLocation } from 'react-router-dom'
+import {CiCircleChevUp} from 'react-icons/ci'
+import axios from 'axios'
 import styled from 'styled-components'
-import 'react-toastify/dist/ReactToastify.css'
-import 'react-tabs/style/react-tabs.css'
-import Grid from '@mui/material/Grid';
+import Grid from '@mui/material/Grid'
 import Button from '@mui/material/Button'
 import Paper from '@mui/material/Paper'
-import Tooltip from '@mui/material/Tooltip'
+
+import Accordion from '@mui/material/Accordion'
+import { AccordionDetails, AccordionSummary } from '@mui/material'
 
 const Modal = styled.div`
   position: fixed;
@@ -22,6 +24,20 @@ const Modal = styled.div`
 `
 
 function MainTab() {
+	//最新report
+	const [lastReport, setLastReport] = useState([]);
+	
+	useEffect(() => {
+    axios.get('/api/v1/reports/last_report')
+    .then(resp => {
+      console.log(resp.data)
+      setLastReport(resp.data);
+    })
+    .catch(e => {
+      console.log(e);
+    })
+  }, [])
+
 	//modal表示用
 	const [showModal, setShowModal] = useState(false);
 	const location = useLocation();
@@ -36,13 +52,39 @@ function MainTab() {
     setShowModal(false);
   };
 
+	function ActiveCheck(is_finished){
+		var LinkMsg;
+		if (is_finished == true){
+			LinkMsg =
+			<Link to="/active_work">
+				<Button
+					variant="contained"
+					color="primary"
+				>
+					ワーク開始
+				</Button>
+			</Link>
+		}else{
+			LinkMsg =
+			<Link to={{ pathname: "/active_work", state: { lastReport:lastReport[0]} }}> 
+				<Button
+					variant="contained"
+					color="warning"
+				>
+					未完了ワークあり
+				</Button>
+			</Link>         
+			}
+		return LinkMsg
+	}
+
   return (
     <>
 			{showModal && (
 				<Modal>
 					<Paper sx={{ p: 3 }}>
 						<h3>ワーク完了!</h3>
-						<div>ここに獲得経験値</div>
+						<div>100Exp 獲得!</div>
 						<Button variant="text" onClick={handleCloseModal}>閉じる</Button>
 					</Paper>
 				</Modal>
@@ -52,17 +94,23 @@ function MainTab() {
       </div>
       <h2 class="d-none mr-2 d-md-block text-secondary">メインタブ</h2>
       <div class="w-100">
-        <h3 class="d-none mr-2 d-md-block text-secondary">次やること:</h3>
+        <h3>次やること:{lastReport.t_record}</h3>
         <div>次のレベルまで:</div>
-        <div id="non-project-text">着手している:</div>
-				<Link to="/active_work">
-          <Button
-						variant="contained"
-						color="primary"
+				{ActiveCheck(lastReport.is_finished)}
+				<Accordion>
+					<AccordionSummary
+						expandIcon={<CiCircleChevUp />}
 					>
-						ワーク開始
-					</Button>
-        </Link>
+						<p>前回の記録</p>
+					</AccordionSummary>
+					<AccordionDetails>
+						<p>ワーク完了日: {lastReport.updated_at}</p>
+						<p>やったこと: {lastReport.y_record}</p>
+						<p>わかったこと: {lastReport.w_record}</p>
+					</AccordionDetails>
+				</Accordion>
+				<div id="non-project-text">
+				</div>
       </div>
     </>
   )

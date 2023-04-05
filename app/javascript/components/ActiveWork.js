@@ -3,8 +3,6 @@ import styled from 'styled-components'
 import Stepper from '@mui//material/Stepper';
 import Step from '@mui/material/Step';
 import StepLabel from '@mui/material/StepLabel';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
 //子コンポーネント呼び出し
 import Working from "./Working";
 import Worked from "./Worked";

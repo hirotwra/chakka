@@ -8,6 +8,7 @@ import MainTab from './MainTab'
 import ActiveWork from './ActiveWork'
 import Reports from './Reports'
 import UserStatus from './UserStatus'
+import Confirm from "./Confirm";
 import './App.css'
 import Contact from './Contact'
 

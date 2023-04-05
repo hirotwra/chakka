@@ -1,5 +1,23 @@
 <div class="mt-5 container">
   <div class="p-4 row bg-info d-block justify-content-center">
-    <h1>ここにランキングを表示</h1>
+    <h1>ランキング</h1>
+		<table>
+			<thead>
+				<tr>
+					<th>ユーザーネーム</th>
+				</tr>
+			</thead>
+			<tbody>
+				<% @user_statuses.each do |user_status| %>
+					<tr>
+						<td><%= user_status.name %></td>
+						<td>Lv. <%= user_status.level %>/</td>
+						<td>exp:<%= user_status.exp %>/</td>
+						<td><%= user_status.exp %> pt.</td>
+					</tr>
+				<% end %>
+			</tbody>
+		</table>
+		<table>
   </div>
 </div>

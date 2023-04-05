@@ -3,15 +3,19 @@ class Api::V1::ReportsController < ApplicationController
 
   def index
     if admin_signed_in?
-      reports = User.find(1).reports.order(updated_at: :desc)
+			reports = User.find(1).reports
     else
-      reports = current_user.reports.order(updated_at: :desc)
+			report = current_user.reports
     end
-    render json: report
+		render json: reports
   end
 
   def show
-    report = Rport.find(params[:id])
+		if params[:id] == "last_report"
+			report = current_user.reports.last
+		else
+			report = Report.find(params[:id])
+		end
     render json: report
   end
 
@@ -51,6 +55,6 @@ class Api::V1::ReportsController < ApplicationController
   private
 
   def report_params
-    params.require(:report).permit(:is_finished, :y_record, :w_record, :t_record, :user_id)
+    params.require(:report).permit(:is_finished, :y_record, :w_record, :t_record, :user_id, :updated_at)
   end
 end

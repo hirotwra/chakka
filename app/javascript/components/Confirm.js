@@ -1,9 +1,10 @@
 import Grid from '@mui/material/Grid';
 import React, { useContext, useState, useEffect  } from "react";
-import  Button  from '@mui/material/Button'
-import { UserInputData } from "./ActiveWork";
 import axios from 'axios';
 import { withRouter } from 'react-router-dom';
+import  Button  from '@mui/material/Button'
+import { UserInputData } from "./ActiveWork";
+
 
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -55,13 +56,39 @@ function Confirm(props)  {
     }
   }
 
-  const saveReport = () => {
+	const [userStatus, setUserStatus] = useState([])
+
+  useEffect(() => {
+    axios.get('/api/v1/user_statuses.json')
+    .then(resp => {
+      console.log(resp.data)
+      setUserStatus(resp.data);
+    })
+    .catch(e => {
+      console.log(e);
+    })
+  }, [])
+
+	const updateUserExp = (exp) => {
+		const data = { exp: exp };
+		axios.patch(`/api/v1/user_statuses/${userStatus.id}`, data)
+			.then(resp => {
+				console.log(resp.data);
+			})
+			.catch(e => {
+				console.log(e);
+			});
+	};
+
+  const saveReport = (is_finished) => {
     var data = {
-      is_finished: true,
+      is_finished: is_finished,
       y_record: report.Working['yRecord'],
       w_record: report.Working['wRecord'],
       t_record: report.Worked['tRecord'],
     };
+
+		updateUserExp(100);
 
     axios.post('/api/v1/reports', data)
     .then(resp => {
@@ -105,10 +132,25 @@ function Confirm(props)  {
         </Table>
       </TableContainer>
       <Button variant="contained" color="primary" onClick={props.handleBack}>
-          戻る
+        戻る
       </Button>
-      <Button variant="contained" color="primary" onClick={saveReport}>
-          送信
+      <Button 
+				variant="contained" 
+				color="primary" 
+				onClick={() => {
+					saveReport(true);
+				}}
+			>
+        完了
+      </Button>
+      <Button 
+				variant="contained" 
+				color="primary" 
+				onClick={() => {
+					saveReport(false);
+				}}
+			>
+        中断 
       </Button>
     </Grid>
 		</>
