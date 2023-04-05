@@ -17,11 +17,11 @@ const InputTextArea = styled.textarea`
 `
 
 function Worked(props) {
-	//hook-formで使用
+  //hook-formで使用
   const { control, handleSubmit, getValues, setValue} = useForm({
-		defaultValues: {
-			tRecord: "",
-	},
+    defaultValues: {
+      tRecord: "",
+  },
   });
 
   //ActiveWorkで作ったコンテクストオブジェクトを引き渡す
@@ -34,17 +34,17 @@ function Worked(props) {
     }
     const data = getValues();
     setReport({...report, "Worked": data });
-		props.setFormValue({ ...props.formValue, Worked: data });
+    props.setFormValue({ ...props.formValue, Worked: data });
   };
 
-	useEffect(() => {
+  useEffect(() => {
     if (props.formValue && props.formValue.Worked) {
       setValue("tRecord", props.formValue.Worked.tRecord, {
         shouldDirty: true,
       });
     }
   }, [props.formValue]);
-	
+  
 
   return (
     <>

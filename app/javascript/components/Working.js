@@ -18,26 +18,26 @@ const InputTextArea = styled.textarea`
 
 function Working(props) {
   const { control, handleSubmit, setValue, lastReport } = useForm({
-		defaultValues: {
-			yRecord: "",
-			wRecord: "",
-	},
+    defaultValues: {
+      yRecord: "",
+      wRecord: "",
+  },
   });
 
-	//ActiveWorkで作ったコンテクストオブジェクトを引き渡す
-	const {report, setReport} = useContext(UserInputData);
+  //ActiveWorkで作ったコンテクストオブジェクトを引き渡す
+  const {report, setReport} = useContext(UserInputData);
   const onSubmit = (data) => {
     props.handleNext();
     setReport({...report, "Working": data });
-		props.setFormValue({ ...props.formValue, Working: data });
+    props.setFormValue({ ...props.formValue, Working: data });
   };
-	
-	useEffect(() => {
+  
+  useEffect(() => {
     if (props.formValue && props.formValue.Working) {
       setValue("yRecord", props.formValue.Working.yRecord, {
         shouldDirty: true,
       });
-			setValue("wRecord", props.formValue.Working.wRecord, {
+      setValue("wRecord", props.formValue.Working.wRecord, {
         shouldDirty: true,
       });
     }

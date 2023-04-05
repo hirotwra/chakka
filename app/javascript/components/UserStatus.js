@@ -32,7 +32,7 @@ function UserStatus(props) {
     })
   }, [])
 
-	const getUserStatus = id => {
+  const getUserStatus = id => {
     axios.get(`/api/v1/user_statuses/${id}`)
     .then(resp => {
       setUserStatus(resp.data);
@@ -42,27 +42,27 @@ function UserStatus(props) {
     });
   };
 
-	useEffect(() => {
+  useEffect(() => {
     getUserStatus(props.match.params.id);
     console.log(props.match.params.id)
   }, [props.match.params.id]);
 
-	const handleInputChange = event => {
+  const handleInputChange = event => {
     const { name, value } = event.target;
     setUserStatus({ ...userStatus, [name]: value });
   };
 
-	const notify = () => {
+  const notify = () => {
     toast.success("ユーザーネームを変更しました", {
       position: "bottom-center",
       hideProgressBar: true
     });
   }
 
-	const updateUserName = () => {
+  const updateUserName = () => {
     axios.patch(`/api/v1/user_statuses/${userStatus.id}`, userStatus)
     .then(response => {
-			notify();
+      notify();
     })
     .catch(e => {
       console.log(e);
@@ -75,9 +75,9 @@ function UserStatus(props) {
         <p class="vertical-title">ユーザーステータス</p>
       </div>
       <h2 class="d-none mr-2 d-md-block text-secondary">ユーザーステータス</h2>
-			<div class="w-100">
-				<h2>{userStatus.name}</h2>
-				<div class="field form-group row">
+      <div class="w-100">
+        <h2>{userStatus.name}</h2>
+        <div class="field form-group row">
           <InputForm
             type="string"
             onChange={handleInputChange}
@@ -85,7 +85,7 @@ function UserStatus(props) {
             class="form-control" 
             placeholder='ユーザーネームの変更'
           />
-					<Button
+          <Button
             variant="contained" 
             color="info"
             type="submit"
@@ -93,14 +93,14 @@ function UserStatus(props) {
             className="mr-3"
           >
             更新
-					</Button>
+          </Button>
         </div>
       </div>
-			<div>
-				<p> Lv.{userStatus.level}</p>
-				<p>次のレベルまで:</p>
-				<p>ランク:</p>
-			</div>
+      <div>
+        <p> Lv.{userStatus.level}</p>
+        <p>次のレベルまで:</p>
+        <p>ランク:</p>
+      </div>
     </>
   )
 }

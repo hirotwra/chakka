@@ -3,19 +3,19 @@ class Api::V1::ReportsController < ApplicationController
 
   def index
     if admin_signed_in?
-			reports = User.find(1).reports
+      reports = User.find(1).reports
     else
-			report = current_user.reports
+      report = current_user.reports
     end
-		render json: reports
+    render json: reports
   end
 
   def show
-		if params[:id] == "last_report"
-			report = current_user.reports.last
-		else
-			report = Report.find(params[:id])
-		end
+    if params[:id] == "last_report"
+      report = current_user.reports.last
+    else
+      report = Report.find(params[:id])
+    end
     render json: report
   end
 

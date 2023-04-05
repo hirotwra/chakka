@@ -12,7 +12,7 @@ function getSteps() {
   return [
     'ワーク中',
     'ワーク完了',
-		'確認',
+    '確認',
   ];
 }
 
@@ -22,7 +22,7 @@ export const UserInputData = React.createContext();
 function ActiveWork() {
 //step管理
   const [activeStep, setActiveStep] = React.useState(0);
-	const [formValue, setFormValue] = useState({});
+  const [formValue, setFormValue] = useState({});
   const steps = getSteps();
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -33,16 +33,16 @@ function ActiveWork() {
   function getStepContent(stepIndex) {
     switch (stepIndex) {
       case 0: return <Working 
-				handleNext={handleNext}
-				formValue={formValue}
-				setFormValue={setFormValue}
-			/>;
+        handleNext={handleNext}
+        formValue={formValue}
+        setFormValue={setFormValue}
+      />;
       case 1: return <Worked 
-				handleNext={handleNext} 
-				handleBack={handleBack}
-				formValue={formValue}
-				setFormValue={setFormValue}
-			/>;
+        handleNext={handleNext} 
+        handleBack={handleBack}
+        formValue={formValue}
+        setFormValue={setFormValue}
+      />;
       case 2: return <Confirm handleBack={handleBack} />;
       default: return 'Unknown stepIndex';
     }
@@ -52,7 +52,7 @@ function ActiveWork() {
   const value = {
     report,
     setReport
-	};
+  };
 
   return (
     <>

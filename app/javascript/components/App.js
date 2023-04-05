@@ -8,7 +8,6 @@ import MainTab from './MainTab'
 import ActiveWork from './ActiveWork'
 import Reports from './Reports'
 import UserStatus from './UserStatus'
-import Confirm from "./Confirm";
 import './App.css'
 import Contact from './Contact'
 
@@ -19,7 +18,7 @@ const Wrapper = styled.div`
 `
 
 function App() {
-	const [userStatus, setUserStatus] = useState([])
+  const [userStatus, setUserStatus] = useState([])
 
   useEffect(() => {
     axios.get('/api/v1/user_statuses.json')
@@ -38,9 +37,9 @@ function App() {
         <div class="col-2 col-md-4 pl-0">
           <nav class="vh-100 w-100 fixed-left" id="sidebarResponsive">
             <ul class="nav flex-column pt-5">
-							<li  class="side-item">
-								{userStatus.name}/ Lv.{userStatus.level}
-							</li>	
+              <li  class="side-item">
+                {userStatus.name}/ Lv.{userStatus.level}
+              </li>	
               <li  class="side-item">
                 <Link to="/maintab">
                   <AiFillHome/>&emsp;<span class="d-none d-md-inline-block">メインタブ</span>

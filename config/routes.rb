@@ -32,7 +32,7 @@ Rails.application.routes.draw do
   get 'ranking', to: 'user_statuses#index'
 
   #その他SPA内
-	get 'active_work', to: 'site#index'
+  get 'active_work', to: 'site#index'
   get 'reports/:id/edit', to: 'site#index'
   
   #旧モデル用root(順次削除)

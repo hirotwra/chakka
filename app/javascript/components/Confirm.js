@@ -17,21 +17,21 @@ import Paper from '@mui/material/Paper';
 var item = {
   'yRecord': 'やったこと',
   'wRecord': 'わかったこと',
-	'tRecord': '次やること',
+  'tRecord': '次やること',
 }
 
 function Confirm(props)  {
-	const { report, setReport } = useContext(UserInputData);
-	//modal用条件分岐
-	const [showModal, setShowModal] = useState(false);
-	useEffect(() => {
-		setShowModal(true);
-	}, []);
-	const handleCloseModal = () => {
+  const { report, setReport } = useContext(UserInputData);
+  //modal用条件分岐
+  const [showModal, setShowModal] = useState(false);
+  useEffect(() => {
+    setShowModal(true);
+  }, []);
+  const handleCloseModal = () => {
     setShowModal(false);
   };
   //確認一覧用
-	const inputDataLists = [];
+  const inputDataLists = [];
   var id = 0;
   for ( var k in report) {
     for ( var v in report[k]) {
@@ -56,7 +56,7 @@ function Confirm(props)  {
     }
   }
 
-	const [userStatus, setUserStatus] = useState([])
+  const [userStatus, setUserStatus] = useState([])
 
   useEffect(() => {
     axios.get('/api/v1/user_statuses.json')
@@ -69,16 +69,16 @@ function Confirm(props)  {
     })
   }, [])
 
-	const updateUserExp = (exp) => {
-		const data = { exp: exp };
-		axios.patch(`/api/v1/user_statuses/${userStatus.id}`, data)
-			.then(resp => {
-				console.log(resp.data);
-			})
-			.catch(e => {
-				console.log(e);
-			});
-	};
+  const updateUserExp = (exp) => {
+    const data = { exp: exp };
+    axios.patch(`/api/v1/user_statuses/${userStatus.id}`, data)
+      .then(resp => {
+        console.log(resp.data);
+      })
+      .catch(e => {
+        console.log(e);
+      });
+  };
 
   const saveReport = (is_finished) => {
     var data = {
@@ -88,7 +88,7 @@ function Confirm(props)  {
       t_record: report.Worked['tRecord'],
     };
 
-		updateUserExp(100);
+    updateUserExp(100);
 
     axios.post('/api/v1/reports', data)
     .then(resp => {
@@ -99,7 +99,7 @@ function Confirm(props)  {
         w_record : resp.data.w_record,
         t_record : resp.data.t_record
       });
-			props.history.push({ pathname: "/maintab", state: { showModal: true } });
+      props.history.push({ pathname: "/maintab", state: { showModal: true } });
     })
     .catch(e => {
       console.log(e)
@@ -107,7 +107,7 @@ function Confirm(props)  {
   };
 
   return (
-		<>
+    <>
     <Grid container>
       <TableContainer component={Paper}>
         <Table aria-label="Customer Input Data">
@@ -119,14 +119,14 @@ function Confirm(props)  {
           </TableHead>
           <TableBody>
             {
-							inputDataLists.map(function(elem) {
-								return (
-									<TableRow key={elem.id}>
-									<TableCell>{elem.name}</TableCell>
-									{ elem.value ? <TableCell>{elem.value}</TableCell> : <TableCell>None</TableCell> }
-									</TableRow>
-								)
-							})
+              inputDataLists.map(function(elem) {
+                return (
+                  <TableRow key={elem.id}>
+                  <TableCell>{elem.name}</TableCell>
+                  { elem.value ? <TableCell>{elem.value}</TableCell> : <TableCell>None</TableCell> }
+                  </TableRow>
+                )
+              })
             }
           </TableBody>
         </Table>
@@ -135,25 +135,25 @@ function Confirm(props)  {
         戻る
       </Button>
       <Button 
-				variant="contained" 
-				color="primary" 
-				onClick={() => {
-					saveReport(true);
-				}}
-			>
+        variant="contained" 
+        color="primary" 
+        onClick={() => {
+          saveReport(true);
+        }}
+      >
         完了
       </Button>
       <Button 
-				variant="contained" 
-				color="primary" 
-				onClick={() => {
-					saveReport(false);
-				}}
-			>
+        variant="contained" 
+        color="primary" 
+        onClick={() => {
+          saveReport(false);
+        }}
+      >
         中断 
       </Button>
     </Grid>
-		</>
+    </>
   )
 }
 //props.history.pushを呼び出すためwithRouter使用
