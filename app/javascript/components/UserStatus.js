@@ -98,6 +98,7 @@ function UserStatus(props) {
       </div>
       <div>
         <p> Lv.{userStatus.level}</p>
+        <p> {userStatus.exp} exp</p>
         <p>次のレベルまで:</p>
         <p>ランク:</p>
       </div>

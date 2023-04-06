@@ -35,16 +35,12 @@ Rails.application.routes.draw do
   get 'active_work', to: 'site#index'
   get 'reports/:id/edit', to: 'site#index'
   
-  #旧モデル用root(順次削除)
-  get 'projects/new', to: 'site#index'
-  get 'projects/:id/edit', to: 'site#index'
-  get '/projects/finish', to: 'site#index'
-  
   namespace :api do
     namespace :v1 do
       resources :projects, only: %i[index show create update destroy]
       resources :reports, only: %i[index last_report show create update destroy]
       resources :user_statuses, only: %i[index show create update]
+      resources :level_settings, only: %i[index]
     end
   end
 

@@ -24,14 +24,29 @@ const Modal = styled.div`
 `
 
 function MainTab() {
-  //最新report
+  const [userStatus, setUserStatus] = useState([])
+
+  useEffect(() => {
+    axios.get('/api/v1/user_statuses.json')
+    .then(resp => {
+      console.log(resp.data)
+      setUserStatus(resp.data);
+    })
+    .catch(e => {
+      console.log(e);
+    })
+  }, [])
+
+  //最新report取得
   const [lastReport, setLastReport] = useState([]);
-  
+  const [tempReport] = useState({ id: null, is_finished: false, y_record : '', w_record : '', t_record : 'ワークを始めましょう！' });
+
   useEffect(() => {
     axios.get('/api/v1/reports/last_report')
     .then(resp => {
       console.log(resp.data)
-      setLastReport(resp.data);
+      setLastReport(resp.data)? resp.data : tempReport;
+      //レポートが返ってこない場合のみテンプレを渡せる。新規アカウントなどnull故のUndefinedエラーを防げる
     })
     .catch(e => {
       console.log(e);
@@ -52,32 +67,6 @@ function MainTab() {
     setShowModal(false);
   };
 
-  function ActiveCheck(is_finished){
-    var LinkMsg;
-    if (is_finished == true){
-      LinkMsg =
-      <Link to="/active_work">
-        <Button
-          variant="contained"
-          color="primary"
-        >
-          ワーク開始
-        </Button>
-      </Link>
-    }else{
-      LinkMsg =
-      <Link to={{ pathname: "/active_work", state: { lastReport:lastReport[0]} }}> 
-        <Button
-          variant="contained"
-          color="warning"
-        >
-          未完了ワークあり
-        </Button>
-      </Link>         
-      }
-    return LinkMsg
-  }
-
   return (
     <>
       {showModal && (
@@ -89,14 +78,24 @@ function MainTab() {
           </Paper>
         </Modal>
       )}
+      <div>
+        {userStatus.name}/ Lv.{userStatus.level}
+      </div>
       <div class="d-block d-md-none">
         <p class="vertical-title">メインタブ</p>
       </div>
       <h2 class="d-none mr-2 d-md-block text-secondary">メインタブ</h2>
       <div class="w-100">
-        <h3>次やること:{lastReport.t_record}</h3>
+        <h3>次やること:{lastReport?.t_record || tempReport.t_record}</h3>
         <div>次のレベルまで:</div>
-        {ActiveCheck(lastReport.is_finished)}
+        <Link to="/active_work">
+          <Button
+            variant="contained"
+            color="primary"
+          >
+            ワーク開始
+          </Button>
+        </Link>
         <Accordion>
           <AccordionSummary
             expandIcon={<CiCircleChevUp />}
@@ -104,9 +103,9 @@ function MainTab() {
             <p>前回の記録</p>
           </AccordionSummary>
           <AccordionDetails>
-            <p>ワーク完了日: {lastReport.updated_at}</p>
-            <p>やったこと: {lastReport.y_record}</p>
-            <p>わかったこと: {lastReport.w_record}</p>
+            <p>ワーク完了日: {lastReport?.updated_at || tempReport.updated_at}</p>
+            <p>やったこと: {lastReport?.y_record || tempReport.y_record}</p>
+            <p>わかったこと: {lastReport?.w_record || tempReport.w_record}</p>
           </AccordionDetails>
         </Accordion>
         <div id="non-project-text">
