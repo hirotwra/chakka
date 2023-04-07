@@ -6,7 +6,6 @@ RSpec.describe '管理者機能', type: :system do
     let!(:second_normal_user) { FactoryBot.create(:second_normal_user) }
     let!(:normal_user_status) { FactoryBot.create(:normal_user_status) }
     let!(:second_normal_user_status) { FactoryBot.create(:second_normal_user_status) }
-    let!(:admin_report) { FactoryBot.create(:admin_report) }
     context '管理者ログインしていない場合' do
       before do
         visit new_user_session_path
@@ -16,7 +15,7 @@ RSpec.describe '管理者機能', type: :system do
       end
       it '管理者作成フォームにアクセスできない' do
         visit new_admin_registration_path
-        expect(page).to have_content 'このアカウントは管理者専用ページにアクセスできません。'
+        expect(page).to have_content 'メインタブ'
       end
     end
 

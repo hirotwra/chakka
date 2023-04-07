@@ -71,7 +71,7 @@ function MainTab() {
       </div>
       <h2 class="d-none mr-2 d-md-block text-secondary">メインタブ</h2>
       <div class="w-100">
-        <h3>次やること:{lastReport.t_record}</h3>
+        <h3>次やること:{lastReport?.t_record || tempReport.t_record}</h3>
         <div>次のレベルまで:</div>
         <Link to="/active_work">
           <Button
@@ -88,9 +88,9 @@ function MainTab() {
             <p>前回の記録</p>
           </AccordionSummary>
           <AccordionDetails>
-            <p>ワーク完了日: {lastReport.updated_at}</p>
-            <p>やったこと: {lastReport.y_record}</p>
-            <p>わかったこと: {lastReport.w_record}</p>
+            <p>ワーク完了日: {lastReport?.updated_at ||tempReport.updated_at}</p>
+            <p>やったこと: {lastReport?.y_record ||tempReport.y_record}</p>
+            <p>わかったこと: {lastReport?.w_record ||tempReport.w_record}</p>
           </AccordionDetails>
         </Accordion>
         <div id="non-project-text">
