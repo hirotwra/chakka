@@ -74,6 +74,7 @@ function MainTab() {
           <Paper sx={{ p: 3 }}>
             <h3>ワーク完了!</h3>
             <div>100Exp 獲得!</div>
+            {/*TODO: ユーザーの経験値を表示する*/}
             <Button variant="text" onClick={handleCloseModal}>閉じる</Button>
           </Paper>
         </Modal>
