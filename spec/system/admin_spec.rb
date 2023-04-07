@@ -6,7 +6,7 @@ RSpec.describe '管理者機能', type: :system do
     let!(:second_normal_user) { FactoryBot.create(:second_normal_user) }
     let!(:normal_user_status) { FactoryBot.create(:normal_user_status) }
     let!(:second_normal_user_status) { FactoryBot.create(:second_normal_user_status) }
-
+    let!(:admin_report) { FactoryBot.create(:admin_report) }
     context '管理者ログインしていない場合' do
       before do
         visit new_user_session_path

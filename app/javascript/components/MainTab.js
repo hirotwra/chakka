@@ -24,14 +24,16 @@ const Modal = styled.div`
 `
 
 function MainTab() {
-  //最新report
+  //最新report取得
   const [lastReport, setLastReport] = useState([]);
-  
+  const [tempReport] = useState({ id: null, is_finished: false, y_record : '', w_record : '', t_record : 'ワークを始めましょう！' });
+
   useEffect(() => {
     axios.get('/api/v1/reports/last_report')
     .then(resp => {
       console.log(resp.data)
-      setLastReport(resp.data);
+      setLastReport(resp.data)? resp.data : tempReport;
+      //レポートが返ってこない場合のみテンプレを渡せる。新規アカウントなどnull故のUndefinedエラーを防げる
     })
     .catch(e => {
       console.log(e);

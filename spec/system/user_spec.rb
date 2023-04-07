@@ -8,6 +8,7 @@ RSpec.describe 'ユーザ管理機能', type: :system do
         fill_in 'パスワード', with: '123456'
         fill_in 'パスワード（確認用）', with: '123456'
         click_button 'アカウント登録'
+        binding.pry
         expect(page).to have_content 'メインタブ'
       end
     end
@@ -49,6 +50,7 @@ RSpec.describe 'ユーザ管理機能', type: :system do
   describe 'アクセス制限' do
     let!(:normal_user) { FactoryBot.create(:normal_user) }
     let!(:normal_user_status) { FactoryBot.create(:normal_user_status) }
+    let!(:report) { FactoryBot.create(:report) }
     context '一般ユーザが管理者用画面にアクセスした場合' do
       before do
         visit new_user_session_path
