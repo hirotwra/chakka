@@ -143,15 +143,6 @@ function Confirm(props)  {
       >
         完了
       </Button>
-      <Button 
-        variant="contained" 
-        color="primary" 
-        onClick={() => {
-          saveReport(false);
-        }}
-      >
-        中断 
-      </Button>
     </Grid>
     </>
   )

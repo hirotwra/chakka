@@ -52,32 +52,6 @@ function MainTab() {
     setShowModal(false);
   };
 
-  function ActiveCheck(is_finished){
-    var LinkMsg;
-    if (is_finished == true){
-      LinkMsg =
-      <Link to="/active_work">
-        <Button
-          variant="contained"
-          color="primary"
-        >
-          ワーク開始
-        </Button>
-      </Link>
-    }else{
-      LinkMsg =
-      <Link to={{ pathname: "/active_work", state: { lastReport:lastReport[0]} }}> 
-        <Button
-          variant="contained"
-          color="warning"
-        >
-          未完了ワークあり
-        </Button>
-      </Link>         
-      }
-    return LinkMsg
-  }
-
   return (
     <>
       {showModal && (
@@ -85,6 +59,7 @@ function MainTab() {
           <Paper sx={{ p: 3 }}>
             <h3>ワーク完了!</h3>
             <div>100Exp 獲得!</div>
+            {/*TODO:ユーザーの獲得経験値を表示する*/}
             <Button variant="text" onClick={handleCloseModal}>閉じる</Button>
           </Paper>
         </Modal>
@@ -96,7 +71,14 @@ function MainTab() {
       <div class="w-100">
         <h3>次やること:{lastReport.t_record}</h3>
         <div>次のレベルまで:</div>
-        {ActiveCheck(lastReport.is_finished)}
+        <Link to="/active_work">
+          <Button
+            variant="contained"
+            color="primary"
+          >
+            ワーク開始
+          </Button>
+        </Link>
         <Accordion>
           <AccordionSummary
             expandIcon={<CiCircleChevUp />}
