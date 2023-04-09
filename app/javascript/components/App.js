@@ -1,5 +1,6 @@
 import React,  { useState, useEffect } from 'react'
 import { Switch, Route, Link } from 'react-router-dom'
+import axios from 'axios'
 import { AiFillFire, AiFillHome, AiFillPlusCircle, AiFillPhone, AiFillCarryOut } from 'react-icons/ai'
 //import { useTimer } from 'use-timer'
 import styled from 'styled-components'
@@ -16,16 +17,20 @@ const Wrapper = styled.div`
   margin: 20px auto;
 `
 
-const ConcentModeBg = styled.div`
-  position: fixed;
-  background: rgba(0, 0, 0, 0.9);
-  width: 100%;
-  height: 100%;
-  top:0;
-  left:0;
-  z-index: 1021;
-`
 function App() {
+  const [userStatus, setUserStatus] = useState([])
+
+  useEffect(() => {
+    axios.get('/api/v1/user_statuses.json')
+    .then(resp => {
+      console.log(resp.data)
+      setUserStatus(resp.data);
+    })
+    .catch(e => {
+      console.log(e);
+    })
+  }, [])
+
   return (
     <>
       <div class="row pt-5">
@@ -33,13 +38,16 @@ function App() {
           <nav class="vh-100 w-100 fixed-left" id="sidebarResponsive">
             <ul class="nav flex-column pt-5">
               <li  class="side-item">
+                {userStatus.name}/ Lv.{userStatus.level}
+              </li>	
+              <li  class="side-item">
                 <Link to="/maintab">
-                  <AiFillHome/>&emsp;<span class="d-none d-md-inline-block">済ここはメインタブに変更</span>
+                  <AiFillHome/>&emsp;<span class="d-none d-md-inline-block">メインタブ</span>
                 </Link>
               </li>
               <li class="side-item">
                 <Link to="/reports">
-                  <AiFillCarryOut/>&emsp;<span class="d-none d-md-inline-block">済ここは過去学習記録一覧に変更</span>
+                  <AiFillCarryOut/>&emsp;<span class="d-none d-md-inline-block">学習記録一覧</span>
                 </Link>
               </li>
               <li  class="side-item">

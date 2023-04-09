@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
 import axios from 'axios'
 import styled from 'styled-components'
 import { toast } from 'react-toastify'
@@ -8,11 +7,22 @@ import Button from '@mui/material/Button'
 import Paper from '@mui/material/Paper'
 import Tooltip from '@mui/material/Tooltip'
 
-function UserStatus() {
-  const [user_status, setUserStatus] = useState([])
+const InputForm = styled.input`
+  font-size: 15px;
+  width: 90%;
+  height: 20px;
+  justify-content: center;
+  margin-top: 18px;
+  padding: 2px 7px;
+`
+
+toast.configure()
+
+function UserStatus(props) {
+  const [userStatus, setUserStatus] = useState([])
 
   useEffect(() => {
-    axios.get('/api/v1/user_status.json')
+    axios.get('/api/v1/user_statuses.json')
     .then(resp => {
       console.log(resp.data)
       setUserStatus(resp.data);
@@ -22,24 +32,42 @@ function UserStatus() {
     })
   }, [])
 
-  //const updateIsFinished = (index, val) => {
-  //  var data = {
-  //    is_finished : false,
-  //    y_record: val.y_record,
-  //    w_record: val.w_record,
-  //    t_record: val.t_record,
-  //  }
-  //  const sure = window.confirm('プロジェクトを完了済リストに移動します。よろしいですか?');
-  //  if (sure) {
-  //  axios.patch(`/api/v1/projects/${val.id}`, data)
-  //  .then(resp => {
-  //    const newProjects = [...projects]
-  //    newProjects[index].is_finished = resp.data.is_finished
-  //    setProjects(newProjects)
-  //  });
-  //  notify()
-  //  }
-  //}
+  const getUserStatus = id => {
+    axios.get(`/api/v1/user_statuses/${id}`)
+    .then(resp => {
+      setUserStatus(resp.data);
+    })
+    .catch(e => {
+      console.log(e);
+    });
+  };
+
+  useEffect(() => {
+    getUserStatus(props.match.params.id);
+    console.log(props.match.params.id)
+  }, [props.match.params.id]);
+
+  const handleInputChange = event => {
+    const { name, value } = event.target;
+    setUserStatus({ ...userStatus, [name]: value });
+  };
+
+  const notify = () => {
+    toast.success("ユーザーネームを変更しました", {
+      position: "bottom-center",
+      hideProgressBar: true
+    });
+  }
+
+  const updateUserName = () => {
+    axios.patch(`/api/v1/user_statuses/${userStatus.id}`, userStatus)
+    .then(response => {
+      notify();
+    })
+    .catch(e => {
+      console.log(e);
+    });
+  };
 
   return (
     <>
@@ -47,13 +75,31 @@ function UserStatus() {
         <p class="vertical-title">ユーザーステータス</p>
       </div>
       <h2 class="d-none mr-2 d-md-block text-secondary">ユーザーステータス</h2>
-
       <div class="w-100">
-        <h3 class="d-none mr-2 d-md-block text-secondary">次やること:</h3>
-        <div>次のレベルまで:</div>
-        <div id="non-project-text">未完了のプロジェクトはありません。</div>
-
-        
+        <h2>{userStatus.name}</h2>
+        <div class="field form-group row">
+          <InputForm
+            type="string"
+            onChange={handleInputChange}
+            name="name"
+            class="form-control" 
+            placeholder='ユーザーネームの変更'
+          />
+          <Button
+            variant="contained" 
+            color="info"
+            type="submit"
+            onClick={updateUserName}
+            className="mr-3"
+          >
+            更新
+          </Button>
+        </div>
+      </div>
+      <div>
+        <p> Lv.{userStatus.level}</p>
+        <p>次のレベルまで:</p>
+        <p>ランク:</p>
       </div>
     </>
   )

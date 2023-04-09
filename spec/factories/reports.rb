@@ -1,17 +1,27 @@
 FactoryBot.define do
-  factory :project do
+  factory :report , class: Report do
+    user_id {1}
+    is_finished {true}
     y_record {"やったこと"}
     w_record {"わかったこと"}
     t_record {'次やること'}
   end
 
-  factory :project_secound, class: Project do
+  factory :report_secound, class: Report do
     y_record {"やったこと"}
     w_record {"わかったこと"}
     t_record {'次やること'}
   end
 
-  factory :project_third, class: Project do
+  factory :report_third, class: Report do
+    y_record {"やったこと"}
+    w_record {"わかったこと"}
+    t_record {'次やること'}
+  end
+
+  factory :admin_report, class: Report do
+    user_id {1}
+    is_finished {true}
     y_record {"やったこと"}
     w_record {"わかったこと"}
     t_record {'次やること'}

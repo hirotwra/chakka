@@ -1,7 +1,9 @@
 Rails.application.routes.draw do
   root to: redirect('/maintab')
   
-  devise_for :users
+  devise_for :users, controllers: {
+    registrations: 'users/registrations'
+  }
   devise_for :admins, controllers:{
     sessions: 'admins/sessions',
     passwords: 'admins/passwords',
@@ -24,13 +26,13 @@ Rails.application.routes.draw do
 
   #サイドバー内リンク
   get 'maintab', to: 'site#index'
-  get 'active_work', to: 'site#index'
   get 'reports', to: 'site#index'
   get 'user_status', to: "site#index"
   get 'contact', to: 'site#index'
   get 'ranking', to: 'user_statuses#index'
 
-  #学習記録編集
+  #その他SPA内
+  get 'active_work', to: 'site#index'
   get 'reports/:id/edit', to: 'site#index'
   
   #旧モデル用root(順次削除)
@@ -41,8 +43,8 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       resources :projects, only: %i[index show create update destroy]
-      resources :reports, only: %i[index show create update destroy]
-      resources :user_statuses, only: %i[show create update]
+      resources :reports, only: %i[index last_report show create update destroy]
+      resources :user_statuses, only: %i[index show create update]
     end
   end
 

@@ -1,9 +1,10 @@
 import Grid from '@mui/material/Grid';
 import React, { useContext, useState, useEffect  } from "react";
-import  Button  from '@mui/material/Button'
-import { UserInputData } from "./ActiveWork";
 import axios from 'axios';
 import { withRouter } from 'react-router-dom';
+import  Button  from '@mui/material/Button'
+import { UserInputData } from "./ActiveWork";
+
 
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -16,21 +17,21 @@ import Paper from '@mui/material/Paper';
 var item = {
   'yRecord': 'やったこと',
   'wRecord': 'わかったこと',
-	'tRecord': '次やること',
+  'tRecord': '次やること',
 }
 
 function Confirm(props)  {
-	const { report, setReport } = useContext(UserInputData);
-	//modal用条件分岐
-	const [showModal, setShowModal] = useState(false);
-	useEffect(() => {
-		setShowModal(true);
-	}, []);
-	const handleCloseModal = () => {
+  const { report, setReport } = useContext(UserInputData);
+  //modal用条件分岐
+  const [showModal, setShowModal] = useState(false);
+  useEffect(() => {
+    setShowModal(true);
+  }, []);
+  const handleCloseModal = () => {
     setShowModal(false);
   };
   //確認一覧用
-	const inputDataLists = [];
+  const inputDataLists = [];
   var id = 0;
   for ( var k in report) {
     for ( var v in report[k]) {
@@ -55,13 +56,39 @@ function Confirm(props)  {
     }
   }
 
-  const saveReport = () => {
+  const [userStatus, setUserStatus] = useState([])
+
+  useEffect(() => {
+    axios.get('/api/v1/user_statuses.json')
+    .then(resp => {
+      console.log(resp.data)
+      setUserStatus(resp.data);
+    })
+    .catch(e => {
+      console.log(e);
+    })
+  }, [])
+
+  const updateUserExp = (exp) => {
+    const data = { exp: exp };
+    axios.patch(`/api/v1/user_statuses/${userStatus.id}`, data)
+      .then(resp => {
+        console.log(resp.data);
+      })
+      .catch(e => {
+        console.log(e);
+      });
+  };
+
+  const saveReport = (is_finished) => {
     var data = {
-      is_finished: true,
+      is_finished: is_finished,
       y_record: report.Working['yRecord'],
       w_record: report.Working['wRecord'],
       t_record: report.Worked['tRecord'],
     };
+
+    updateUserExp(100);
 
     axios.post('/api/v1/reports', data)
     .then(resp => {
@@ -72,7 +99,7 @@ function Confirm(props)  {
         w_record : resp.data.w_record,
         t_record : resp.data.t_record
       });
-			props.history.push({ pathname: "/maintab", state: { showModal: true } });
+      props.history.push({ pathname: "/maintab", state: { showModal: true } });
     })
     .catch(e => {
       console.log(e)
@@ -80,7 +107,7 @@ function Confirm(props)  {
   };
 
   return (
-		<>
+    <>
     <Grid container>
       <TableContainer component={Paper}>
         <Table aria-label="Customer Input Data">
@@ -92,26 +119,32 @@ function Confirm(props)  {
           </TableHead>
           <TableBody>
             {
-							inputDataLists.map(function(elem) {
-								return (
-									<TableRow key={elem.id}>
-									<TableCell>{elem.name}</TableCell>
-									{ elem.value ? <TableCell>{elem.value}</TableCell> : <TableCell>None</TableCell> }
-									</TableRow>
-								)
-							})
+              inputDataLists.map(function(elem) {
+                return (
+                  <TableRow key={elem.id}>
+                  <TableCell>{elem.name}</TableCell>
+                  { elem.value ? <TableCell>{elem.value}</TableCell> : <TableCell>None</TableCell> }
+                  </TableRow>
+                )
+              })
             }
           </TableBody>
         </Table>
       </TableContainer>
       <Button variant="contained" color="primary" onClick={props.handleBack}>
-          戻る
+        戻る
       </Button>
-      <Button variant="contained" color="primary" onClick={saveReport}>
-          送信
+      <Button 
+        variant="contained" 
+        color="primary" 
+        onClick={() => {
+          saveReport(true);
+        }}
+      >
+        完了
       </Button>
     </Grid>
-		</>
+    </>
   )
 }
 //props.history.pushを呼び出すためwithRouter使用
