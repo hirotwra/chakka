@@ -5,7 +5,7 @@ class Api::V1::ReportsController < ApplicationController
     if admin_signed_in?
       reports = User.find(1).reports
     else
-      report = current_user.reports
+      reports = current_user.reports
     end
     render json: reports
   end

@@ -20,6 +20,7 @@ RSpec.describe 'ユーザ管理機能', type: :system do
   end
   describe 'ログイン機能' do
     let!(:normal_user) { FactoryBot.create(:normal_user) }
+    let!(:normal_user_status) { FactoryBot.create(:normal_user_status) }
     before do
       visit new_user_session_path
       fill_in 'Eメール', with: 'normal@sample.com'
@@ -47,9 +48,8 @@ RSpec.describe 'ユーザ管理機能', type: :system do
 
   describe 'アクセス制限' do
     let!(:normal_user) { FactoryBot.create(:normal_user) }
-
+    let!(:normal_user_status) { FactoryBot.create(:normal_user_status) }
     context '一般ユーザが管理者用画面にアクセスした場合' do
-      let!(:normal_user) { FactoryBot.create(:normal_user) }
       before do
         visit new_user_session_path
         fill_in 'Eメール', with: 'normal@sample.com'

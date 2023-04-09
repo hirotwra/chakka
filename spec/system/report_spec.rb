@@ -3,6 +3,7 @@ require 'rails_helper'
 RSpec.describe '学習レポート管理機能', type: :system do
   describe '新規作成機能' do
     let!(:normal_user) { FactoryBot.create(:normal_user) }
+    let!(:normal_user_status) { FactoryBot.create(:normal_user_status) }
     before do
       visit new_user_session_path
       fill_in 'Eメール', with: 'normal@sample.com'
@@ -17,9 +18,8 @@ RSpec.describe '学習レポート管理機能', type: :system do
         click_button '次へ'
         fill_in "tRecord", with:'次やること'
         click_button '次へ'
-        rescue Selenium::WebDriver::Error::NoAlertPresentError
-        find('#submit-btn').click
-        expect(page).to have_content 'ワーク完了！'
+        click_button '完了'
+        expect(page).to have_content 'ワーク完了'
       end
       it 'ステップを移動してもフォームの内容が消えない' do
         click_link 'ワーク開始'

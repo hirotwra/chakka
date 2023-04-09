@@ -2,7 +2,11 @@ class Api::V1::UserStatusesController < ApplicationController
   skip_before_action :verify_authenticity_token
   def index
     user_statuses = UserStatus.all
-    user_status = current_user.user_status
+    if admin_signed_in?
+      user_status = UserStatus.find(100)
+    else
+      user_status = current_user.user_status
+    end
     render json: user_status
   end
 
