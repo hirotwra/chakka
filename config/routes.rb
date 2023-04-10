@@ -29,7 +29,7 @@ Rails.application.routes.draw do
   get 'reports', to: 'site#index'
   get 'user_status', to: "site#index"
   get 'contact', to: 'site#index'
-  get 'ranking', to: 'user_statuses#index'
+  get 'ranking', to: 'ranking#index'
 
   #その他SPA内
   get 'active_work', to: 'site#index'
