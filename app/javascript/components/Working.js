@@ -45,12 +45,14 @@ function Working(props) {
 
   return (
     <>
+      <div>ワーク進行中</div>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Controller
           control={control}
           name="yRecord"
           render={({ field }) => (
             <InputTextArea
+              required
               {...field}
               label="yRecord"
               fullWidth
@@ -64,6 +66,7 @@ function Working(props) {
           name="wRecord"
           render={({ field }) => (
             <InputTextArea
+              required
               {...field}
               label="wRecord"
               fullWidth
