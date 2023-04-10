@@ -27,9 +27,6 @@ function Confirm(props)  {
   useEffect(() => {
     setShowModal(true);
   }, []);
-  const handleCloseModal = () => {
-    setShowModal(false);
-  };
   //確認一覧用
   const inputDataLists = [];
   var id = 0;
@@ -69,11 +66,34 @@ function Confirm(props)  {
     })
   }, [])
 
+const updateUserLevel = (level) => {
+  const data = { level: level };
+  axios.patch(`/api/v1/user_statuses/${userStatus.id}`, data)
+    .then(resp => {
+      console.log(resp.data);
+    })
+    .catch(e => {
+      console.log(e);
+    });
+};
+
   const updateUserExp = (exp) => {
-    const data = { exp: exp };
+    const updatedExp = userStatus.exp + exp;
+    const data = { exp: updatedExp };
     axios.patch(`/api/v1/user_statuses/${userStatus.id}`, data)
       .then(resp => {
         console.log(resp.data);
+        axios.get('/api/v1/level_settings')
+        .then(resp => {
+          const levelSettings = resp.data;
+          const nextLevel = levelSettings.find(level_setting => level_setting.exp > userStatus.exp && level_setting.exp <= updatedExp);
+          if (nextLevel) {
+            updateUserLevel(nextLevel.level);
+          }
+        })
+        .catch(e => {
+          console.log(e);
+        });
       })
       .catch(e => {
         console.log(e);
@@ -88,6 +108,7 @@ function Confirm(props)  {
       t_record: report.Worked['tRecord'],
     };
 
+    //経験値加算処理+レベルアップ
     updateUserExp(100);
 
     axios.post('/api/v1/reports', data)

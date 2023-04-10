@@ -24,6 +24,19 @@ const Modal = styled.div`
 `
 
 function MainTab() {
+  const [userStatus, setUserStatus] = useState([])
+
+  useEffect(() => {
+    axios.get('/api/v1/user_statuses.json')
+    .then(resp => {
+      console.log(resp.data)
+      setUserStatus(resp.data);
+    })
+    .catch(e => {
+      console.log(e);
+    })
+  }, [])
+
   //最新report取得
   const [lastReport, setLastReport] = useState([]);
   const [tempReport] = useState({ id: null, is_finished: false, y_record : '', w_record : '', t_record : 'ワークを始めましょう！' });
@@ -66,6 +79,9 @@ function MainTab() {
           </Paper>
         </Modal>
       )}
+      <div>
+        {userStatus.name}/ Lv.{userStatus.level}
+      </div>
       <div class="d-block d-md-none">
         <p class="vertical-title">メインタブ</p>
       </div>
@@ -88,9 +104,9 @@ function MainTab() {
             <p>前回の記録</p>
           </AccordionSummary>
           <AccordionDetails>
-            <p>ワーク完了日: {lastReport?.updated_at ||tempReport.updated_at}</p>
-            <p>やったこと: {lastReport?.y_record ||tempReport.y_record}</p>
-            <p>わかったこと: {lastReport?.w_record ||tempReport.w_record}</p>
+            <p>ワーク完了日: {lastReport?.updated_at || tempReport.updated_at}</p>
+            <p>やったこと: {lastReport?.y_record || tempReport.y_record}</p>
+            <p>わかったこと: {lastReport?.w_record || tempReport.w_record}</p>
           </AccordionDetails>
         </Accordion>
         <div id="non-project-text">

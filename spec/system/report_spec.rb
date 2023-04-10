@@ -33,6 +33,20 @@ RSpec.describe '学習レポート管理機能', type: :system do
         click_button '次へ'
         expect(page).to have_content '入力内容t'
       end
+      it 'フォームが埋まってないならステップを進めない' do
+        click_link 'ワーク開始'
+        click_button '次へ'
+        expect(page).to have_content 'ワーク進行中'
+        fill_in "yRecord", with:'やったこと'
+        fill_in "wRecord", with:'わかったこと'
+        click_button '次へ'
+        click_button '次へ'
+        expect(page).to have_content '振り返り'
+        fill_in "tRecord", with:'次やること'
+        click_button '次へ'
+        click_button '完了'
+        expect(page).to have_content 'ワーク完了'
+      end
     end
   end
 

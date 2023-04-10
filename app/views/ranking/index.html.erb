@@ -4,16 +4,23 @@
     <table>
       <thead>
         <tr>
-          <th>ユーザーネーム</th>
+          <th>ランク</th>
+          <th>ユーザー名</th>
+          <th></th>
+          <th></th>
+          <th></th>
         </tr>
       </thead>
       <tbody>
-        <% @user_statuses.each do |user_status| %>
+        <% @ranking_list.each_with_index do |user_status, i| %>
           <tr>
+            <td><%= i + 1 %></td>
             <td><%= user_status.name %></td>
             <td>Lv. <%= user_status.level %>/</td>
             <td>exp:<%= user_status.exp %>/</td>
-            <td><%= user_status.exp %> pt.</td>
+            <td>
+              <strong><%= user_status.score %></strong> pt.
+            </td>
           </tr>
         <% end %>
       </tbody>

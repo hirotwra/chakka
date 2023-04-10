@@ -18,28 +18,12 @@ const Wrapper = styled.div`
 `
 
 function App() {
-  const [userStatus, setUserStatus] = useState([])
-
-  useEffect(() => {
-    axios.get('/api/v1/user_statuses.json')
-    .then(resp => {
-      console.log(resp.data)
-      setUserStatus(resp.data);
-    })
-    .catch(e => {
-      console.log(e);
-    })
-  }, [])
-
   return (
     <>
       <div class="row pt-5">
         <div class="col-2 col-md-4 pl-0">
           <nav class="vh-100 w-100 fixed-left" id="sidebarResponsive">
             <ul class="nav flex-column pt-5">
-              <li  class="side-item">
-                {userStatus.name}/ Lv.{userStatus.level}
-              </li>	
               <li  class="side-item">
                 <Link to="/maintab">
                   <AiFillHome/>&emsp;<span class="d-none d-md-inline-block">メインタブ</span>
@@ -52,7 +36,7 @@ function App() {
               </li>
               <li  class="side-item">
                 <Link to="/user_status">
-                  <AiFillPlusCircle/>&emsp;<span class="d-none d-md-inline-block">済ここはユーザー情報に変更</span>
+                  <AiFillPlusCircle/>&emsp;<span class="d-none d-md-inline-block">ユーザー情報</span>
                 </Link>
               </li>
               <li  class="side-item">
@@ -62,7 +46,7 @@ function App() {
               </li>
               <li class="side-item">
                 <a href="ranking" target="_blank">
-                  <AiFillPhone/>&emsp;<span class="d-none d-md-inline-block">済ここはランキングに変更</span>
+                  <AiFillPhone/>&emsp;<span class="d-none d-md-inline-block">ランキング</span>
                 </a>
               </li>
             </ul>

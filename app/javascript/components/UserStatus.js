@@ -98,8 +98,7 @@ function UserStatus(props) {
       </div>
       <div>
         <p> Lv.{userStatus.level}</p>
-        <p>次のレベルまで:</p>
-        <p>ランク:</p>
+        <p> {userStatus.exp} exp / {userStatus.score} pt.</p>
       </div>
     </>
   )
