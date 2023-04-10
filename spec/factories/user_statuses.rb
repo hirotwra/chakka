@@ -12,7 +12,7 @@ FactoryBot.define do
     id {2}
     user_id {2}
     name { "ノーマル２" }
-    level { 5 }
+    level { 4 }
     exp { 1000 }
     score {0}
     last_achievemented_at { "now()" }

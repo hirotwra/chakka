@@ -36,7 +36,7 @@ function App() {
               </li>
               <li  class="side-item">
                 <Link to="/user_status">
-                  <AiFillPlusCircle/>&emsp;<span class="d-none d-md-inline-block">済ここはユーザー情報に変更</span>
+                  <AiFillPlusCircle/>&emsp;<span class="d-none d-md-inline-block">ユーザー情報</span>
                 </Link>
               </li>
               <li  class="side-item">
@@ -46,7 +46,7 @@ function App() {
               </li>
               <li class="side-item">
                 <a href="ranking" target="_blank">
-                  <AiFillPhone/>&emsp;<span class="d-none d-md-inline-block">済ここはランキングに変更</span>
+                  <AiFillPhone/>&emsp;<span class="d-none d-md-inline-block">ランキング</span>
                 </a>
               </li>
             </ul>
