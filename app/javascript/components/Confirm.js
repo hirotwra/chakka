@@ -4,7 +4,7 @@ import axios from 'axios';
 import { withRouter } from 'react-router-dom';
 import  Button  from '@mui/material/Button'
 import { UserInputData } from "./ActiveWork";
-
+import { toast } from 'react-toastify'
 
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -22,6 +22,14 @@ var item = {
 
 function Confirm(props)  {
   const { report, setReport } = useContext(UserInputData);
+
+  const notify = () => {
+    toast.success("レベルアップしました！", {
+      position: "bottom-center",
+      hideProgressBar: true
+    });
+  }
+
   //modal用条件分岐
   const [showModal, setShowModal] = useState(false);
   useEffect(() => {
@@ -66,20 +74,10 @@ function Confirm(props)  {
     })
   }, [])
 
-const updateUserLevel = (level) => {
-  const data = { level: level };
-  axios.patch(`/api/v1/user_statuses/${userStatus.id}`, data)
-    .then(resp => {
-      console.log(resp.data);
-    })
-    .catch(e => {
-      console.log(e);
-    });
-};
-
   const updateUserExp = (exp) => {
     const updatedExp = userStatus.exp + exp;
-    const data = { exp: updatedExp };
+    const updatedNextExp = userStatus.next_level_exp - exp;
+    const data = { exp: updatedExp, next_level_exp: updatedNextExp };
     axios.patch(`/api/v1/user_statuses/${userStatus.id}`, data)
       .then(resp => {
         console.log(resp.data);
@@ -88,7 +86,17 @@ const updateUserLevel = (level) => {
           const levelSettings = resp.data;
           const nextLevel = levelSettings.find(level_setting => level_setting.exp > userStatus.exp && level_setting.exp <= updatedExp);
           if (nextLevel) {
-            updateUserLevel(nextLevel.level);
+            const updatedNextExp = nextLevel.next_exp - updatedExp
+            const updatedLevel = nextLevel.level
+            const data = { level: updatedLevel, next_level_exp: updatedNextExp };
+            axios.patch(`/api/v1/user_statuses/${userStatus.id}`, data)
+              .then(resp => {
+                console.log(resp.data);
+                notify();
+              })
+              .catch(e => {
+                console.log(e);
+              });
           }
         })
         .catch(e => {

@@ -88,7 +88,6 @@ function MainTab() {
       <h2 class="d-none mr-2 d-md-block text-secondary">メインタブ</h2>
       <div class="w-100">
         <h3>次やること:{lastReport?.t_record || tempReport.t_record}</h3>
-        <div>次のレベルまで:</div>
         <Link to="/active_work">
           <Button
             variant="contained"

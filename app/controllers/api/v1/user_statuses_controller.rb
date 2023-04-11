@@ -30,6 +30,6 @@ class Api::V1::UserStatusesController < ApplicationController
   private
 
   def user_status_params
-    params.require(:user_status).permit(:name, :level, :exp, :fav_badge, :score, :last_achievemented_at, :user_id)
+    params.require(:user_status).permit(:name, :level, :exp, :next_level_exp, :fav_badge, :score, :last_achievemented_at, :user_id)
   end
 end

@@ -11,7 +11,8 @@ begin
 rescue ActiveRecord::PendingMigrationError => e
   abort e.to_s.strip
 end
-ActiveRecord::Base.logger = Logger.new(STDOUT)
+#SQLのログが必要な時有効化↓
+#ActiveRecord::Base.logger = Logger.new(STDOUT)
 RSpec.configure do |config|
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
