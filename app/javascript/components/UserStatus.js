@@ -99,6 +99,7 @@ function UserStatus(props) {
       <div>
         <p> Lv.{userStatus.level}</p>
         <p> {userStatus.exp} exp / {userStatus.score} pt.</p>
+        <div>次のレベルまで: {userStatus.next_level_exp}</div>
       </div>
     </>
   )

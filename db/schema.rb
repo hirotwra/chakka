@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_03_20_002906) do
+ActiveRecord::Schema.define(version: 2023_04_11_005138) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -49,6 +49,7 @@ ActiveRecord::Schema.define(version: 2023_03_20_002906) do
     t.integer "exp", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "next_exp", default: 0
     t.index ["exp"], name: "index_level_settings_on_exp"
     t.index ["level"], name: "index_level_settings_on_level"
   end
@@ -111,6 +112,7 @@ ActiveRecord::Schema.define(version: 2023_03_20_002906) do
     t.datetime "last_achievemented_at", default: -> { "now()" }
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "next_level_exp", default: 100
     t.index ["user_id"], name: "index_user_statuses_on_user_id"
   end
 
