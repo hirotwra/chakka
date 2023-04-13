@@ -24,7 +24,9 @@ RSpec.describe 'レベル更新機能', type: :system do
         click_button '完了'
         click_button '閉じる'
         click_link 'ユーザー情報'
-        expect(page).to have_content (/Lv.2|exp 100|次のレベルまで:200/)
+        expect(page).to have_content 'Lv.2' 
+        expect(page).to have_content '100 exp'
+        expect(page).to have_content '次のレベルまで: 200'
         #exp100→200
         visit root_path
         click_link 'ワーク開始'
@@ -36,7 +38,9 @@ RSpec.describe 'レベル更新機能', type: :system do
         click_button '完了'
         click_button '閉じる'
         click_link 'ユーザー情報'
-        expect(page).to have_content (/Lv.2|exp 200|次のレベルまで:100/)
+        expect(page).to have_content 'Lv.2' 
+        expect(page).to have_content '200 exp'
+        expect(page).to have_content '次のレベルまで: 100'
       end
     end
     context 'ワーク完了後' do
