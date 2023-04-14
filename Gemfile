@@ -39,6 +39,7 @@ gem 'devise-i18n'
 gem 'sidekiq'
 gem 'sidekiq-scheduler' 
 gem 'sinatra', require: false
+gem 'listen', '~> 3.3'
 
 
 group :development, :test do

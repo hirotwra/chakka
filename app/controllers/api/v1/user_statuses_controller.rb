@@ -3,7 +3,7 @@ class Api::V1::UserStatusesController < ApplicationController
   def index
     user_statuses = UserStatus.all
     if admin_signed_in?
-      user_status = UserStatus.find(100)
+      user_status = UserStatus.find_by(user_id: 20)
     else
       user_status = current_user.user_status
     end
