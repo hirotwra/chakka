@@ -1,10 +1,5 @@
-:verbose: false # 対話モード
-:concurrency: 10 # worker process 数
-development:
-  redis_url: redis://localhost:6379/0
-  queues:  # 処理するキュー名
-    - default
 :scheduler:
-  score_update:
-    cron: '0 0/1 * * * *'
-    class: ScoreUpdateJob
+  :schedule:
+    score_update:
+      cron: '0 4 * * * *'
+      class: ScoreUpdateJob
