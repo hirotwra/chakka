@@ -36,6 +36,9 @@ gem 'dotenv-rails'
 gem 'rexml'
 gem 'unicorn' # アプリケーションサーバのunicorn
 gem 'devise-i18n'
+gem 'sidekiq'
+gem 'sidekiq-scheduler' 
+gem 'sinatra', require: false
 gem 'listen', '~> 3.3'
 
 

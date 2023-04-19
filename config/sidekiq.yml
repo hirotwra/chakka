@@ -1,0 +1,5 @@
+:scheduler:
+  :schedule:
+    score_update:
+      cron: '0 4 * * * *'
+      class: ScoreUpdateJob

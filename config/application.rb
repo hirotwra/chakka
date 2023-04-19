@@ -31,7 +31,8 @@ module Chakka
     #
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
-
+    config.time_zone = "Tokyo" #アプリ側
+    config.active_record.default_timezone = :local
     # Don't generate system test files.
     config.generators.system_tests = nil
     config.i18n.default_locale = :ja
@@ -45,5 +46,6 @@ module Chakka
         request_specs: false
       g.fixture_replacement :factory_bot, dir: "spec/factories"
     end
+    config.active_job.queue_adapter = :sidekiq
   end
 end

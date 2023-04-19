@@ -44,6 +44,13 @@ Rails.application.routes.draw do
     end
   end
 
+  #sidekiqダッシュボード用マウント
+  require 'sidekiq/web'
+  require 'sidekiq-scheduler/web'
+  mount Sidekiq::Web => '/sidekiq'
+
+  post 'ranking/update'
+
   get '*not_found', to:'application#routing_error'
   post '*not_found', to:'application#routing_error'
 end

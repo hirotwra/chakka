@@ -77,7 +77,8 @@ function Confirm(props)  {
   const updateUserExp = (exp) => {
     const updatedExp = userStatus.exp + exp;
     const updatedNextExp = userStatus.next_level_exp - exp;
-    const data = { exp: updatedExp, next_level_exp: updatedNextExp };
+    var now = new Date();
+    const data = { exp: updatedExp, next_level_exp: updatedNextExp, last_achievemented_at: now};
     axios.patch(`/api/v1/user_statuses/${userStatus.id}`, data)
       .then(resp => {
         console.log(resp.data);

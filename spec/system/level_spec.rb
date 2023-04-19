@@ -26,7 +26,8 @@ RSpec.describe 'レベル更新機能', type: :system do
         click_link 'ユーザー情報'
         expect(page).to have_content 'Lv.2' 
         expect(page).to have_content '100 exp'
-        expect(page).to have_content '次のレベルまで: 200'        #exp100→200
+        expect(page).to have_content '次のレベルまで: 200'
+        #exp100→200
         visit root_path
         click_link 'ワーク開始'
         fill_in "yRecord", with:'やったこと'
