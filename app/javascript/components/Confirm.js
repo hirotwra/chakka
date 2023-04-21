@@ -20,6 +20,7 @@ var item = {
   'tRecord': '次やること',
 }
 
+
 function Confirm(props)  {
   const { report, setReport } = useContext(UserInputData);
 
@@ -78,31 +79,19 @@ function Confirm(props)  {
     const updatedExp = userStatus.exp + exp;
     const updatedNextExp = userStatus.next_level_exp - exp;
     var now = new Date();
-    const data = { exp: updatedExp, next_level_exp: updatedNextExp, last_achievemented_at: now};
-    axios.patch(`/api/v1/user_statuses/${userStatus.id}`, data)
+    const data = { 
+      exp: updatedExp, 
+      next_level_exp: updatedNextExp, 
+      last_achievemented_at: now
+    };
+    axios.patch(`/api/v1/user_statuses/${userStatus.id}/exp_update`, data)
       .then(resp => {
         console.log(resp.data);
-        axios.get('/api/v1/level_settings')
-        .then(resp => {
-          const levelSettings = resp.data;
-          const nextLevel = levelSettings.find(level_setting => level_setting.exp > userStatus.exp && level_setting.exp <= updatedExp);
-          if (nextLevel) {
-            const updatedNextExp = nextLevel.next_exp - updatedExp
-            const updatedLevel = nextLevel.level
-            const data = { level: updatedLevel, next_level_exp: updatedNextExp };
-            axios.patch(`/api/v1/user_statuses/${userStatus.id}`, data)
-              .then(resp => {
-                console.log(resp.data);
-                notify();
-              })
-              .catch(e => {
-                console.log(e);
-              });
-          }
-        })
-        .catch(e => {
-          console.log(e);
-        });
+        const flashMessage = resp.data.flash_message;
+      // flash_messageが含まれている場合にのみToastifyの通知を表示
+        if (flashMessage ==  'レベルアップしました！') {
+          notify();
+        }
       })
       .catch(e => {
         console.log(e);
