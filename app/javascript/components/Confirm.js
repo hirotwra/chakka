@@ -24,8 +24,8 @@ var item = {
 function Confirm(props)  {
   const { report, setReport } = useContext(UserInputData);
 
-  const notify = () => {
-    toast.success("レベルアップしました！", {
+  const notify = (message) => {
+    toast.success(message, {
       position: "bottom-center",
       hideProgressBar: true
     });
@@ -75,22 +75,13 @@ function Confirm(props)  {
     })
   }, [])
 
-  const updateUserExp = (exp) => {
-    const updatedExp = userStatus.exp + exp;
-    const updatedNextExp = userStatus.next_level_exp - exp;
-    var now = new Date();
-    const data = { 
-      exp: updatedExp, 
-      next_level_exp: updatedNextExp, 
-      last_achievemented_at: now
-    };
-    axios.patch(`/api/v1/user_statuses/${userStatus.id}/exp_update`, data)
+  const updateUserExp = () => {
+    axios.patch(`/api/v1/user_statuses/${userStatus.id}/exp_update`)
       .then(resp => {
         console.log(resp.data);
         const flashMessage = resp.data.flash_message;
-      // flash_messageが含まれている場合にのみToastifyの通知を表示
         if (flashMessage ==  'レベルアップしました！') {
-          notify();
+          notify(flashMessage);
         }
       })
       .catch(e => {
@@ -106,8 +97,7 @@ function Confirm(props)  {
       t_record: report.Worked['tRecord'],
     };
 
-    //経験値加算処理+レベルアップ
-    updateUserExp(100);
+    updateUserExp();
 
     axios.post('/api/v1/reports', data)
     .then(resp => {
