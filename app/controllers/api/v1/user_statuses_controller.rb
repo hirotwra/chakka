@@ -27,27 +27,6 @@ class Api::V1::UserStatusesController < ApplicationController
     render json: user_status
   end
 
-  def exp_update
-    user_status = current_user.user_status
-    before_exp = user_status.exp
-    user_status.exp += 100
-    user_status.next_level_exp -= 100
-    user_status.last_achievemented_at = Date.today
-    level_settings = LevelSetting.all.order(level: :desc)
-    update_level = level_settings.find{|level|
-      level.exp > before_exp && level.exp <= user_status.exp
-    }
-    if user_status.next_level_exp <= 0
-      user_status.level = update_level.level
-      user_status.next_level_exp = update_level.next_exp - user_status.exp
-      user_status.save!
-      render json: {user_status: user_status, flash_message: "レベルアップしました！"}
-      return
-    end
-      user_status.save!
-      render json: user_status
-  end
-
   private
 
   def user_status_params

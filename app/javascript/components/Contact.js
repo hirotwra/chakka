@@ -9,7 +9,6 @@ function Contact() {
       </div>
       <h2 class="d-none d-md-block text-secondary">Contact</h2>
 
-      <div>つくった人↓</div>
       <div class="d-flex d-md-block p-3 align-items-center">
         <p class="lead pr-1 font-weight-bold">Tawara Hiroyasu</p>
         <a href='https://github.com/HiroyasuTawara' class="m-3"><AiFillGithub size={25}/></a>

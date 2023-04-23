@@ -59,7 +59,7 @@ RSpec.describe 'レベル更新機能', type: :system do
         fill_in "tRecord", with:'次やること'
         click_button '次へ'
         click_button '完了'
-        expect(page).to have_content "レベルアップしました！"
+        expect(page).to have_content "レベルアップ！"
         #exp100→200
         click_button '閉じる'
         visit root_path

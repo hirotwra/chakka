@@ -13,6 +13,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import { error } from 'jquery';
 
 var item = {
   'yRecord': 'やったこと',
@@ -24,11 +25,17 @@ var item = {
 function Confirm(props)  {
   const { report, setReport } = useContext(UserInputData);
 
-  const notify = (message) => {
-    toast.success(message, {
+  const notify = (message, type) => {
+    const options = {
       position: "bottom-center",
       hideProgressBar: true
-    });
+    };
+
+    if (type === 'success') {
+      toast.success(message, options);
+    } else if (type === 'error') {
+      toast.error(message, options);
+    } 
   }
 
   //modal用条件分岐
@@ -75,20 +82,6 @@ function Confirm(props)  {
     })
   }, [])
 
-  const updateUserExp = () => {
-    axios.patch(`/api/v1/user_statuses/${userStatus.id}/exp_update`)
-      .then(resp => {
-        console.log(resp.data);
-        const flashMessage = resp.data.flash_message;
-        if (flashMessage ==  'レベルアップしました！') {
-          notify(flashMessage);
-        }
-      })
-      .catch(e => {
-        console.log(e);
-      });
-  };
-
   const saveReport = (is_finished) => {
     var data = {
       is_finished: is_finished,
@@ -96,8 +89,6 @@ function Confirm(props)  {
       w_record: report.Working['wRecord'],
       t_record: report.Worked['tRecord'],
     };
-
-    updateUserExp();
 
     axios.post('/api/v1/reports', data)
     .then(resp => {
@@ -108,10 +99,17 @@ function Confirm(props)  {
         w_record : resp.data.w_record,
         t_record : resp.data.t_record
       });
+      const flashMessage = resp.data.flash_message;
+      if (flashMessage.includes('レベルアップ！')) {
+        notify(flashMessage, 'success');
+      };
       props.history.push({ pathname: "/maintab", state: { showModal: true } });
     })
     .catch(e => {
-      console.log(e)
+      if (e.response && e.response.status === 500) {
+        console.log(e);
+        notify('サーバーで問題が発生しました(500 error)', 'error')
+      }
     })
   };
 

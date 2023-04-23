@@ -1,5 +1,6 @@
 class Api::V1::ReportsController < ApplicationController
   skip_before_action :verify_authenticity_token
+  rescue_from ActiveRecord::Rollback, with: :handle_transaction_rollback
 
   def index
     if admin_signed_in?
@@ -26,11 +27,14 @@ class Api::V1::ReportsController < ApplicationController
     else
       report.user_id = current_user.id
     end
-    
-    if report.save
-      render json: report
-    else
-      render json: report.errors, status: 422
+    ActiveRecord::Base.transaction do
+      user_status = current_user.user_status
+      result = user_status.exp_update(100)
+      if report.save
+        render json: { user_status: result[:user_status], flash_message: result[:flash_message] }
+      else
+        render json: report.errors, status: 422
+      end
     end
   end
 
@@ -56,5 +60,9 @@ class Api::V1::ReportsController < ApplicationController
 
   def report_params
     params.require(:report).permit(:is_finished, :y_record, :w_record, :t_record, :user_id, :updated_at)
+  end
+
+  def handle_transaction_rollback
+    render json: { error: '500エラー, サーバー側で問題が発生しました' }
   end
 end

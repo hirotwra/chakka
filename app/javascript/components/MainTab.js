@@ -3,7 +3,6 @@ import { Link, useLocation } from 'react-router-dom'
 import {CiCircleChevUp} from 'react-icons/ci'
 import axios from 'axios'
 import styled from 'styled-components'
-import Grid from '@mui/material/Grid'
 import Button from '@mui/material/Button'
 import Paper from '@mui/material/Paper'
 
@@ -86,15 +85,16 @@ function MainTab() {
         <p class="vertical-title">メインタブ</p>
       </div>
       <h2 class="d-none mr-2 d-md-block text-secondary">メインタブ</h2>
+
       <div class="w-100">
         <h3>次やること:{lastReport?.t_record || tempReport.t_record}</h3>
         <Link to="/active_work">
-          <Button
-            variant="contained"
-            color="primary"
-          >
-            ワーク開始
-          </Button>
+            <Button
+              variant="contained"
+              color="primary"
+            >
+              ワーク開始
+            </Button>
         </Link>
         <Accordion>
           <AccordionSummary
@@ -111,6 +111,7 @@ function MainTab() {
         <div id="non-project-text">
         </div>
       </div>
+
     </>
   )
 }

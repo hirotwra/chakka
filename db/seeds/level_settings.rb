@@ -18,5 +18,8 @@ LevelSetting.create!(
     {
       level: 6, exp: 600, next_exp: 99999,
     },
+    {
+      level: 7, exp: 99999, next_exp: 1000000,
+    },
   ]
 )
