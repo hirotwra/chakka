@@ -39,7 +39,11 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :projects, only: %i[index show create update destroy]
       resources :reports, only: %i[index last_report show create update destroy]
-      resources :user_statuses, only: %i[index show create update]
+      resources :user_statuses do
+        member do
+          patch "exp_update", to: "user_statuses#exp_update"
+        end
+      end
       resources :level_settings, only: %i[index]
     end
   end

@@ -13,6 +13,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import { error } from 'jquery';
 
 var item = {
   'yRecord': 'やったこと',
@@ -20,14 +21,21 @@ var item = {
   'tRecord': '次やること',
 }
 
+
 function Confirm(props)  {
   const { report, setReport } = useContext(UserInputData);
 
-  const notify = () => {
-    toast.success("レベルアップしました！", {
+  const notify = (message, type) => {
+    const options = {
       position: "bottom-center",
       hideProgressBar: true
-    });
+    };
+
+    if (type === 'success') {
+      toast.success(message, options);
+    } else if (type === 'error') {
+      toast.error(message, options);
+    } 
   }
 
   //modal用条件分岐
@@ -74,41 +82,6 @@ function Confirm(props)  {
     })
   }, [])
 
-  const updateUserExp = (exp) => {
-    const updatedExp = userStatus.exp + exp;
-    const updatedNextExp = userStatus.next_level_exp - exp;
-    var now = new Date();
-    const data = { exp: updatedExp, next_level_exp: updatedNextExp, last_achievemented_at: now};
-    axios.patch(`/api/v1/user_statuses/${userStatus.id}`, data)
-      .then(resp => {
-        console.log(resp.data);
-        axios.get('/api/v1/level_settings')
-        .then(resp => {
-          const levelSettings = resp.data;
-          const nextLevel = levelSettings.find(level_setting => level_setting.exp > userStatus.exp && level_setting.exp <= updatedExp);
-          if (nextLevel) {
-            const updatedNextExp = nextLevel.next_exp - updatedExp
-            const updatedLevel = nextLevel.level
-            const data = { level: updatedLevel, next_level_exp: updatedNextExp };
-            axios.patch(`/api/v1/user_statuses/${userStatus.id}`, data)
-              .then(resp => {
-                console.log(resp.data);
-                notify();
-              })
-              .catch(e => {
-                console.log(e);
-              });
-          }
-        })
-        .catch(e => {
-          console.log(e);
-        });
-      })
-      .catch(e => {
-        console.log(e);
-      });
-  };
-
   const saveReport = (is_finished) => {
     var data = {
       is_finished: is_finished,
@@ -116,9 +89,6 @@ function Confirm(props)  {
       w_record: report.Working['wRecord'],
       t_record: report.Worked['tRecord'],
     };
-
-    //経験値加算処理+レベルアップ
-    updateUserExp(100);
 
     axios.post('/api/v1/reports', data)
     .then(resp => {
@@ -129,10 +99,17 @@ function Confirm(props)  {
         w_record : resp.data.w_record,
         t_record : resp.data.t_record
       });
+      const flashMessage = resp.data.flash_message;
+      if (flashMessage.includes('レベルアップ！')) {
+        notify(flashMessage, 'success');
+      };
       props.history.push({ pathname: "/maintab", state: { showModal: true } });
     })
     .catch(e => {
-      console.log(e)
+      if (e.response && e.response.status === 500) {
+        console.log(e);
+        notify('サーバーで問題が発生しました(500 error)', 'error')
+      }
     })
   };
 
