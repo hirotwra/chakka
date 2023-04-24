@@ -67,7 +67,7 @@ function Worked(props) {
         <div>
           <Button
               variant="contained"
-              color="secondaly"
+              color="primary"
               onClick={() => onSubmit("back")}
           >
               前へ
