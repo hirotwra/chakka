@@ -6,9 +6,6 @@
 
 本番環境: http://43.207.17.90  
 
-以下のwikiで詳細な仕様について説明を記載しています  
-wiki: https://github.com/HiroyasuTawara/chakka/wiki
-
 ### 操作説明  
 Chakka!の基本的な機能について説明します。  
 1.	学習を開始する  
