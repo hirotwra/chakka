@@ -99,6 +99,7 @@ function Confirm(props)  {
         w_record : resp.data.w_record,
         t_record : resp.data.t_record
       });
+      props.history.push({ pathname: "/maintab", state: { showModal: true } });
       const flashMessage = resp.data.flash_message;
       if (flashMessage.includes('レベルアップ！')) {
         notify(flashMessage, 'success');
@@ -108,8 +109,6 @@ function Confirm(props)  {
       if (e.response && e.response.status === 500) {
         console.log(e);
         notify('サーバーで問題が発生しました(500 error)', 'error')
-      } else {
-        props.history.push({ pathname: "/maintab", state: { showModal: true } });
       }
     })
   };

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Link, useLocation } from 'react-router-dom'
-import {CiCircleChevUp} from 'react-icons/ci'
+import {AiOutlineArrowDown} from 'react-icons/ai'
 import axios from 'axios'
 import styled from 'styled-components'
 import Button from '@mui/material/Button'
@@ -98,12 +98,14 @@ function MainTab() {
         </Link>
         <Accordion>
           <AccordionSummary
-            expandIcon={<CiCircleChevUp />}
+            expandIcon={<AiOutlineArrowDown />}
           >
             <p>前回の記録</p>
           </AccordionSummary>
           <AccordionDetails>
-            <p>ワーク完了日: {lastReport?.updated_at || tempReport.updated_at}</p>
+            <p>ワーク完了日: 
+              {lastReport?.updated_at || tempReport.updated_at}
+            </p>
             <p>やったこと: {lastReport?.y_record || tempReport.y_record}</p>
             <p>わかったこと: {lastReport?.w_record || tempReport.w_record}</p>
           </AccordionDetails>

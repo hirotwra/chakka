@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import { styled } from '@mui/material/styles'
-import {CiCircleChevUp} from 'react-icons/ci'
+import {AiOutlineArrowDown} from 'react-icons/ai'
 import {format} from 'date-fns'
 import Accordion from '@mui/material/Accordion'
 import { AccordionDetails, AccordionSummary } from '@mui/material'
@@ -58,34 +58,28 @@ function Reports() {
       <div>
         <TableContainer component={Paper}>
           <Table sx={{ minWidth: 400 }} aria-label="customized table">
-            <TableHead>
-              <TableRow>
-                <StyledTableCell>やったこと</StyledTableCell>
-                <StyledTableCell>わかったこと</StyledTableCell>
-                <StyledTableCell align="right">完了日</StyledTableCell>
-              </TableRow>
-            </TableHead>
             <TableBody>
               {reports.map((val, key) => {
                 return (val.is_finished == true &&
-                  <StyledTableRow key={key}>
-                    <StyledTableCell component="th" scope="projects">
-                      {val.y_record}
-                    </StyledTableCell>
-                    <StyledTableCell>
-                      <Accordion>
-                        <AccordionSummary
-                          expandIcon={<CiCircleChevUp />}
-                        >
-                        </AccordionSummary>
-                        <AccordionDetails>
+                  <StyledTableRow key={key}>                    
+                    <Accordion>
+                      <AccordionSummary
+                        expandIcon={<AiOutlineArrowDown />}
+                      >
+                        <StyledTableCell component="th" scope="projects">
+                          {val.y_record}
+                        </StyledTableCell>
+                        <StyledTableCell align='right' style={{ color: "#999"}}>
+                          {format(new Date(val.updated_at),'yyyy-MM-dd HH:mm')}
+                        </StyledTableCell>
+                      </AccordionSummary>
+                      <AccordionDetails>
+                        <StyledTableCell>
+                          <div>わかったこと</div>
                           <p>{val.w_record}</p>
-                        </AccordionDetails>
-                      </Accordion>
-                    </StyledTableCell>
-                    <StyledTableCell align="right">
-                      {format(new Date(val.updated_at),'yyyy-MM-dd HH:mm')}
-                    </StyledTableCell>
+                        </StyledTableCell>
+                      </AccordionDetails>
+                    </Accordion>
                   </StyledTableRow>
                 )
               })}

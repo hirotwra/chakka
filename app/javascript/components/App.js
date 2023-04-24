@@ -1,7 +1,7 @@
 import React,  { useState, useEffect } from 'react'
 import { Switch, Route, Link } from 'react-router-dom'
 import axios from 'axios'
-import { AiFillFire, AiFillHome, AiFillPlusCircle, AiFillPhone, AiFillCarryOut } from 'react-icons/ai'
+import { AiFillHome, AiFillMeh, AiFillPhone, AiFillCarryOut, AiTwotoneTrophy } from 'react-icons/ai'
 //import { useTimer } from 'use-timer'
 import styled from 'styled-components'
 import MainTab from './MainTab'
@@ -36,17 +36,17 @@ function App() {
               </li>
               <li  class="side-item">
                 <Link to="/user_status">
-                  <AiFillPlusCircle/>&emsp;<span class="d-none d-md-inline-block">ユーザー情報</span>
+                  <AiFillMeh/>&emsp;<span class="d-none d-md-inline-block">ユーザー情報</span>
                 </Link>
               </li>
               <li  class="side-item">
                 <Link to="/contact">
-                  <AiFillPhone/>&emsp;<span class="d-none d-md-inline-block">Contact</span>
+                  <AiFillPhone/>&emsp;<span class="d-none d-md-inline-block">コンタクト</span>
                 </Link>
               </li>
               <li class="side-item">
                 <a href="ranking" target="_blank">
-                  <AiFillPhone/>&emsp;<span class="d-none d-md-inline-block">ランキング</span>
+                  <AiTwotoneTrophy/>&emsp;<span class="d-none d-md-inline-block">ランキング</span>
                 </a>
               </li>
             </ul>
