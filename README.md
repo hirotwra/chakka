@@ -48,7 +48,7 @@ $ rails db:create && rails db:migrate
 $ rails s  
 
 ### 仕様書
-テーブル定義書: https://docs.google.com/spreadsheets/d/1oFG_5OyEvwJp91MWuIzO0uX2eOuSqk97UnWiLhEpstw/edit
+テーブル定義書: https://docs.google.com/spreadsheets/d/1oFG_5OyEvwJp91MWuIzO0uX2eOuSqk97UnWiLhEpstw/edit  
 ワイヤーフレーム: https://cacoo.com/diagrams/1RecQjvYicPmsCDN/6B6EA
 
 ___
