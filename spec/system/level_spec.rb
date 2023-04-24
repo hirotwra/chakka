@@ -6,6 +6,7 @@ RSpec.describe 'レベル更新機能', type: :system do
     let!(:level1) { FactoryBot.create(:level1) }
     let!(:level2) { FactoryBot.create(:level2) }
     let!(:level3) { FactoryBot.create(:level3) }
+    let!(:level4) { FactoryBot.create(:level4) }
     context 'ワークをクリアした場合' do
       before do
         visit new_user_session_path

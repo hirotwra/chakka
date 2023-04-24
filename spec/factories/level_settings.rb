@@ -17,4 +17,10 @@ FactoryBot.define do
     exp {300}
     next_exp {600}
   end
+  factory :level4, class: LevelSetting do
+    id{4}
+    level {4}
+    exp {600}
+    next_exp {900}
+  end
 end

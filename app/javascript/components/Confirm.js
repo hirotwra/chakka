@@ -102,13 +102,14 @@ function Confirm(props)  {
       const flashMessage = resp.data.flash_message;
       if (flashMessage.includes('レベルアップ！')) {
         notify(flashMessage, 'success');
-      };
-      props.history.push({ pathname: "/maintab", state: { showModal: true } });
+      }
     })
     .catch(e => {
       if (e.response && e.response.status === 500) {
         console.log(e);
         notify('サーバーで問題が発生しました(500 error)', 'error')
+      } else {
+        props.history.push({ pathname: "/maintab", state: { showModal: true } });
       }
     })
   };
@@ -138,18 +139,20 @@ function Confirm(props)  {
           </TableBody>
         </Table>
       </TableContainer>
-      <Button variant="contained" color="primary" onClick={props.handleBack}>
-        戻る
-      </Button>
-      <Button 
-        variant="contained" 
-        color="primary" 
-        onClick={() => {
-          saveReport(true);
-        }}
-      >
-        完了
-      </Button>
+      <div>
+        <Button variant="contained" color="primary" onClick={props.handleBack}>
+          戻る
+        </Button>
+        <Button 
+          variant="contained" 
+          color="primary" 
+          onClick={() => {
+            saveReport(true);
+          }}
+        >
+          完了
+        </Button>
+      </div>
     </Grid>
     </>
   )

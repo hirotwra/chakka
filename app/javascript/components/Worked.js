@@ -64,20 +64,22 @@ function Worked(props) {
             />
           )}
         />
-        <Button
+        <div>
+          <Button
+              variant="contained"
+              color="secondaly"
+              onClick={() => onSubmit("back")}
+          >
+              前へ
+          </Button>
+          <Button
             variant="contained"
             color="primary"
-            onClick={() => onSubmit("back")}
-        >
-            前へ
-        </Button>
-        <Button
-          variant="contained"
-          color="primary"
-          type="submit"
-        >
-              次へ
-        </Button>
+            type="submit"
+          >
+                次へ
+          </Button>
+        </div>
       </form>
     </>
   )

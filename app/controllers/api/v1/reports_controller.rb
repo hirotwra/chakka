@@ -31,7 +31,7 @@ class Api::V1::ReportsController < ApplicationController
       user_status = current_user.user_status
       result = user_status.exp_update(100)
       if report.save
-        render json: { user_status: result[:user_status], flash_message: result[:flash_message] }
+        render json: { report: report, user_status: result[:user_status], flash_message: result[:flash_message] }
       else
         render json: report.errors, status: 422
       end
