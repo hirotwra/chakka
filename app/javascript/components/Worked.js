@@ -1,10 +1,9 @@
-import React, { useEffect, useState } from 'react';
-import styled from 'styled-components';
-import { useForm, Controller } from "react-hook-form";
-//コンテクストオブジェクトの読みこみ
-import { useContext } from "react";
-import { UserInputData } from "./ActiveWork";
-import Button from '@mui/material/Button';
+import React, { useEffect } from 'react'
+import styled from 'styled-components'
+import { useForm, Controller } from "react-hook-form"
+import { useContext } from "react"
+import { UserInputData } from "./ActiveWork"
+import Button from '@mui/material/Button'
 
 const InputTextArea = styled.textarea`
   font-size: 15px;
@@ -21,7 +20,7 @@ function Worked(props) {
   const { control, handleSubmit, getValues, setValue} = useForm({
     defaultValues: {
       tRecord: "",
-  },
+    },
   });
 
   //ActiveWorkで作ったコンテクストオブジェクトを引き渡す
@@ -66,18 +65,18 @@ function Worked(props) {
         />
         <div>
           <Button
-              variant="contained"
-              color="primary"
-              onClick={() => onSubmit("back")}
+            variant="contained"
+            color="secondary"
+            onClick={() => onSubmit("back")}
           >
-              前へ
+            戻る
           </Button>
           <Button
             variant="contained"
             color="primary"
             type="submit"
           >
-                次へ
+            次へ
           </Button>
         </div>
       </form>

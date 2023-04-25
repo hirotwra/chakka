@@ -1,26 +1,23 @@
-import Grid from '@mui/material/Grid';
-import React, { useContext, useState, useEffect  } from "react";
-import axios from 'axios';
-import { withRouter } from 'react-router-dom';
-import  Button  from '@mui/material/Button'
-import { UserInputData } from "./ActiveWork";
+import React, { useContext, useState, useEffect  } from "react"
+import axios from 'axios'
+import { withRouter } from 'react-router-dom'
+import { UserInputData } from "./ActiveWork"
 import { toast } from 'react-toastify'
-
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
-import { error } from 'jquery';
+import Grid from '@mui/material/Grid'
+import Button from '@mui/material/Button'
+import Table from '@mui/material/Table'
+import TableBody from '@mui/material/TableBody'
+import TableCell from '@mui/material/TableCell'
+import TableContainer from '@mui/material/TableContainer'
+import TableHead from '@mui/material/TableHead'
+import TableRow from '@mui/material/TableRow'
+import Paper from '@mui/material/Paper'
 
 var item = {
   'yRecord': 'やったこと',
   'wRecord': 'わかったこと',
   'tRecord': '次やること',
 }
-
 
 function Confirm(props)  {
   const { report, setReport } = useContext(UserInputData);
@@ -38,12 +35,11 @@ function Confirm(props)  {
     } 
   }
 
-  //modal用条件分岐
   const [showModal, setShowModal] = useState(false);
   useEffect(() => {
     setShowModal(true);
   }, []);
-  //確認一覧用
+
   const inputDataLists = [];
   var id = 0;
   for ( var k in report) {
@@ -109,50 +105,53 @@ function Confirm(props)  {
       if (e.response && e.response.status === 500) {
         console.log(e);
         notify('サーバーで問題が発生しました(500 error)', 'error')
+      } else if (e.response && e.response.status === 422) {
+        console.log(e);
+        notify('記録を保存できませんでした(422 error)', 'error')
       }
     })
   };
 
   return (
     <>
-    <Grid container>
-      <TableContainer component={Paper}>
-        <Table aria-label="Customer Input Data">
-          <TableHead>
-            <TableRow>
-              <TableCell>項目</TableCell>
-              <TableCell>入力内容</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {
-              inputDataLists.map(function(elem) {
-                return (
-                  <TableRow key={elem.id}>
-                  <TableCell>{elem.name}</TableCell>
-                  { elem.value ? <TableCell>{elem.value}</TableCell> : <TableCell>None</TableCell> }
-                  </TableRow>
-                )
-              })
-            }
-          </TableBody>
-        </Table>
-      </TableContainer>
-      <div>
-        <Button variant="contained" color="primary" onClick={props.handleBack}>
-          戻る
-        </Button>
-        <Button 
-          variant="contained" 
-          color="primary" 
-          onClick={() => {
-            saveReport(true);
-          }}
-        >
-          完了
-        </Button>
-      </div>
-    </Grid>
+      <Grid container>
+        <TableContainer component={Paper}>
+          <Table aria-label="Customer Input Data">
+            <TableHead>
+              <TableRow>
+                <TableCell>項目</TableCell>
+                <TableCell>入力内容</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {
+                inputDataLists.map(function(elem) {
+                  return (
+                    <TableRow key={elem.id}>
+                    <TableCell>{elem.name}</TableCell>
+                    { elem.value ? <TableCell>{elem.value}</TableCell> : <TableCell>None</TableCell> }
+                    </TableRow>
+                  )
+                })
+              }
+            </TableBody>
+          </Table>
+        </TableContainer>
+        <div>
+          <Button variant="contained" color="secondary" onClick={props.handleBack}>
+            戻る
+          </Button>
+          <Button 
+            variant="contained" 
+            color="primary" 
+            onClick={() => {
+              saveReport(true);
+            }}
+          >
+            完了
+          </Button>
+        </div>
+      </Grid>
     </>
   )
 }

@@ -3,9 +3,9 @@ import { Link, useLocation } from 'react-router-dom'
 import {AiOutlineArrowDown} from 'react-icons/ai'
 import axios from 'axios'
 import styled from 'styled-components'
+import {format} from 'date-fns'
 import Button from '@mui/material/Button'
 import Paper from '@mui/material/Paper'
-
 import Accordion from '@mui/material/Accordion'
 import { AccordionDetails, AccordionSummary } from '@mui/material'
 
@@ -20,6 +20,10 @@ const Modal = styled.div`
   align-items: center;
   justify-content: center;
   z-index: 1;
+`
+
+const TabContents = styled.div`
+  text-align: center;
 `
 
 function MainTab() {
@@ -66,6 +70,8 @@ function MainTab() {
     setShowModal(false);
   };
 
+  const achievementDate = lastReport?.updated_at || new Date();
+  
   return (
     <>
       {showModal && (
@@ -86,25 +92,25 @@ function MainTab() {
       </div>
       <h2 class="d-none mr-2 d-md-block text-secondary">メインタブ</h2>
 
-      <div class="w-100">
+      <TabContents>
         <h3>次やること:{lastReport?.t_record || tempReport.t_record}</h3>
         <Link to="/active_work">
-            <Button
-              variant="contained"
-              color="primary"
-            >
-              ワーク開始
-            </Button>
+          <Button
+            variant="contained"
+            color="primary"
+          >
+            ワーク開始
+          </Button>
         </Link>
-        <Accordion>
+        <Accordion style={{textAlign:'start'}}>
           <AccordionSummary
             expandIcon={<AiOutlineArrowDown />}
           >
             <p>前回の記録</p>
           </AccordionSummary>
           <AccordionDetails>
-            <p>ワーク完了日: 
-              {lastReport?.updated_at || tempReport.updated_at}
+            <p>ワーク完了日:
+              {format(new Date(achievementDate),'yyyy-MM-dd HH:mm')} 
             </p>
             <p>やったこと: {lastReport?.y_record || tempReport.y_record}</p>
             <p>わかったこと: {lastReport?.w_record || tempReport.w_record}</p>
@@ -112,7 +118,7 @@ function MainTab() {
         </Accordion>
         <div id="non-project-text">
         </div>
-      </div>
+      </TabContents>
 
     </>
   )
