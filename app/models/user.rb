@@ -3,6 +3,8 @@ class User < ApplicationRecord
   has_one :user_status, dependent: :destroy
   has_many :projects, dependent: :destroy
   has_many :reports, dependent: :destroy
+  has_many :user_badges, dependent: :destroy
+  has_many :badges, through: :user_badges
   has_many :tags, dependent: :destroy
 
   def self.guest
