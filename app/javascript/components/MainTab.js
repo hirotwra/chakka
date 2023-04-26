@@ -82,33 +82,24 @@ function MainTab() {
     switch (content) {
       case "finish work":
         return (
-          <Modal>
-            <Paper sx={{ p: 3 }}>
-              <h3>ワーク完了!</h3>
-              <div>100Exp 獲得!</div>
-              <Button variant="text" onClick={handleCloseModal}>閉じる</Button>
-            </Paper>
-        </Modal>
+          <>
+            <h3>ワーク完了!</h3>
+            <div>100Exp 獲得!</div>
+          </>
         );
       case "badge archived":
         return (
-          <Modal>
-            <Paper sx={{ p: 3 }}>
-              <h3>勲章を獲得しました!</h3>
-              <div>獲得!</div>
-              <Button variant="text" onClick={handleCloseModal}>閉じる</Button>
-            </Paper>
-        </Modal>
+          <>
+            <h3>勲章を獲得しました!</h3>
+            <div>「バッヂ名」 獲得!</div>
+          </>
         );
       default:
         return (
-          <Modal>
-            <Paper sx={{ p: 3 }}>
-              <h3>エラー</h3>
-              <div>通知内容を取得できませんでした</div>
-              <Button variant="text" onClick={handleCloseModal}>閉じる</Button>
-            </Paper>
-        </Modal>
+          <>
+            <h3>モーダルエラー</h3>
+            <div>通知内容を取得できませんでした</div>
+          </>
         );
     }
   }
@@ -116,7 +107,12 @@ function MainTab() {
   return (
     <>
       {modalState['showModal'] && (
-        modalWindow(modalState['content'])
+        <Modal>
+          <Paper sx={{ p: 3 }}>
+            {modalWindow(modalState['content'])}
+            <Button variant="text" onClick={handleCloseModal}>閉じる</Button>
+          </Paper>
+        </Modal>
       )}
       <div>
         {userStatus.name}/ Lv.{userStatus.level}
