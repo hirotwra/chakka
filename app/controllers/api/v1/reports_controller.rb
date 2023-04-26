@@ -6,7 +6,7 @@ class Api::V1::ReportsController < ApplicationController
     if admin_signed_in?
       reports = User.find(1).reports
     else
-      reports = current_user.reports
+      reports = current_user.reports.order(updated_at: :desc)
     end
     render json: reports
   end

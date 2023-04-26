@@ -1,6 +1,6 @@
 class RankingController < ApplicationController
   def index
-    @ranking_list = UserStatus.all.where.not(id: 100).order(score: :desc)
+    @ranking_list = UserStatus.all.where.not(id: 20).order(score: :desc)
   end
 
   def update

@@ -57,32 +57,66 @@ function MainTab() {
   }, [])
 
   //modal表示用
-  const [showModal, setShowModal] = useState(false);
+  const [modalState, setModalState] = useState({
+    showModal: false,
+    content: "none"
+  });
   const location = useLocation();
   
   useEffect(() => {
     if (location.state && location.state.showModal) {
-      setShowModal(true);
+      setModalState({
+        showModal: true,
+        content: location.state.content
+      });
     }
   }, [location]);
 
   const handleCloseModal = () => {
-    setShowModal(false);
+    setModalState({showModal: false});
   };
 
   const achievementDate = lastReport?.updated_at || new Date();
   
+  const modalWindow = (content) => {
+    switch (content) {
+      case "finish work":
+        return (
+          <Modal>
+            <Paper sx={{ p: 3 }}>
+              <h3>ワーク完了!</h3>
+              <div>100Exp 獲得!</div>
+              <Button variant="text" onClick={handleCloseModal}>閉じる</Button>
+            </Paper>
+        </Modal>
+        );
+      case "badge archived":
+        return (
+          <Modal>
+            <Paper sx={{ p: 3 }}>
+              <h3>勲章を獲得しました!</h3>
+              <div>獲得!</div>
+              <Button variant="text" onClick={handleCloseModal}>閉じる</Button>
+            </Paper>
+        </Modal>
+        );
+      default:
+        return (
+          <Modal>
+            <Paper sx={{ p: 3 }}>
+              <h3>エラー</h3>
+              <div>通知内容を取得できませんでした</div>
+              <Button variant="text" onClick={handleCloseModal}>閉じる</Button>
+            </Paper>
+        </Modal>
+        );
+    }
+  }
+
   return (
     <>
-      {showModal && (
-        <Modal>
-          <Paper sx={{ p: 3 }}>
-            <h3>ワーク完了!</h3>
-            <div>100Exp 獲得!</div>
-            {/*TODO:ユーザーの獲得経験値を表示する*/}
-            <Button variant="text" onClick={handleCloseModal}>閉じる</Button>
-          </Paper>
-        </Modal>
+      {modalState['showModal'] && (
+        modalWindow(modalState['content'])
       )}
       <div>
         {userStatus.name}/ Lv.{userStatus.level}

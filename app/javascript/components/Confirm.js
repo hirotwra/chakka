@@ -35,9 +35,15 @@ function Confirm(props)  {
     } 
   }
 
-  const [showModal, setShowModal] = useState(false);
+  const [modalState, setModalState] = useState({
+    showModal: false,
+    content: "finish work"
+  });
   useEffect(() => {
-    setShowModal(true);
+    setModalState({
+      showModal: true,
+      content: "finish work"
+    });
   }, []);
 
   const inputDataLists = [];
@@ -95,7 +101,7 @@ function Confirm(props)  {
         w_record : resp.data.w_record,
         t_record : resp.data.t_record
       });
-      props.history.push({ pathname: "/maintab", state: { showModal: true } });
+      props.history.push({ pathname: "/maintab", state: { showModal: true, content: "finish work" } });
       const flashMessage = resp.data.flash_message;
       if (flashMessage.includes('レベルアップ！')) {
         notify(flashMessage, 'success');
