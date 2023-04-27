@@ -6,12 +6,12 @@ import {format} from 'date-fns'
 import Accordion from '@mui/material/Accordion'
 import { AccordionDetails, AccordionSummary } from '@mui/material'
 import Paper from '@mui/material/Paper'
+import Pagination from '@mui/material/Pagination';
 import Table from '@mui/material/Table'
 import TableBody from '@mui/material/TableBody'
 import TableCell, { tableCellClasses } from '@mui/material/TableCell'
 import TableContainer from '@mui/material/TableContainer'
 import TableRow from '@mui/material/TableRow'
-
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -33,19 +33,26 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 }));
 
 function Reports() {
-  const [reports, setReports] = useState([])
-  const [tempReport] = useState({ id: null, is_finished: false, y_record : '', w_record : '', t_record : 'ワークを始めましょう！' });
-  
+  const [reports, setReports] = useState([]);
+  const [displayedReports, setDisplayedReports] = useState([]);
+  const [page, setPage] = useState(1); 
+  const displayNum = 8
   useEffect(() => {
     axios.get('/api/v1/reports.json')
     .then(resp => {
-      console.log(resp.data)
+      console.log(resp.data);
       setReports(resp.data);
+      setDisplayedReports((resp.data).slice(((page - 1) * displayNum), page * displayNum))
     })
     .catch(e => {
       console.log(e);
-    })
+    });
   }, [])
+
+  const handleChange = (event, index) => {
+    setPage(index);
+    setDisplayedReports(reports.slice(((index - 1) * displayNum), index * displayNum))
+  }
 
   return (
     <>
@@ -55,10 +62,11 @@ function Reports() {
       <h2 class="d-none d-md-block text-secondary">学習記録</h2>
 
       <div>
+        <Pagination count={Math.ceil( reports.length / displayNum)} onChange={handleChange} style={{width: "400px", margin: "auto"}}/>
         <TableContainer component={Paper}>
           <Table sx={{ minWidth: 400 }} aria-label="customized table">
             <TableBody>
-              {reports.map((val, key) => {
+              {displayedReports.map((val, key) => {
                 return (val.is_finished == true &&
                   <StyledTableRow key={key}>                    
                     <Accordion>

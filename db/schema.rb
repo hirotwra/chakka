@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_04_26_013230) do
+ActiveRecord::Schema.define(version: 2023_04_27_011856) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -34,6 +34,15 @@ ActiveRecord::Schema.define(version: 2023_04_26_013230) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["badge_id"], name: "index_badge_settings_on_badge_id"
+  end
+
+  create_table "badge_user_statuses", force: :cascade do |t|
+    t.bigint "user_statuses_id", null: false
+    t.bigint "badges_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["badges_id"], name: "index_badge_user_statuses_on_badges_id"
+    t.index ["user_statuses_id"], name: "index_badge_user_statuses_on_user_statuses_id"
   end
 
   create_table "badges", force: :cascade do |t|
@@ -93,15 +102,6 @@ ActiveRecord::Schema.define(version: 2023_04_26_013230) do
     t.index ["user_id"], name: "index_tags_on_user_id"
   end
 
-  create_table "user_badges", force: :cascade do |t|
-    t.bigint "users_id", null: false
-    t.bigint "badges_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["badges_id"], name: "index_user_badges_on_badges_id"
-    t.index ["users_id"], name: "index_user_badges_on_users_id"
-  end
-
   create_table "user_statuses", force: :cascade do |t|
     t.bigint "user_id"
     t.string "name", limit: 40, default: "デフォルト"
@@ -136,12 +136,12 @@ ActiveRecord::Schema.define(version: 2023_04_26_013230) do
   end
 
   add_foreign_key "badge_settings", "badges"
+  add_foreign_key "badge_user_statuses", "badges", column: "badges_id"
+  add_foreign_key "badge_user_statuses", "user_statuses", column: "user_statuses_id"
   add_foreign_key "projects", "users"
   add_foreign_key "report_tags", "reports", column: "reports_id"
   add_foreign_key "report_tags", "tags", column: "tags_id"
   add_foreign_key "reports", "users"
   add_foreign_key "tags", "users"
-  add_foreign_key "user_badges", "badges", column: "badges_id"
-  add_foreign_key "user_badges", "users", column: "users_id"
   add_foreign_key "user_statuses", "users"
 end

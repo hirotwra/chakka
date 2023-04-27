@@ -1,5 +1,7 @@
 class UserStatus < ApplicationRecord
   belongs_to :user
+  has_many :badge_user_statuses, dependent: :destroy
+  has_many :badges, through: :badge_userstatuses
 
   def exp_update(exp)
     before_exp = self.exp

@@ -146,10 +146,7 @@ function MainTab() {
             <p>わかったこと: {lastReport?.w_record || tempReport.w_record}</p>
           </AccordionDetails>
         </Accordion>
-        <div id="non-project-text">
-        </div>
       </TabContents>
-
     </>
   )
 }
