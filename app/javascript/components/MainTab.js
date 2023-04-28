@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import {AiOutlineArrowDown} from 'react-icons/ai'
+import { GiAlliedStar } from "react-icons/gi";
 import axios from 'axios'
 import styled from 'styled-components'
 import {format} from 'date-fns'
@@ -20,6 +21,10 @@ const Modal = styled.div`
   align-items: center;
   justify-content: center;
   z-index: 1;
+`
+
+const ArchiveChecker = styled.div`
+  float: right;
 `
 
 const TabContents = styled.div`
@@ -76,6 +81,10 @@ function MainTab() {
     setModalState({showModal: false});
   };
 
+  const getBadge = () => {
+    setModalState({showModal: true, content: "badge archived"});
+  };
+
   const achievementDate = lastReport?.updated_at || new Date();
   
   const modalWindow = (content) => {
@@ -115,7 +124,12 @@ function MainTab() {
         </Modal>
       )}
       <div>
-        {userStatus.name}/ Lv.{userStatus.level}
+        <ArchiveChecker>
+          <span onClick={getBadge}>
+            <GiAlliedStar size={30} color={'#ffa500'} style={{animation: 'flash 1s linear infinite'}}/>
+          </span>
+        </ArchiveChecker>
+        <span>{userStatus.name}/ Lv.{userStatus.level}</span>
       </div>
       <div class="d-block d-md-none">
         <p class="vertical-title">メインタブ</p>
