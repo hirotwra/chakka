@@ -4,7 +4,7 @@
 ユーザーが継続して学習記録をつけるたび、その努力を「経験値」「レベル」といった数値で可視化し、また他ユーザーと競い合う「スコア」などを与えます。  
 これらのゲーム的な要素とReactを用いたSPA設計により、ユーザーのやる気に火を点け、かつそれが削がれてしまうことのないストレスフリーなアプリケーションであることを目標としています。   
 
-本番環境: http://43.207.17.90  
+本番環境: ~http://43.207.17.90~  
 
 ### 操作説明  
 Chakka!の基本的な機能について説明します。  
@@ -41,7 +41,7 @@ Chakka!の基本的な機能について説明します。
 - 構成図: https://cacoo.com/diagrams/DQiGSgsB60q9gKJl/203D5
 
 ### ローカル実行手順
-$ git clone git@github.com:HiroyasuTawara/chakka.git  
+$ git clone git@github.com:hirotwra/chakka.git
 $ cd chakka  
 $ bundle install  
 $ rails db:create && rails db:migrate  
@@ -49,11 +49,11 @@ $ rails s
 
 ### 仕様書
 テーブル定義書: https://docs.google.com/spreadsheets/d/1oFG_5OyEvwJp91MWuIzO0uX2eOuSqk97UnWiLhEpstw/edit  
-ワイヤーフレーム: https://cacoo.com/diagrams/1RecQjvYicPmsCDN/6B6EA
+ワイヤーフレーム: ~https://cacoo.com/diagrams/1RecQjvYicPmsCDN/6B6EA~
 
 ___
 ### 旧仕様書
-『Chakka!』は、開発者である俵裕泰が2022年12月に、プログラミングスクールの課題として制作したアプリケーションをベースとし、改修・機能追加を行う形で開発されています。 比較の為、当時の仕様書を以下に記載します。
+『Chakka!』は、開発者が2022年12月にプログラミングスクールの課題として制作したアプリケーションをベースとし、改修・機能追加を行う形で開発されています。 比較の為、当時の仕様書を以下に記載します。
 
 カタログ設計
 https://docs.google.com/spreadsheets/d/1jghtoPsKXmayThhLKul3k8Bv7itkU7bpHOJKBp1qqzk/edit?usp=sharing
@@ -62,7 +62,7 @@ https://docs.google.com/spreadsheets/d/1jghtoPsKXmayThhLKul3k8Bv7itkU7bpHOJKBp1q
 https://docs.google.com/spreadsheets/d/1jghtoPsKXmayThhLKul3k8Bv7itkU7bpHOJKBp1qqzk/edit?usp=sharing
 
 ワイヤーフレーム
-https://cacoo.com/diagrams/GWUWKuCczVbAvpqU/040FC
+~https://cacoo.com/diagrams/GWUWKuCczVbAvpqU/040FC~
 
 ER図
 
@@ -96,7 +96,7 @@ https://docs.google.com/spreadsheets/d/1jghtoPsKXmayThhLKul3k8Bv7itkU7bpHOJKBp1q
 https://docs.google.com/spreadsheets/d/1jghtoPsKXmayThhLKul3k8Bv7itkU7bpHOJKBp1qqzk/edit?usp=sharing  
 
 ### ワイヤーフレーム  
-https://cacoo.com/diagrams/GWUWKuCczVbAvpqU/040FC  
+~https://cacoo.com/diagrams/GWUWKuCczVbAvpqU/040FC~  
 
 ### ER図  
 ![ER1](https://user-images.githubusercontent.com/45650777/207203742-cdaf51b8-a37b-4c6e-a147-9a555f22a132.png)  
